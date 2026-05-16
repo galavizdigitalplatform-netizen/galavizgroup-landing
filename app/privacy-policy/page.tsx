@@ -4,7 +4,7 @@ import { LegalShell } from "@/components/legal-shell";
 export const metadata: Metadata = {
     title: "Privacy Policy",
     description:
-        "Privacy Policy for Galaviz Legacy Group, including SMS messaging disclosure required by TCPA.",
+        "Privacy Policy for Galaviz Group, including SMS messaging disclosure required by TCPA.",
     alternates: { canonical: "https://galavizgroup.com/privacy-policy" },
 };
 
@@ -12,7 +12,7 @@ export default function PrivacyPolicy() {
     return (
         <LegalShell title="Privacy Policy" lastUpdated="May 15, 2026">
             <p>
-                Galaviz Legacy Group (&ldquo;<strong>we</strong>,&rdquo; &ldquo;
+                Galaviz Group (&ldquo;<strong>we</strong>,&rdquo; &ldquo;
                 <strong>us</strong>,&rdquo; or &ldquo;
                 <strong>our</strong>&rdquo;) respects your privacy. This Privacy
                 Policy explains how we collect, use, and disclose information
@@ -81,7 +81,7 @@ export default function PrivacyPolicy() {
             <div className="callout">
                 <p>
                     By providing your phone number and opting in, you consent
-                    to receive SMS messages from Galaviz Legacy Group. Message
+                    to receive SMS messages from Galaviz Group. Message
                     frequency varies. Message and data rates may apply. Reply
                     HELP for help, STOP to unsubscribe. We will not share or
                     sell your phone number or SMS opt-in consent to third
@@ -104,8 +104,8 @@ export default function PrivacyPolicy() {
                     We do not sell or share your phone number or SMS opt-in
                     data for marketing purposes.
                 </strong>{" "}
-                Information you provide is used internally by Galaviz Legacy
-                Group and its licensed real estate professionals. We may share
+                Information you provide is used internally by Galaviz Group
+                and its licensed real estate professionals. We may share
                 information with:
             </p>
             <ul>
@@ -177,7 +177,7 @@ export default function PrivacyPolicy() {
                 to this Policy, contact us at:
             </p>
             <p>
-                <strong>Galaviz Legacy Group</strong>
+                <strong>Galaviz Group</strong>
                 <br />
                 2955 E Mallory St, Mesa, AZ 85213
                 <br />

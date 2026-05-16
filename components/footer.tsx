@@ -16,7 +16,7 @@ export function Footer() {
                 <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
                     <div>
                         <p className="font-display text-lg uppercase tracking-[0.18em] font-semibold text-pure-white">
-                            Galaviz Legacy Group
+                            Galaviz Group
                         </p>
                         <p className="mt-3 text-[14px] leading-relaxed text-pure-white/65 max-w-xs">
                             Helping Arizona families buy, sell, and invest with
@@ -92,7 +92,7 @@ export function Footer() {
 
                 <div className="mt-14 flex flex-col gap-3 border-t border-pure-white/15 pt-6 text-[12px] text-pure-white/55 md:flex-row md:items-center md:justify-between">
                     <p>
-                        &copy; {year} Galaviz Legacy Group · Licensed Real Estate
+                        &copy; {year} Galaviz Group · Licensed Real Estate
                         Brokerage in Arizona · Equal Housing Opportunity
                     </p>
                     <p className="text-pure-white/40">

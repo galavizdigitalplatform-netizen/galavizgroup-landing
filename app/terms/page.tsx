@@ -4,7 +4,7 @@ import { LegalShell } from "@/components/legal-shell";
 export const metadata: Metadata = {
     title: "Terms & Conditions",
     description:
-        "Terms and Conditions for Galaviz Legacy Group, including SMS program terms required by TCPA and US wireless carriers.",
+        "Terms and Conditions for Galaviz Group, including SMS program terms required by TCPA and US wireless carriers.",
     alternates: { canonical: "https://galavizgroup.com/terms" },
 };
 
@@ -14,7 +14,7 @@ export default function Terms() {
             <p>
                 These Terms and Conditions (the &ldquo;<strong>Terms</strong>
                 &rdquo;) govern your use of <strong>galavizgroup.com</strong>{" "}
-                and the services provided by Galaviz Legacy Group (&ldquo;
+                and the services provided by Galaviz Group (&ldquo;
                 <strong>we</strong>,&rdquo; &ldquo;<strong>us</strong>,&rdquo;
                 or &ldquo;<strong>our</strong>&rdquo;). By using the website
                 or submitting our contact form, you agree to these Terms.
@@ -31,7 +31,7 @@ export default function Terms() {
 
             <h2>2. Real Estate Services</h2>
             <p>
-                Galaviz Legacy Group is a licensed real estate brokerage
+                Galaviz Group is a licensed real estate brokerage
                 operating under the Arizona Department of Real Estate
                 (&ldquo;ADRE&rdquo;). Information provided on this site is for
                 general informational purposes only and does not constitute
@@ -44,7 +44,7 @@ export default function Terms() {
             <h2>3. SMS Program Terms</h2>
             <div className="callout">
                 <p>
-                    <strong>Program:</strong> Galaviz Legacy Group customer
+                    <strong>Program:</strong> Galaviz Group customer
                     care messaging.
                 </p>
                 <p>
@@ -100,8 +100,8 @@ export default function Terms() {
 
             <h2>5. Limitation of Liability</h2>
             <p>
-                To the maximum extent permitted by Arizona law, Galaviz Legacy
-                Group, its agents, employees, and affiliates are not liable
+                To the maximum extent permitted by Arizona law, Galaviz Group,
+                its agents, employees, and affiliates are not liable
                 for indirect, incidental, special, consequential, or punitive
                 damages arising out of or related to your use of the site or
                 services. Our total liability for any direct damages will not
@@ -111,7 +111,7 @@ export default function Terms() {
 
             <h2>6. Indemnification</h2>
             <p>
-                You agree to indemnify and hold harmless Galaviz Legacy Group,
+                You agree to indemnify and hold harmless Galaviz Group,
                 its agents, and its affiliates from any claims, damages, or
                 expenses arising from your misuse of the site, breach of
                 these Terms, or violation of applicable law.
@@ -133,7 +133,7 @@ export default function Terms() {
                 unenforceable, the remaining provisions remain in full force
                 and effect. These Terms, together with our{" "}
                 <a href="/privacy-policy">Privacy Policy</a>, constitute the
-                entire agreement between you and Galaviz Legacy Group with
+                entire agreement between you and Galaviz Group with
                 respect to your use of the site, superseding any prior
                 agreement.
             </p>
@@ -143,7 +143,7 @@ export default function Terms() {
                 Questions about these Terms? Contact:
             </p>
             <p>
-                <strong>Galaviz Legacy Group</strong>
+                <strong>Galaviz Group</strong>
                 <br />
                 2955 E Mallory St, Mesa, AZ 85213
                 <br />

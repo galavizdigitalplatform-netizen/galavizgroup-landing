@@ -304,7 +304,7 @@ export function ContactForm() {
                 </h4>
                 <p className="text-[13px] leading-relaxed text-rich-black/65">
                     By submitting this form, you agree to receive transactional
-                    emails from Galaviz Legacy Group about your real estate
+                    emails from Galaviz Group about your real estate
                     inquiry. You may unsubscribe from any email at any time.
                 </p>
 
@@ -332,7 +332,7 @@ export function ContactForm() {
                                 YES — Send me SMS
                             </strong>
                             <span className="text-rich-black/65">
-                                I authorize Galaviz Legacy Group to contact me by
+                                I authorize Galaviz Group to contact me by
                                 SMS at the phone number provided. Standard message
                                 and data rates may apply. Reply STOP to
                                 unsubscribe, HELP for help.

@@ -13,9 +13,9 @@ export function Nav() {
                 <Link
                     href="/"
                     className="font-display text-base md:text-lg font-semibold uppercase tracking-[0.18em] text-pure-white"
-                    aria-label="Galaviz Legacy Group home"
+                    aria-label="Galaviz Group home"
                 >
-                    Galaviz Legacy Group
+                    Galaviz Group
                 </Link>
                 <Link
                     href="#contact"

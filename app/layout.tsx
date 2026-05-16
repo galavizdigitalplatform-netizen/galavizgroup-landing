@@ -21,11 +21,11 @@ const SITE_URL = "https://galavizgroup.com";
 export const metadata: Metadata = {
     metadataBase: new URL(SITE_URL),
     title: {
-        default: "Galaviz Legacy Group — Arizona Real Estate",
-        template: "%s · Galaviz Legacy Group",
+        default: "Galaviz Group — Arizona Real Estate",
+        template: "%s · Galaviz Group",
     },
     description:
-        "Galaviz Legacy Group helps Arizona families buy, sell, and invest in real estate across the Phoenix metro. Expert representation, clear process, lasting outcomes.",
+        "Galaviz Group helps Arizona families buy, sell, and invest in real estate across the Phoenix metro. Expert representation, clear process, lasting outcomes.",
     keywords: [
         "Arizona real estate",
         "Phoenix metro real estate",
@@ -35,19 +35,19 @@ export const metadata: Metadata = {
         "Mesa real estate",
         "Scottsdale real estate",
         "Chandler real estate",
-        "Galaviz Legacy Group",
+        "Galaviz Group",
     ],
-    authors: [{ name: "Galaviz Legacy Group" }],
-    creator: "Galaviz Legacy Group",
-    publisher: "Galaviz Legacy Group",
+    authors: [{ name: "Galaviz Group" }],
+    creator: "Galaviz Group",
+    publisher: "Galaviz Group",
     alternates: { canonical: SITE_URL },
     openGraph: {
         type: "website",
         url: SITE_URL,
-        title: "Galaviz Legacy Group — Arizona Real Estate",
+        title: "Galaviz Group — Arizona Real Estate",
         description:
             "Helping Arizona families buy, sell, and invest with confidence. Phoenix metropolitan area.",
-        siteName: "Galaviz Legacy Group",
+        siteName: "Galaviz Group",
         locale: "en_US",
         images: [
             {
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: "summary_large_image",
-        title: "Galaviz Legacy Group — Arizona Real Estate",
+        title: "Galaviz Group — Arizona Real Estate",
         description:
             "Helping Arizona families buy, sell, and invest with confidence.",
         images: ["/hero-arizona.jpg"],
