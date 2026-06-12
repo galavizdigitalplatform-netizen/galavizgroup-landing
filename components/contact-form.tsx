@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Check, Loader2 } from "lucide-react";
+import { Check, ChevronDown, Loader2 } from "lucide-react";
 
 /**
  * Public contact form for galavizgroup.com.
@@ -14,6 +14,13 @@ import { Check, Loader2 } from "lucide-react";
  * The payload shape mirrors `leadCaptureSchema` in the rita-os repo:
  * snake_case field names, `lead_type` constrained to 'buyer' | 'seller',
  * SMS opt-in as 'yes' | 'no' (no default — explicit pick).
+ *
+ * LANDING-LPMAMA: an optional, collapsed "help us prepare for your call"
+ * step after the basics. Answers travel as the optional `lpmama` block
+ * (contract: LEADS-LPMAMA-WEB-INTAKE-CONTRACT.md §4 in rita-os) so the
+ * team's first-call prep arrives pre-filled. Unanswered fields are
+ * omitted — never empty strings or zero defaults — and skipping the
+ * whole step sends exactly the pre-LPMAMA payload.
  *
  * TCPA compliance:
  * - SMS Yes/No radio is required; no default value.
@@ -38,6 +45,24 @@ const INTEREST_LABEL: Record<Interest, string> = {
     investing: "Investing",
 };
 
+/**
+ * Optional "step 2" answers. Everything here is skippable: empty values
+ * are never sent (no empty strings, no zero defaults). The answered
+ * fields travel as the optional `lpmama` block of the capture payload —
+ * Rita OS pre-fills the agent's first-call prep with them.
+ */
+const TIMELINE_OPTIONS = [
+    { value: "asap", label: "As soon as possible" },
+    { value: "1-3_months", label: "1–3 months" },
+    { value: "3-6_months", label: "3–6 months" },
+    { value: "6-12_months", label: "6–12 months" },
+    { value: "just_looking", label: "Just looking for now" },
+] as const;
+
+type Timeline = (typeof TIMELINE_OPTIONS)[number]["value"];
+type TriAnswer = "" | "yes" | "no" | "not_sure";
+type YesNo = "" | "yes" | "no";
+
 interface FormState {
     first_name: string;
     last_name: string;
@@ -48,6 +73,15 @@ interface FormState {
     sms_consent: "" | "yes" | "no";
     marketing_email_consent: boolean;
     website: string; // honeypot
+    // Step 2 (optional) — first-call prep
+    zones: string;
+    budget_min: string;
+    budget_max: string;
+    timeline: "" | Timeline;
+    why_moving: string;
+    preapproved_or_cash: TriAnswer;
+    working_with_agent: YesNo;
+    ready_to_meet: YesNo;
 }
 
 const INITIAL: FormState = {
@@ -60,16 +94,109 @@ const INITIAL: FormState = {
     sms_consent: "",
     marketing_email_consent: false,
     website: "",
+    zones: "",
+    budget_min: "",
+    budget_max: "",
+    timeline: "",
+    why_moving: "",
+    preapproved_or_cash: "",
+    working_with_agent: "",
+    ready_to_meet: "",
 };
+
+/** "$450,000", "450k-ish typing" → 450000; empty/garbage → null. */
+function parseBudget(raw: string): number | null {
+    const digits = raw.replace(/[^\d]/g, "");
+    if (!digits) return null;
+    const n = parseInt(digits, 10);
+    return Number.isSafeInteger(n) ? n : null;
+}
+
+/**
+ * Pill group for the optional prep questions. Unlike the required
+ * "interested in" pills, these toggle OFF when re-clicked — every
+ * question can go back to unanswered.
+ */
+function PrepPills<V extends string>({
+    legend,
+    options,
+    value,
+    onChange,
+}: {
+    legend: string;
+    options: ReadonlyArray<{ value: V; label: string }>;
+    value: V | "";
+    onChange: (next: V | "") => void;
+}) {
+    return (
+        <fieldset>
+            <legend className="mb-2 block text-[12px] font-semibold uppercase tracking-[0.08em] text-deep-indigo">
+                {legend}
+            </legend>
+            <div className="flex flex-wrap gap-2">
+                {options.map((opt) => (
+                    <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() =>
+                            onChange(value === opt.value ? "" : opt.value)
+                        }
+                        aria-pressed={value === opt.value}
+                        className={`rounded-sm border px-4 py-2.5 text-[13px] font-medium transition-colors ${
+                            value === opt.value
+                                ? "border-warm-gold bg-warm-gold text-deep-indigo"
+                                : "border-line bg-pure-white text-rich-black/70 hover:border-warm-gold/60 hover:text-deep-indigo"
+                        }`}
+                    >
+                        {opt.label}
+                    </button>
+                ))}
+            </div>
+        </fieldset>
+    );
+}
 
 export function ContactForm() {
     const [form, setForm] = useState<FormState>(INITIAL);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [submitted, setSubmitted] = useState(false);
+    const [prepOpen, setPrepOpen] = useState(false);
 
     const update = <K extends keyof FormState>(field: K, value: FormState[K]) =>
         setForm((prev) => ({ ...prev, [field]: value }));
+
+    // The prep questions are phrased for people buying (areas, price
+    // range, pre-approval) so they only show for buying / both /
+    // investing — never for a pure seller.
+    const showPrep = form.interest !== "selling";
+
+    /**
+     * Build the optional `lpmama` block from whatever step-2 answers the
+     * visitor gave. Unanswered fields are OMITTED (never empty strings or
+     * zeros) so they can't clobber agent-captured data upstream. Returns
+     * null when nothing was answered — the block is left out entirely and
+     * the payload is byte-for-byte what the form sent before this step
+     * existed.
+     */
+    const buildLpmama = (): Record<string, unknown> | null => {
+        if (!showPrep) return null;
+        const block: Record<string, unknown> = {};
+        if (form.zones.trim()) block.zones = form.zones.trim();
+        const budgetMin = parseBudget(form.budget_min);
+        const budgetMax = parseBudget(form.budget_max);
+        if (budgetMin !== null) block.budget_min = budgetMin;
+        if (budgetMax !== null) block.budget_max = budgetMax;
+        if (form.timeline) block.timeline = form.timeline;
+        if (form.why_moving.trim()) block.why_moving = form.why_moving.trim();
+        if (form.preapproved_or_cash)
+            block.preapproved_or_cash = form.preapproved_or_cash;
+        if (form.working_with_agent)
+            block.working_with_agent = form.working_with_agent === "yes";
+        if (form.ready_to_meet)
+            block.ready_to_meet = form.ready_to_meet === "yes";
+        return Object.keys(block).length > 0 ? block : null;
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -107,6 +234,8 @@ export function ContactForm() {
             ? `${intentTag}\n\n${form.message.trim()}`
             : intentTag;
 
+        const lpmama = buildLpmama();
+
         const payload = {
             first_name: form.first_name.trim(),
             last_name: form.last_name.trim(),
@@ -118,6 +247,7 @@ export function ContactForm() {
             sms_consent: form.sms_consent,
             marketing_email_consent: form.marketing_email_consent,
             website: form.website,
+            ...(lpmama ? { lpmama } : {}),
         };
 
         try {
@@ -296,6 +426,207 @@ export function ContactForm() {
                 className="absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0"
                 style={{ clip: "rect(0 0 0 0)", clipPath: "inset(50%)" }}
             />
+
+            {/* ── Optional step 2 — first-call prep (LANDING-LPMAMA) ──
+                Progressive disclosure: collapsed by default, every field
+                skippable. Skipping it submits exactly the same payload as
+                before this section existed. Hidden for pure sellers — the
+                questions are phrased for people buying. */}
+            {showPrep && (
+                <div className="border-t border-line pt-6">
+                    <button
+                        type="button"
+                        onClick={() => setPrepOpen((v) => !v)}
+                        aria-expanded={prepOpen}
+                        aria-controls="call-prep-fields"
+                        className="flex w-full items-center justify-between gap-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-warm-gold focus-visible:ring-offset-2"
+                    >
+                        <span>
+                            <span className="font-display text-lg text-deep-indigo">
+                                Help us prepare for your call{" "}
+                                <span className="text-[13px] font-sans text-rich-black/45">
+                                    (optional)
+                                </span>
+                            </span>
+                            <span className="mt-0.5 block text-[13px] leading-relaxed text-rich-black/65">
+                                Answer any of these — or none — and we&apos;ll
+                                make the first conversation count.
+                            </span>
+                        </span>
+                        <ChevronDown
+                            className={`h-5 w-5 shrink-0 text-warm-gold transition-transform ${
+                                prepOpen ? "rotate-180" : ""
+                            }`}
+                        />
+                    </button>
+
+                    {prepOpen && (
+                        <div id="call-prep-fields" className="mt-5 space-y-5">
+                            <div>
+                                <label
+                                    htmlFor="zones"
+                                    className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[0.08em] text-deep-indigo"
+                                >
+                                    Which areas are you interested in?
+                                </label>
+                                <input
+                                    id="zones"
+                                    type="text"
+                                    value={form.zones}
+                                    onChange={(e) =>
+                                        update("zones", e.target.value)
+                                    }
+                                    placeholder="e.g. Chandler, Gilbert, North Phoenix"
+                                    className={inputCls}
+                                />
+                            </div>
+
+                            <fieldset>
+                                <legend className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[0.08em] text-deep-indigo">
+                                    What&apos;s your price range?
+                                </legend>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label
+                                            htmlFor="budget_min"
+                                            className="sr-only"
+                                        >
+                                            Minimum price
+                                        </label>
+                                        <input
+                                            id="budget_min"
+                                            type="text"
+                                            inputMode="numeric"
+                                            value={form.budget_min}
+                                            onChange={(e) =>
+                                                update(
+                                                    "budget_min",
+                                                    e.target.value,
+                                                )
+                                            }
+                                            placeholder="From — e.g. $350,000"
+                                            className={inputCls}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label
+                                            htmlFor="budget_max"
+                                            className="sr-only"
+                                        >
+                                            Maximum price
+                                        </label>
+                                        <input
+                                            id="budget_max"
+                                            type="text"
+                                            inputMode="numeric"
+                                            value={form.budget_max}
+                                            onChange={(e) =>
+                                                update(
+                                                    "budget_max",
+                                                    e.target.value,
+                                                )
+                                            }
+                                            placeholder="To — e.g. $500,000"
+                                            className={inputCls}
+                                        />
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                <div>
+                                    <label
+                                        htmlFor="timeline"
+                                        className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[0.08em] text-deep-indigo"
+                                    >
+                                        When would you like to move?
+                                    </label>
+                                    <select
+                                        id="timeline"
+                                        value={form.timeline}
+                                        onChange={(e) =>
+                                            update(
+                                                "timeline",
+                                                e.target.value as
+                                                    | ""
+                                                    | Timeline,
+                                            )
+                                        }
+                                        className={`${inputCls} ${
+                                            form.timeline
+                                                ? ""
+                                                : "text-rich-black/40"
+                                        }`}
+                                    >
+                                        <option value="">
+                                            Select a timeframe…
+                                        </option>
+                                        {TIMELINE_OPTIONS.map((opt) => (
+                                            <option
+                                                key={opt.value}
+                                                value={opt.value}
+                                            >
+                                                {opt.label}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label
+                                        htmlFor="why_moving"
+                                        className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[0.08em] text-deep-indigo"
+                                    >
+                                        What&apos;s prompting the move?
+                                    </label>
+                                    <input
+                                        id="why_moving"
+                                        type="text"
+                                        value={form.why_moving}
+                                        onChange={(e) =>
+                                            update("why_moving", e.target.value)
+                                        }
+                                        placeholder="e.g. growing family, new job, downsizing"
+                                        className={inputCls}
+                                    />
+                                </div>
+                            </div>
+
+                            <PrepPills
+                                legend="Have you been pre-approved or paying cash?"
+                                options={[
+                                    { value: "yes", label: "Yes" },
+                                    { value: "no", label: "Not yet" },
+                                    { value: "not_sure", label: "Not sure" },
+                                ]}
+                                value={form.preapproved_or_cash}
+                                onChange={(v) =>
+                                    update("preapproved_or_cash", v)
+                                }
+                            />
+
+                            <PrepPills
+                                legend="Are you already working with an agent?"
+                                options={[
+                                    { value: "yes", label: "Yes" },
+                                    { value: "no", label: "No" },
+                                ]}
+                                value={form.working_with_agent}
+                                onChange={(v) => update("working_with_agent", v)}
+                            />
+
+                            <PrepPills
+                                legend="Open to a quick intro call?"
+                                options={[
+                                    { value: "yes", label: "Yes" },
+                                    { value: "no", label: "Not right now" },
+                                ]}
+                                value={form.ready_to_meet}
+                                onChange={(v) => update("ready_to_meet", v)}
+                            />
+                        </div>
+                    )}
+                </div>
+            )}
 
             {/* ── UX-CMP3 — TCPA + CAN-SPAM consent ─────────────────── */}
             <div className="space-y-4 border-t border-line pt-6">

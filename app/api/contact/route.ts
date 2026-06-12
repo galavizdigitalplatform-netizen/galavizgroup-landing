@@ -39,10 +39,67 @@ interface ContactPayload {
     sms_consent?: unknown;
     marketing_email_consent?: unknown;
     website?: unknown;
+    lpmama?: unknown;
 }
 
 function isNonEmptyString(v: unknown): v is string {
     return typeof v === "string" && v.trim().length > 0;
+}
+
+/**
+ * Sanitize the optional `lpmama` block (LANDING-LPMAMA — contract:
+ * LEADS-LPMAMA-WEB-INTAKE-CONTRACT.md §4 in rita-os) before forwarding.
+ *
+ * Defensive by design: these are OPTIONAL step-2 answers, and a wrong
+ * type upstream is a 400 that would bounce the whole lead — so instead
+ * of rejecting, fields with unexpected types are silently dropped and
+ * the required contact fields go through regardless. Empty strings are
+ * dropped too (the contract forbids them). Returns null when nothing
+ * survives, in which case the block is omitted entirely.
+ */
+function sanitizeLpmama(raw: unknown): Record<string, unknown> | null {
+    if (typeof raw !== "object" || raw === null || Array.isArray(raw)) {
+        return null;
+    }
+    const src = raw as Record<string, unknown>;
+    const out: Record<string, unknown> = {};
+
+    const str = (v: unknown, max: number): string | undefined =>
+        typeof v === "string" && v.trim().length > 0
+            ? v.trim().slice(0, max)
+            : undefined;
+    const int = (v: unknown): number | undefined =>
+        typeof v === "number" && Number.isInteger(v) && v >= 0
+            ? v
+            : undefined;
+    const bool = (v: unknown): boolean | undefined =>
+        typeof v === "boolean" ? v : undefined;
+
+    const zones = str(src.zones, 500);
+    if (zones !== undefined) out.zones = zones;
+    const budgetMin = int(src.budget_min);
+    if (budgetMin !== undefined) out.budget_min = budgetMin;
+    const budgetMax = int(src.budget_max);
+    if (budgetMax !== undefined) out.budget_max = budgetMax;
+    const timeline = str(src.timeline, 100);
+    if (timeline !== undefined) out.timeline = timeline;
+    const whyMoving = str(src.why_moving, 2000);
+    if (whyMoving !== undefined) out.why_moving = whyMoving;
+    if (
+        src.preapproved_or_cash === "yes" ||
+        src.preapproved_or_cash === "no" ||
+        src.preapproved_or_cash === "not_sure"
+    ) {
+        out.preapproved_or_cash = src.preapproved_or_cash;
+    }
+    const workingWithAgent = bool(src.working_with_agent);
+    if (workingWithAgent !== undefined) {
+        out.working_with_agent = workingWithAgent;
+    }
+    const readyToMeet = bool(src.ready_to_meet);
+    if (readyToMeet !== undefined) out.ready_to_meet = readyToMeet;
+
+    return Object.keys(out).length > 0 ? out : null;
 }
 
 export async function POST(req: NextRequest) {
@@ -84,6 +141,8 @@ export async function POST(req: NextRequest) {
         );
     }
 
+    const lpmama = sanitizeLpmama(body.lpmama);
+
     // ── Compose the upstream payload (snake_case, mirrors leadCaptureSchema) ──
     const upstream = {
         first_name: (body.first_name as string).trim(),
@@ -101,6 +160,7 @@ export async function POST(req: NextRequest) {
         ...(typeof body.website === "string" && body.website.length > 0
             ? { website: body.website }
             : {}),
+        ...(lpmama ? { lpmama } : {}),
     };
 
     // Forward the real client IP so Rita OS records it as TCPA evidence
