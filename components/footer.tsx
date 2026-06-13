@@ -22,6 +22,24 @@ export function Footer() {
                             Helping Arizona families buy, sell, and invest with
                             confidence. Phoenix Metropolitan Area.
                         </p>
+
+                        {/* ADRE broker disclosure (Fix 2): Galaviz Group is a
+                            team operating under HomeSmart — the licensed
+                            brokerage must be named. White/reversed logo sits
+                            directly on the navy, no pill. */}
+                        <div className="mt-7">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                                src="/homesmart-logo-white.svg"
+                                alt="HomeSmart"
+                                width={148}
+                                height={23}
+                                className="h-[22px] w-auto opacity-95"
+                            />
+                            <p className="mt-3 max-w-xs text-[12.5px] leading-relaxed text-pure-white/55">
+                                Galaviz Group is a real estate team at HomeSmart.
+                            </p>
+                        </div>
                     </div>
 
                     <div>
@@ -92,11 +110,8 @@ export function Footer() {
 
                 <div className="mt-14 flex flex-col gap-3 border-t border-pure-white/15 pt-6 text-[12px] text-pure-white/55 md:flex-row md:items-center md:justify-between">
                     <p>
-                        &copy; {year} Galaviz Group · Licensed Real Estate
-                        Brokerage in Arizona · Equal Housing Opportunity
-                    </p>
-                    <p className="text-pure-white/40">
-                        Hero photo by Roberto Nickson on Unsplash
+                        &copy; {year} Galaviz Group · Licensed in Arizona ·
+                        Equal Housing Opportunity
                     </p>
                 </div>
             </div>

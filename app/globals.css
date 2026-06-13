@@ -61,8 +61,61 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Honor users who ask for less motion: drop the smooth-scroll easing. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 html, body {
   min-height: 100%;
+}
+
+/* ─── Premium pass (Fix 4) ─────────────────────────────────────
+   Motion + depth accents. All animation is gated behind
+   prefers-reduced-motion / @supports so unsupported browsers and
+   reduced-motion users get the static, fully-visible layout. */
+
+/* Gold hairline atop the surfaced LPMAMA card (contact-form). The
+   card itself carries `position: relative; overflow: hidden`. */
+.prep-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--warm-gold), #e7c987 50%, transparent);
+}
+
+/* Hero scroll cue — gentle float, motion-safe only. */
+@keyframes scroll-cue-float {
+  0%, 100% { transform: translateY(0); opacity: 0.55; }
+  50% { transform: translateY(5px); opacity: 0.9; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .scroll-cue {
+    animation: scroll-cue-float 2.2s ease-in-out infinite;
+  }
+}
+
+/* Section reveal-on-scroll. Uses scroll-driven animations where
+   supported; everywhere else the element simply stays visible (the
+   default), so content is never trapped at opacity 0. */
+@keyframes reveal-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      opacity: 0;
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 25%;
+    }
+  }
 }
 
 /* Editorial typography for /privacy-policy + /terms. Uses Inter at 17px

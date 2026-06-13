@@ -51,10 +51,10 @@ export const metadata: Metadata = {
         locale: "en_US",
         images: [
             {
-                url: "/hero-arizona.jpg",
-                width: 2400,
-                height: 1600,
-                alt: "Arizona home at golden hour",
+                url: "/hero.jpg",
+                width: 1920,
+                height: 1072,
+                alt: "A family receiving the keys to their new Arizona home at golden hour",
             },
         ],
     },
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
         title: "Galaviz Group — Arizona Real Estate",
         description:
             "Helping Arizona families buy, sell, and invest with confidence.",
-        images: ["/hero-arizona.jpg"],
+        images: ["/hero.jpg"],
     },
     robots: {
         index: true,

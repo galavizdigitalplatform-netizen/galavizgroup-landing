@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Check, ChevronDown, Loader2 } from "lucide-react";
+import { Check, Loader2, Sparkles } from "lucide-react";
 
 /**
  * Public contact form for galavizgroup.com.
@@ -161,7 +161,6 @@ export function ContactForm() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [submitted, setSubmitted] = useState(false);
-    const [prepOpen, setPrepOpen] = useState(false);
 
     const update = <K extends keyof FormState>(field: K, value: FormState[K]) =>
         setForm((prev) => ({ ...prev, [field]: value }));
@@ -427,41 +426,41 @@ export function ContactForm() {
                 style={{ clip: "rect(0 0 0 0)", clipPath: "inset(50%)" }}
             />
 
-            {/* ── Optional step 2 — first-call prep (LANDING-LPMAMA) ──
-                Progressive disclosure: collapsed by default, every field
-                skippable. Skipping it submits exactly the same payload as
-                before this section existed. Hidden for pure sellers — the
-                questions are phrased for people buying. */}
+            {/* ── Optional first-call prep (LANDING-LPMAMA), Fix 3 ──
+                Surfaced as an open, premium card — no longer a collapsed
+                accordion. Every field is skippable; skipping the whole block
+                submits exactly the same payload as before it existed. Hidden
+                for pure sellers — the questions are phrased for people buying. */}
             {showPrep && (
-                <div className="border-t border-line pt-6">
-                    <button
-                        type="button"
-                        onClick={() => setPrepOpen((v) => !v)}
-                        aria-expanded={prepOpen}
-                        aria-controls="call-prep-fields"
-                        className="flex w-full items-center justify-between gap-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-warm-gold focus-visible:ring-offset-2"
-                    >
-                        <span>
-                            <span className="font-display text-lg text-deep-indigo">
-                                Help us prepare for your call{" "}
-                                <span className="text-[13px] font-sans text-rich-black/45">
-                                    (optional)
-                                </span>
+                <div className="-mx-6 border-t border-line bg-gradient-to-b from-soft-beige/45 to-soft-beige/15 px-6 py-8 md:-mx-10 md:px-10">
+                    <div className="prep-card relative overflow-hidden rounded-xl border border-warm-gold/15 bg-pure-white p-6 shadow-[0_10px_30px_rgba(40,34,22,0.07)] md:p-7">
+                        <div className="flex items-center gap-3.5">
+                            <span
+                                aria-hidden
+                                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-soft-beige/70 text-warm-gold"
+                            >
+                                <Sparkles className="h-5 w-5" strokeWidth={1.75} />
                             </span>
-                            <span className="mt-0.5 block text-[13px] leading-relaxed text-rich-black/65">
-                                Answer any of these — or none — and we&apos;ll
-                                make the first conversation count.
-                            </span>
-                        </span>
-                        <ChevronDown
-                            className={`h-5 w-5 shrink-0 text-warm-gold transition-transform ${
-                                prepOpen ? "rotate-180" : ""
-                            }`}
-                        />
-                    </button>
+                            <div>
+                                <p className="text-[10.5px] font-semibold uppercase tracking-[0.18em] text-warm-gold">
+                                    Optional · about a minute
+                                </p>
+                                <h3 className="font-display text-2xl leading-tight text-deep-indigo">
+                                    Tell us what you&apos;re picturing
+                                </h3>
+                            </div>
+                        </div>
+                        <p className="mt-3 max-w-xl text-[14px] leading-relaxed text-rich-black/65">
+                            Share as much or as little as you like — there are
+                            no required answers. The more we know before our
+                            first call, the more it&apos;s about{" "}
+                            <em className="font-medium not-italic text-deep-indigo">
+                                you
+                            </em>
+                            , and the less about the basics.
+                        </p>
 
-                    {prepOpen && (
-                        <div id="call-prep-fields" className="mt-5 space-y-5">
+                        <div id="call-prep-fields" className="mt-6 space-y-5">
                             <div>
                                 <label
                                     htmlFor="zones"
@@ -624,7 +623,12 @@ export function ContactForm() {
                                 onChange={(v) => update("ready_to_meet", v)}
                             />
                         </div>
-                    )}
+
+                        <p className="mt-6 text-[12.5px] leading-relaxed text-rich-black/55">
+                            Prefer to keep it brief? Just send your name and
+                            number above — we&apos;ll take it from there.
+                        </p>
+                    </div>
                 </div>
             )}
 
