@@ -19,7 +19,6 @@ export const EN = {
     "hero.eyebrow": "Phoenix Metro · Arizona",
     "hero.title": "Your next home — or your next <em>investment.</em>",
     "hero.lede": "Tell us what you're looking for and our team will send you matching opportunities across the Phoenix metro.",
-    "hero.p1": "Off-market and pre-listing opportunities first",
     "hero.p2": "Honest ROI numbers on every investment property",
     "hero.p3": "Full guidance from start to finish",
     "lc.badge": "Free · No obligation",
@@ -67,7 +66,6 @@ export const EN = {
     "lp.m1": "Yes",
     "lp.m2": "Not yet",
     "lp.m3": "Not sure",
-    "f.consent": "I agree to be contacted by Galaviz Group by phone, text, or email about my request.",
     "f.submit": "Send my request <span class='arrow'>→</span>",
     "f.meta": "We never share your information. Unsubscribe anytime.",
     "f.m1": "Reply in 1 business day",
@@ -75,7 +73,6 @@ export const EN = {
     "f.err.req": "Please fill this in.",
     "f.err.email": "Enter a valid email.",
     "f.err.pick": "Please choose one.",
-    "f.err.consent": "Please accept to continue.",
     "f.ok.t": "Request received!",
     "f.ok.p": "Thank you — our team will reach out within one business day with matching opportunities.",
     "ft.tag": "Helping Arizona families and investors buy with confidence across the Phoenix Metropolitan Area.",
@@ -83,7 +80,6 @@ export const EN = {
     "ft.legal": "Legal",
     "ft.privacy": "Privacy Policy",
     "ft.terms": "Terms of Use",
-    "ft.access": "Accessibility",
     "ft.area": "Phoenix Metropolitan Area, Arizona",
     "ft.copy": "Galaviz Group",
     "ft.disclosure": "Galaviz Group is a real estate team at HomeSmart.",
@@ -100,9 +96,6 @@ export const EN = {
     "f.err.submit": "We couldn't send your request. Please try again or call (602) 497-0655.",
     "f.sending": "Sending…",
     "ft.home": "Main site",
-    "m.goal": "Looking to",
-    "m.contact": "Preferred contact",
-    "m.besttime": "Best time",
 } as const;
 
 export type LeadCopyKey = keyof typeof EN;
@@ -113,7 +106,6 @@ export const ES: Record<LeadCopyKey, string> = {
     "hero.eyebrow": "Área de Phoenix · Arizona",
     "hero.title": "Tu próxima casa — o tu próxima <em>inversión.</em>",
     "hero.lede": "Cuéntanos qué buscas y nuestro equipo te enviará las oportunidades que coincidan en el área de Phoenix.",
-    "hero.p1": "Oportunidades fuera de mercado y pre-listado primero",
     "hero.p2": "Números de ROI honestos en cada propiedad de inversión",
     "hero.p3": "Asesoría completa de principio a fin",
     "lc.badge": "Gratis · Sin compromiso",
@@ -161,7 +153,6 @@ export const ES: Record<LeadCopyKey, string> = {
     "lp.m1": "Sí",
     "lp.m2": "Todavía no",
     "lp.m3": "No estoy seguro",
-    "f.consent": "Acepto que Galaviz Group me contacte por teléfono, mensaje o correo sobre mi solicitud.",
     "f.submit": "Enviar mi solicitud <span class='arrow'>→</span>",
     "f.meta": "Nunca compartimos tu información. Puedes darte de baja cuando quieras.",
     "f.m1": "Respuesta en 1 día hábil",
@@ -169,7 +160,6 @@ export const ES: Record<LeadCopyKey, string> = {
     "f.err.req": "Por favor completa este campo.",
     "f.err.email": "Ingresa un correo válido.",
     "f.err.pick": "Por favor elige una opción.",
-    "f.err.consent": "Acepta para continuar.",
     "f.ok.t": "¡Solicitud recibida!",
     "f.ok.p": "Gracias — nuestro equipo te contactará en un día hábil con las oportunidades que coincidan.",
     "ft.tag": "Ayudamos a familias e inversionistas de Arizona a comprar con confianza en toda el Área Metropolitana de Phoenix.",
@@ -177,7 +167,6 @@ export const ES: Record<LeadCopyKey, string> = {
     "ft.legal": "Legal",
     "ft.privacy": "Política de Privacidad",
     "ft.terms": "Términos de Uso",
-    "ft.access": "Accesibilidad",
     "ft.area": "Área Metropolitana de Phoenix, Arizona",
     "ft.copy": "Galaviz Group",
     "ft.disclosure": "Galaviz Group es un equipo de bienes raíces en HomeSmart.",
@@ -194,9 +183,6 @@ export const ES: Record<LeadCopyKey, string> = {
     "f.err.submit": "No pudimos enviar tu solicitud. Intenta de nuevo o llama al (602) 497-0655.",
     "f.sending": "Enviando…",
     "ft.home": "Sitio principal",
-    "m.goal": "Busca",
-    "m.contact": "Contacto preferido",
-    "m.besttime": "Mejor horario",
 };
 
 export const DICT = { en: EN, es: ES } as const;
