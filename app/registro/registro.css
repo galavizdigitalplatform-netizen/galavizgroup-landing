@@ -334,14 +334,38 @@
      footer ("Galaviz Group is a real estate team at HomeSmart"), which is the
      surface that carries the ADRE disclosure. The header keeps the brand and
      the toggle, which is all it needs on a phone. */
-  .registro-root .hs-logo,
-  .registro-root .logo-div{display:none}
-  .registro-root .logo-link img{height:44px}
+  /* The three header elements — wordmark, HomeSmart, language toggle — have to
+     coexist on a 320px screen. `.logo-lockup` is `flex:none`, so nothing here
+     shrinks on its own: the sizes below are what make the row fit, measured
+     down to 320px. Adding anything to this header means re-measuring.
 
-  /* The toggle is now the only control in the header, and on a phone it is the
-     one thing a Spanish-speaking visitor has to hit. At the desktop size the
-     tap target came to 33px tall — under the 44px minimum. Grow it here. */
+     Note the earlier attempt hid `.hs-logo`, which LOST on specificity to
+     `.header.solid .logo-on-light{display:block}` — so the mark stayed hidden
+     at the top of the page and reappeared once the header went solid. Sizing
+     beats hiding here precisely because it can't be undone by a state rule. */
+  .registro-root .logo-link img{height:38px}
+  .registro-root .hs-logo{height:13px}
+  .registro-root .logo-div{height:22px}
+  .registro-root .logo-lockup{gap:.55rem}
+
+  /* The toggle is the only control in the header, and on a phone it is the one
+     thing a Spanish-speaking visitor has to hit. At the desktop size the tap
+     target came to 33px tall — under the 44px minimum. Grow it here. */
   .registro-root .lang{padding:5px}
   .registro-root .lang button{font-size:.8rem;padding:.55em 1em}
+}
+
+/* Small phones (iPhone SE, 360px Androids). The row above still floors at
+   ~364px, which clips the toggle here. Trim the lockup rather than dropping
+   HomeSmart: the wordmark stays legible and all three elements survive down to
+   320px. The tap target stays at 44px — that is the one number not to trade. */
+@media (max-width:374px){
+  .registro-root .logo-link img{height:32px}
+  .registro-root .hs-logo{height:11px}
+  .registro-root .logo-div{height:18px}
+  .registro-root .logo-lockup{gap:.45rem}
+  .registro-root .header-right{gap:.4rem}
+  .registro-root .lang button{font-size:.75rem;padding:.62em .72em}
+  .registro-root{--gut:.9rem}
 }
 

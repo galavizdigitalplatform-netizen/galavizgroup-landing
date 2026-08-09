@@ -552,7 +552,13 @@ export function RegistroLanding() {
                             <ul>
                                 <li><Link href="/privacy-policy">{t("ft.privacy")}</Link></li>
                                 <li><Link href="/terms">{t("ft.terms")}</Link></li>
-                                <li><Link href="/">{t("ft.home")}</Link></li>
+                                {/* Outward link, so a plain <a> with the usual
+                                    rel guard rather than next/link. */}
+                                <li>
+                                    <a href="https://homesmart.com/" target="_blank" rel="noopener noreferrer">
+                                        {t("ft.homesmart")}
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </div>

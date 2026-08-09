@@ -14,7 +14,6 @@
  */
 
 export const EN = {
-    "nav.cta": "Get started",
     "nav.phone": "☎ (602) 497-0655",
     "hero.eyebrow": "Phoenix Metro · Arizona",
     "hero.title": "Your next home — or your next <em>investment.</em>",
@@ -95,13 +94,12 @@ export const EN = {
     "f.err.phone": "Enter a valid 10-digit phone number.",
     "f.err.submit": "We couldn't send your request. Please try again or call (602) 497-0655.",
     "f.sending": "Sending…",
-    "ft.home": "Main site",
+    "ft.homesmart": "HomeSmart",
 } as const;
 
 export type LeadCopyKey = keyof typeof EN;
 
 export const ES: Record<LeadCopyKey, string> = {
-    "nav.cta": "Registrarme",
     "nav.phone": "☎ (602) 497-0655",
     "hero.eyebrow": "Área de Phoenix · Arizona",
     "hero.title": "Tu próxima casa — o tu próxima <em>inversión.</em>",
@@ -182,7 +180,7 @@ export const ES: Record<LeadCopyKey, string> = {
     "f.err.phone": "Ingresa un teléfono válido de 10 dígitos.",
     "f.err.submit": "No pudimos enviar tu solicitud. Intenta de nuevo o llama al (602) 497-0655.",
     "f.sending": "Enviando…",
-    "ft.home": "Sitio principal",
+    "ft.homesmart": "HomeSmart",
 };
 
 export const DICT = { en: EN, es: ES } as const;
