@@ -271,9 +271,30 @@
    of the screen (and below the fold at 1280x800). Top-align the copy so the
    headline reads first. Only applies where the grid is actually two columns. */
 @media (min-width:941px){
-  .registro-root .hero-grid{align-items:start}
+  /* Stretch, not start: the copy column has to be as tall as the form card so
+     the sticky child inside it has somewhere to travel. The copy still begins
+     at the top of the row, so the "headline below the fold" fix holds. */
+  .registro-root .hero-grid{align-items:stretch}
   .registro-root .hero{align-items:flex-start}
   .registro-root .hero>.wrap{padding-block:0}
+
+  /* The form card is much taller than the copy. Pin the copy so it stays read-
+     able while the visitor scrolls the form, then let it release at the end of
+     the section so both columns finish together and neither rides over the
+     footer. 138px clears the 118px fixed header plus a little air. */
+  /* `overflow:hidden` on .hero (from the design, to clip the radial gradient
+     in ::before) turns the hero into a scroll container and silently kills
+     sticky for every descendant. `overflow:clip` clips exactly the same way
+     WITHOUT creating one, which is the whole reason it exists. */
+  .registro-root .hero{overflow:clip}
+  .registro-root .hero-copy-sticky{position:sticky;top:138px}
+
+  /* Safety valve: on short viewports (or if the copy ever grows) a taller-than-
+     screen sticky block would pin with its tail cut off. Below that threshold
+     it simply scrolls normally, which is the correct degradation. */
+  @media (max-height:700px){
+    .registro-root .hero-copy-sticky{position:static}
+  }
 }
 
 /* ---- Step 2: optional LPMAMA disclosure ---- */

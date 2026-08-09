@@ -321,14 +321,20 @@ export function RegistroLanding() {
 
             <section className="hero" id="register">
                 <div className="wrap hero-grid">
-                    <div>
-                        <span className="eyebrow">{t("hero.eyebrow")}</span>
-                        <h1 dangerouslySetInnerHTML={html("hero.title")} />
-                        <p className="lede">{t("hero.lede")}</p>
-                        <ul className="hero-points">
-                            <li>{t("hero.p2")}</li>
-                            <li>{t("hero.p3")}</li>
-                        </ul>
+                    {/* Two nested elements on purpose: the outer div is the grid
+                        item and stretches to the (tall) row height, which is what
+                        gives the inner one room to travel. A sticky grid item that
+                        fills its own grid area has nowhere to stick. */}
+                    <div className="hero-copy">
+                        <div className="hero-copy-sticky">
+                            <span className="eyebrow">{t("hero.eyebrow")}</span>
+                            <h1 dangerouslySetInnerHTML={html("hero.title")} />
+                            <p className="lede">{t("hero.lede")}</p>
+                            <ul className="hero-points">
+                                <li>{t("hero.p2")}</li>
+                                <li>{t("hero.p3")}</li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div className="lead-card">
