@@ -306,13 +306,17 @@ export function RegistroLanding() {
                         <Image src="/homesmart-logo-white.svg" alt="HomeSmart" width={120} height={26} className="hs-logo logo-on-dark" />
                         <Image src="/brand/homesmart-logo.svg" alt="HomeSmart" width={120} height={26} className="hs-logo logo-on-light" />
                     </div>
+                    {/* No CTA button here on purpose. It anchored to #register,
+                        which IS this hero — at the top of the page (where a
+                        header CTA is seen) clicking it moved nothing, so it read
+                        as broken. On desktop the form is already beside the
+                        copy; on mobile it is one screen down. */}
                     <div className="header-right">
                         <a href="tel:+16024970655" className="phone-link">{t("nav.phone")}</a>
                         <div className="lang" role="group" aria-label="Language">
                             <button type="button" onClick={() => setLang("en")} className={lang === "en" ? "active" : undefined} aria-pressed={lang === "en"}>EN</button>
                             <button type="button" onClick={() => setLang("es")} className={lang === "es" ? "active" : undefined} aria-pressed={lang === "es"}>ES</button>
                         </div>
-                        <a href="#register" className="btn btn-gold">{t("nav.cta")}</a>
                     </div>
                 </div>
             </header>

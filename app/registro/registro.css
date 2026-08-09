@@ -325,10 +325,23 @@
 
 @media (max-width:620px){
   .registro-root .consent-block{padding:1rem .95rem .9rem}
-  /* The header CTA overflows the viewport below ~620px and becomes
-     unreachable. The form it anchors to is already on screen in the hero,
-     so drop the button and keep the language toggle. */
-  .registro-root .header-right .btn-gold{display:none}
   .registro-root .header-right{gap:.6rem}
+
+  /* The logo lockup is `flex:none`, so the header row had a hard floor of
+     413px: below that the language toggle was pushed off-screen AND was
+     unreachable, since nothing overflows to scroll to. Drop the HomeSmart
+     mark and its divider here — the brokerage is still named in full in the
+     footer ("Galaviz Group is a real estate team at HomeSmart"), which is the
+     surface that carries the ADRE disclosure. The header keeps the brand and
+     the toggle, which is all it needs on a phone. */
+  .registro-root .hs-logo,
+  .registro-root .logo-div{display:none}
+  .registro-root .logo-link img{height:44px}
+
+  /* The toggle is now the only control in the header, and on a phone it is the
+     one thing a Spanish-speaking visitor has to hit. At the desktop size the
+     tap target came to 33px tall — under the 44px minimum. Grow it here. */
+  .registro-root .lang{padding:5px}
+  .registro-root .lang button{font-size:.8rem;padding:.55em 1em}
 }
 
