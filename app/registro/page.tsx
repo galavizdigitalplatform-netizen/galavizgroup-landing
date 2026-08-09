@@ -1,0 +1,30 @@
+import type { Metadata } from "next";
+import { RegistroLanding } from "@/components/registro/registro-landing";
+import "./registro.css";
+
+const SITE_URL = "https://galavizgroup.com";
+
+export const metadata: Metadata = {
+    title: "Buy or Invest in Arizona Real Estate",
+    description:
+        "Tell us what you're looking for and our team will send you matching buy or investment opportunities across the Phoenix metro.",
+    alternates: { canonical: `${SITE_URL}/registro` },
+    openGraph: {
+        type: "website",
+        url: `${SITE_URL}/registro`,
+        title: "Galaviz Group — Buy or Invest in Arizona Real Estate",
+        description:
+            "Tell us what you're looking for and our team will send you matching opportunities across the Phoenix metro.",
+        siteName: "Galaviz Group",
+    },
+};
+
+/**
+ * /registro — standalone lead-capture landing for paid campaigns.
+ *
+ * Renders without the site Nav/Footer on purpose: the whole point is a page
+ * with exactly one thing to do. It brings its own header and footer.
+ */
+export default function RegistroPage() {
+    return <RegistroLanding />;
+}
