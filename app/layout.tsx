@@ -51,10 +51,10 @@ export const metadata: Metadata = {
         locale: "en_US",
         images: [
             {
-                url: "/hero.jpg",
-                width: 1920,
-                height: 1072,
-                alt: "A family receiving the keys to their new Arizona home at golden hour",
+                url: "/og-galaviz.png",
+                width: 1200,
+                height: 630,
+                alt: "Galaviz Group — a real estate team at HomeSmart",
             },
         ],
     },
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
         title: "Galaviz Group — Arizona Real Estate",
         description:
             "Helping Arizona families buy, sell, and invest with confidence.",
-        images: ["/hero.jpg"],
+        images: ["/og-galaviz.png"],
     },
     robots: {
         index: true,
