@@ -228,26 +228,38 @@ for (const archivo of [
     );
 }
 
-/* Un .eyebrow dentro de una banda burgundy sin `light` queda #990000 sobre
-   #990000: contraste 1.00, invisible. Pasó y solo se notaba por el antialiasing. */
-/* Se parte por <section> en vez de usar una ventana de N caracteres: una
+/* Un .eyebrow sin `light` pinta el texto de var(--burgundy). Sobre la banda
+   burgundy eso es el mismo color del fondo: contraste 1.00, invisible. Sobre
+   índigo da 1.60, que el manual de paleta prohíbe.
+
+   Se parte por <section> en vez de usar una ventana de N caracteres: una
    ventana fija se desborda a la sección siguiente y acusa eyebrows que no
-   están ahí. (Pasó — la primera versión de este check daba verde con el error
-   puesto, que es peor que no tenerlo.) */
-const sobreOscuro = landingLimpio
+   están ahí. (Pasó: la primera versión de este check daba verde con el error
+   puesto, que es peor que no tenerlo.)
+
+   ⚠️ Y la regla está INVERTIDA a propósito: se listan los fondos CLAROS y todo
+   lo demás se trata como oscuro. La primera versión enumeraba los oscuros
+   (`band|burg|dark`) y dejaba fuera el hero, que es `className="hero"` a
+   secas: no empezaba por `section` ni traía un token oscuro, así que el
+   eyebrow del hero —que va sobre índigo— no estaba cubierto. Enumerar lo
+   prohibido deja huecos cada vez que aparece un caso nuevo; enumerar lo
+   permitido falla del lado seguro.
+
+   Consecuencia buscada: una sección clara NUEVA tiene que declarar
+   `grad light` o este check la va a reclamar. Es lo correcto — `grad light`
+   es como el sistema marca los fondos claros. */
+const esClara = (s) => /^\s*className="[^"]*grad light/.test(s);
+const eyebrowsSinLight = landingLimpio
     .split("<section")
-    .filter((s) => /^\s+className="(band|section)[^"]*\b(band|burg|dark)\b/.test(s));
-const eyebrowsSinLight = sobreOscuro.filter((b) =>
-    /className="eyebrow"/.test(b),
-).length;
+    .slice(1)
+    .filter((s) => !esClara(s) && /className="eyebrow"/.test(s)).length;
 ok(
     eyebrowsSinLight === 0,
-    "ningún .eyebrow sin `light` sobre fondo oscuro o banda burgundy",
-    "`.eyebrow` a secas pinta el texto de var(--burgundy). Sobre la banda " +
-        "burgundy eso es el mismo color del fondo: contraste 1.00, invisible " +
-        "(pasó, y solo se notaba por el antialiasing). Sobre el índigo da 1.60, " +
-        "que el manual de paleta prohíbe. La variante correcta es " +
-        "`eyebrow light` (oro): 4.75 sobre la banda, 7.60 sobre índigo.",
+    "ningún .eyebrow sin `light` sobre fondo oscuro (hero, dark o banda)",
+    "`.eyebrow` a secas queda burgundy: 1.00 sobre la banda burgundy " +
+        "(invisible) y 1.60 sobre el índigo del hero y de las secciones dark. " +
+        "La variante correcta es `eyebrow light` (oro): 4.75 sobre la banda, " +
+        "7.60 sobre índigo.",
 );
 
 console.log("\n═══ TIPOGRAFÍA E IMÁGENES ═══");
