@@ -28,6 +28,7 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { CuentaRegresiva } from "./cuenta-regresiva";
 import {
     BarraAnuncio,
     EVENTO,
@@ -189,7 +190,7 @@ export function TallerLanding() {
                 <div className="wrap hero-inner">
                     <span className="eyebrow light">Taller presencial · Phoenix, AZ</span>
                     <h1>
-                        Si un sueño te trajo aquí,<em>ahora constrúyelo</em>
+                        Si un sueño te trajo hasta aquí,<em>ahora constrúyelo</em>
                     </h1>
                     <p className="lede">
                         Dos horas con Rita Galaviz para revisar las creencias que te han
@@ -207,6 +208,7 @@ export function TallerLanding() {
                         </span>
                         <span className="chip free">Entrada gratis · Cupo limitado</span>
                     </div>
+                    <CuentaRegresiva />
                     <Link className="btn btn-burgundy" href="/registro/apartar">
                         Apartar mi lugar
                     </Link>
@@ -442,6 +444,7 @@ export function TallerLanding() {
                             Nombre, correo y teléfono. Nada más. Te llega la confirmación con
                             la dirección y un recordatorio antes del sábado.
                         </p>
+                        <CuentaRegresiva etiqueta="Faltan para el taller" />
                         <Link
                             className="btn btn-burgundy btn-block"
                             href="/registro/apartar"
@@ -503,7 +506,7 @@ export function TallerLanding() {
                 <div className="wrap">
                     <span className="eyebrow">Nos vemos el sábado</span>
                     <h3 style={{ marginTop: "1.1rem" }}>
-                        Si un sueño te trajo aquí, ahora constrúyelo
+                        Si un sueño te trajo hasta aquí, ahora constrúyelo
                     </h3>
                     <Link className="btn" href="/registro/apartar">
                         Apartar mi lugar
