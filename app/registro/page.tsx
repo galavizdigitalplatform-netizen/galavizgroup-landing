@@ -3,8 +3,21 @@ import { TallerLanding } from "@/components/registro/taller-landing";
 
 const SITE_URL = "https://galavizgroup.com";
 
-const TITULO =
-    "Si un sueño te trajo hasta aquí, ahora constrúyelo · 12 de septiembre · Galaviz Group";
+/*
+ * ⚠️ Dos títulos a propósito, y hay que entender por qué antes de "unificarlos".
+ *
+ * El layout raíz define `title.template = "%s · Galaviz Group"`, así que la
+ * marca se pega SOLA al `<title>`. Si `TITULO` la trae escrita, sale dos veces
+ * en la pestaña y en Google. Ya pasó.
+ *
+ * Pero `openGraph` y `twitter` NO pasan por el template: lo que se escribe ahí
+ * es literal. Si les damos el título sin marca, la tarjeta de WhatsApp y
+ * Facebook sale sin "Galaviz Group".
+ *
+ * Por eso son dos constantes y no una.
+ */
+const TITULO = "Si un sueño te trajo hasta aquí, ahora constrúyelo · 12 de septiembre";
+const TITULO_SOCIAL = `${TITULO} · Galaviz Group`;
 const DESCRIPCION =
     "Encuentro presencial y gratuito en Phoenix con Rita Galaviz. Dos horas sobre las creencias que te han detenido y lo que de verdad se necesita hoy para tu primera casa o tu siguiente propiedad. Sábado 12 de septiembre, 10 a 12. Cupo limitado.";
 
@@ -22,7 +35,7 @@ export const metadata: Metadata = {
     openGraph: {
         type: "website",
         url: `${SITE_URL}/registro`,
-        title: TITULO,
+        title: TITULO_SOCIAL,
         description: DESCRIPCION,
         siteName: "Galaviz Group",
         locale: "es_MX",
@@ -37,7 +50,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: "summary_large_image",
-        title: TITULO,
+        title: TITULO_SOCIAL,
         description: DESCRIPCION,
         images: ["/og-galaviz.png"],
     },

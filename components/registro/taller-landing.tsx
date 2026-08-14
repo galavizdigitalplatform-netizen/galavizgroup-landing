@@ -549,7 +549,15 @@ export function TallerLanding() {
             {/* ══ CTA final ══ */}
             <section className="band grad burg">
                 <div className="wrap">
-                    <span className="eyebrow">Nos vemos el sábado</span>
+                    {/*
+                      * ⚠️ `light` NO es opcional dentro de una banda burgundy.
+                      * `.eyebrow` a secas pinta el texto de var(--burgundy), o
+                      * sea el mismo color del fondo: contraste 1.00, invisible.
+                      * La variante `light` lo pasa a oro (4.75 sobre #990000).
+                      * De los eyebrows de la página, este es el único que vive
+                      * sobre burgundy — los demás están sobre índigo o marfil.
+                      */}
+                    <span className="eyebrow light">Nos vemos el sábado</span>
                     <h3 style={{ marginTop: "1.1rem" }}>
                         Si un sueño te trajo hasta aquí, ahora constrúyelo
                     </h3>
