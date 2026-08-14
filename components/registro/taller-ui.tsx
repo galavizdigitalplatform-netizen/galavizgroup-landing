@@ -106,10 +106,27 @@ export function LogoLockup({ soloClaro = false }: { soloClaro?: boolean }) {
                 width={120}
                 height={21}
             />
+            {/*
+              * ⚠️ HomeSmart va en UN SOLO COLOR: blanco sobre oscuro, negro sobre
+              * claro. Nunca la versión a color.
+              *
+              * La razón no es capricho: el rombo de HomeSmart es #CD1935, un rojo
+              * más rosado que nuestro #990000, y en el encabezado los dos quedan a
+              * centímetros. Se leen como dos intentos del mismo color, no como dos
+              * marcas.
+              *
+              * ⚠️ Y la salida NO es repintar su rombo de #990000: es marca
+              * registrada. Un logo de franquicia recoloreado a modo es un problema
+              * distinto y peor. La variante de un color es la que ellos mismos
+              * publican para estos casos.
+              *
+              * El #161612 del archivo negro sale del propio SVG oficial 4C de
+              * HomeSmart — es su negro, no uno elegido por nosotros.
+              */}
             {!soloClaro && (
                 <Image
                     className="hs-logo logo-on-light"
-                    src="/brand/homesmart-logo.svg"
+                    src="/homesmart-logo-black.svg"
                     alt=""
                     aria-hidden="true"
                     width={120}

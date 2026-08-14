@@ -304,7 +304,7 @@ export function RegistroLanding() {
                         </a>
                         <span className="logo-div" />
                         <Image src="/homesmart-logo-white.svg" alt="HomeSmart" width={120} height={26} className="hs-logo logo-on-dark" />
-                        <Image src="/brand/homesmart-logo.svg" alt="HomeSmart" width={120} height={26} className="hs-logo logo-on-light" />
+                        <Image src="/homesmart-logo-black.svg" alt="HomeSmart" width={120} height={26} className="hs-logo logo-on-light" />
                     </div>
                     {/* No CTA button here on purpose. It anchored to #register,
                         which IS this hero — at the top of the page (where a
