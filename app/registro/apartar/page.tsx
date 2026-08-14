@@ -14,9 +14,9 @@ import {
 const SITE_URL = "https://galavizgroup.com";
 
 export const metadata: Metadata = {
-    title: "Apartar mi lugar · Taller del 12 de septiembre",
+    title: "Apartar mi lugar · 12 de septiembre",
     description:
-        "Aparta tu lugar en el taller del sábado 12 de septiembre en Phoenix. Entrada gratis, cupo limitado.",
+        "Aparta tu lugar para el sábado 12 de septiembre en Phoenix. Entrada gratis, cupo limitado.",
     alternates: { canonical: `${SITE_URL}/registro/apartar` },
     /*
      * ⚠️ `noindex` a propósito: la que tiene que posicionar y salir al
@@ -45,7 +45,7 @@ export default function ApartarPage() {
                 <div className="wrap header-row">
                     <LogoLockup soloClaro />
                     <Link className="back" href="/registro">
-                        ← Volver <span className="solo-ancho">al taller</span>
+                        ← Volver <span className="solo-ancho">al encuentro</span>
                     </Link>
                 </div>
             </header>
@@ -59,7 +59,7 @@ export default function ApartarPage() {
                         </h1>
                         <p className="lede">
                             Son tres minutos. Te confirmamos por mensaje y correo, y te
-                            mandamos un recordatorio antes del taller.
+                            mandamos un recordatorio antes del encuentro.
                         </p>
 
                         <div className="reg-facts">
@@ -81,7 +81,7 @@ export default function ApartarPage() {
                                 <IconoBoleto />
                                 <span>
                                     <b>Entrada gratis</b>
-                                    <small>El taller es en español</small>
+                                    <small>El encuentro es en español</small>
                                 </span>
                             </div>
                         </div>

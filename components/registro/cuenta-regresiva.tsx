@@ -3,7 +3,7 @@
 import { useSyncExternalStore } from "react";
 
 /**
- * Cuenta regresiva al taller — días : horas : minutos.
+ * Cuenta regresiva al encuentro — días : horas : minutos.
  *
  * Tres trampas, resueltas a propósito:
  *
@@ -28,7 +28,13 @@ import { useSyncExternalStore } from "react";
  *    cuenta.
  */
 
-/** 12 de septiembre de 2026, 10:00 en Phoenix (Arizona = UTC−7 todo el año). */
+/**
+ * 12 de septiembre de 2026, 10:00 en Phoenix (Arizona = UTC−7 todo el año).
+ *
+ * ⚠️ La fecha vive en DOS lugares y no están sincronizados: este instante y el
+ * texto en `EVENTO` (taller-ui.tsx). Si el evento se mueve, se tocan los dos o
+ * la página dice una fecha y cuenta hacia otra, sin dar error.
+ */
 export const INICIO_TALLER = "2026-09-12T10:00:00-07:00";
 
 type Restante = { dias: number; horas: number; minutos: number };
@@ -67,7 +73,7 @@ export function CuentaRegresiva({ etiqueta }: { etiqueta?: string }) {
 
     const r = calcular(new Date(INICIO_TALLER).getTime());
 
-    // El taller ya pasó: no se muestra nada.
+    // El encuentro ya pasó: no se muestra nada.
     if (!r) return null;
 
     const unidades: [number, string][] = [
@@ -76,7 +82,7 @@ export function CuentaRegresiva({ etiqueta }: { etiqueta?: string }) {
         [r.minutos, r.minutos === 1 ? "minuto" : "minutos"],
     ];
 
-    const legible = `Faltan ${r.dias} días, ${r.horas} horas y ${r.minutos} minutos para el taller`;
+    const legible = `Faltan ${r.dias} días, ${r.horas} horas y ${r.minutos} minutos para el encuentro`;
 
     return (
         <div className="cuenta-wrap">

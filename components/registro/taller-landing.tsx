@@ -39,9 +39,20 @@ import {
     PieTaller,
 } from "./taller-ui";
 
+/**
+ * Las seis creencias. Tres tienen respaldo documentado en la investigación sobre
+ * barreras de acceso a la vivienda en la comunidad hispana —"hay que dar un
+ * enganche grande", "toda deuda es mala", "esto no es para mí"— y la del
+ * regreso la aporta Rita de lo que escucha en su oficina.
+ *
+ * ⚠️ Están escritas en PRIMERA PERSONA a propósito: es la voz de quien lee,
+ * no una descripción de "cómo son ellos". Esa diferencia es la que mantiene la
+ * página del lado correcto de vivienda justa.
+ */
 const CREENCIAS = [
     "Cuando junte un poco más, entonces sí.",
     "Con mi crédito, mejor ni pregunto.",
+    "Al final me voy a regresar. ¿Para qué comprar aquí?",
     "Eso es para gente que sabe de esto.",
     "Ya lo intenté una vez y me dijeron que no.",
     "Primero que los niños estén más grandes.",
@@ -55,7 +66,7 @@ const MOMENTOS = [
             "Un ejercicio corto y honesto. Sin juicios y sin que tengas que contarle tu situación a nadie.",
     },
     {
-        hora: "La parte incómoda",
+        hora: "Lo que creo",
         titulo: "De dónde salió esa idea",
         texto:
             "Lo que aprendiste sobre el dinero, la deuda y el riesgo antes de tener edad para cuestionarlo. Por qué esas ideas se sienten tan ciertas, cuáles todavía te sirven y cuáles solo te están frenando.",
@@ -188,7 +199,7 @@ export function TallerLanding() {
                     claro del estudio y sin él no se lee. */}
                 <div className="hero-scrim" />
                 <div className="wrap hero-inner">
-                    <span className="eyebrow light">Taller presencial · Phoenix, AZ</span>
+                    <span className="eyebrow light">Tu próxima propiedad, tu siguiente nivel</span>
                     <h1>
                         Si un sueño te trajo hasta aquí,<em>ahora constrúyelo</em>
                     </h1>
@@ -213,7 +224,7 @@ export function TallerLanding() {
                         Apartar mi lugar
                     </Link>
                     <p className="cta-note light">
-                        Registrarte no es un compromiso de compra. El taller es en español.
+                        Registrarte no es un compromiso de compra. El {EVENTO.tipo} es en español.
                     </p>
                 </div>
             </section>
@@ -225,11 +236,12 @@ export function TallerLanding() {
                     <div className="suena-head">
                         <span className="eyebrow">Antes de hablar de casas</span>
                         <h2 className="title">
-                            ¿Alguna de estas <em>te la has dicho</em>?
+                            ¿Te has dicho <em>alguna de estas frases</em>?
                         </h2>
                         <p className="suena-close">
-                            Fíjate en algo: ninguna de esas frases es una cifra.{" "}
-                            <b>Son creencias. Y una creencia sí se puede revisar.</b>
+                            Fíjate en algo: ninguna de esas frases es una cifra. Son
+                            creencias.{" "}
+                            <b>Y una creencia sí se puede cambiar.</b>
                         </p>
                     </div>
                     <div className="quotes">
@@ -251,8 +263,8 @@ export function TallerLanding() {
                     </div>
                     <div className="puente-body">
                         <p>
-                            Este taller no es una plática de motivación ni una junta de
-                            ventas. Son dos horas para hacer conciencia: de dónde vienen esas
+                            Este {EVENTO.tipo} no es una plática de motivación ni una junta
+                            de ventas. Son dos horas para hacer conciencia: de dónde vienen esas
                             ideas, cuáles ya no te sirven, y qué es lo que de verdad se
                             necesita hoy — no lo que te contaron hace diez años.
                         </p>
@@ -308,13 +320,14 @@ export function TallerLanding() {
                 </div>
             </section>
 
-            {/* ══ Rita y el equipo ══ */}
+            {/* ══ Quién lo imparte ══ */}
             <section className="section rita grad light">
                 <div className="wrap">
                     <span className="eyebrow">Quién lo imparte</span>
                     <h2 className="title">
-                        Rita — y <em>el equipo detrás</em>
+                        Rita — y un <em>invitado especial</em>
                     </h2>
+
                     <div className="rita-grid">
                         <figure className="rita-photo" style={{ margin: 0 }}>
                             <Image
@@ -326,33 +339,68 @@ export function TallerLanding() {
                             />
                             <figcaption>
                                 <b>Rita Galaviz</b>
-                                Galaviz Group · un equipo de bienes raíces en HomeSmart
+                                Galaviz Group · un equipo de bienes raíces con HomeSmart
                             </figcaption>
                         </figure>
                         <div className="rita-bio">
                             <p>
-                                Rita lleva <b>20 años en bienes raíces</b> en Arizona. Ha sido
-                                Top Producer siete años consecutivos y está reconocida entre
-                                los Top 50 de NAHREP.
+                                Con <b>20 años de experiencia en bienes raíces y
+                                financiamiento</b>, Rita ha sido Top Producer siete años
+                                consecutivos. Está reconocida a nivel nacional entre los Top
+                                250 Producers y entre los Top 50 de NAHREP, la Asociación
+                                Nacional de Profesionales Hispanos de Bienes Raíces.
                             </p>
-                            <p className="turn">Nada de eso es lo que la trae a este taller.</p>
+                            <p className="turn">
+                                Pero su mayor credencial es su historia.
+                            </p>
                             <p>
-                                Rita sabe lo que es empezar desde abajo y construir patrimonio
-                                paso a paso, sin que nadie te explique cómo se hace. Da este
-                                taller por la misma razón por la que empezó: para que más
-                                familias decidan con información y no con miedo.
+                                De raíces humildes en México, sabe lo que significa empezar
+                                con poco, vencer miedos y construir paso a paso. Hoy acompaña
+                                a otras familias a descubrir que su historia no determina
+                                hasta dónde pueden llegar.
                             </p>
                             <p>
                                 <b>Y no llega sola.</b> Detrás de Rita está el equipo de
                                 Galaviz Group — el mismo que acompaña a las familias después
-                                del taller, cuando llegan las preguntas de verdad. Ese día
-                                están en la sala.
+                                del {EVENTO.tipo}, cuando llegan las preguntas de verdad. Ese
+                                día están en la sala.
                             </p>
                             <div className="creds">
                                 <span className="cred">20 años en bienes raíces</span>
                                 <span className="cred">Top Producer · 7 años</span>
+                                <span className="cred">Top 250 nacional</span>
                                 <span className="cred">Top 50 NAHREP</span>
-                                <span className="cred">Equipo Galaviz Group</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/*
+                      * ⚠️ PENDIENTE — invitado especial (loan officer).
+                      * Faltan tres cosas para publicarlo: foto vertical, nombre con
+                      * su compañía, y dos o tres líneas de bio.
+                      *
+                      * ⚠️ Y una advertencia que no es de diseño: si el invitado es
+                      * originador de préstamos, lo que diga en la sala cae bajo reglas
+                      * distintas a las de un agente. Nada de tasas, montos ni "usted
+                      * califica" sin las salvedades que su compañía exija. Vale la pena
+                      * que él revise su propio bloque antes de publicarlo.
+                      */}
+                    <div className="invitado">
+                        <span className="eyebrow">Invitado especial</span>
+                        <div className="invitado-grid">
+                            <div className="invitado-foto" aria-hidden="true">
+                                <span>Falta la foto</span>
+                            </div>
+                            <div className="invitado-bio">
+                                <h3>Por confirmar</h3>
+                                <p className="rol">Loan officer</p>
+                                <p>
+                                    El bloque de los números reales lo acompaña un
+                                    especialista en financiamiento: qué se necesita hoy para
+                                    calificar, qué programas existen y qué es mito. Cada caso
+                                    es distinto — aquí se explica el panorama, no se aprueba
+                                    a nadie.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -379,16 +427,13 @@ export function TallerLanding() {
                                     para invertir.
                                 </li>
                                 <li>Un siguiente paso concreto, escrito, que depende de ti.</li>
-                                <li>
-                                    Con quién preguntar cuando estés listo. Sin prisa y sin
-                                    presión.
-                                </li>
+                                <li>Con quién preguntar cuando estés listo.</li>
                             </ul>
                         </div>
                         {/* ⚠️ Este bloque no es relleno: es lo que mantiene la página del
                             lado correcto de ADRE. No prometer que alguien califica. */}
                         <div className="panel no">
-                            <h3>Lo que este taller no es</h3>
+                            <h3>Lo que este {EVENTO.tipo} no es</h3>
                             <ul>
                                 <li>No es una asesoría individual ni una preaprobación.</li>
                                 <li>
@@ -410,7 +455,7 @@ export function TallerLanding() {
                         <h2>Aparta tu lugar</h2>
                         <p className="lede">
                             La entrada es gratis y el cupo es limitado. Te confirmamos por
-                            mensaje y correo, y te mandamos un recordatorio antes del taller.
+                            mensaje y correo, y te mandamos un recordatorio antes del {EVENTO.tipo}.
                         </p>
                         <div className="reg-facts">
                             <div className="rf">
@@ -431,7 +476,7 @@ export function TallerLanding() {
                                 <IconoBoleto />
                                 <span>
                                     <b>Entrada gratis</b>
-                                    <small>El taller es en español</small>
+                                    <small>El {EVENTO.tipo} es en español</small>
                                 </span>
                             </div>
                         </div>
@@ -444,7 +489,7 @@ export function TallerLanding() {
                             Nombre, correo y teléfono. Nada más. Te llega la confirmación con
                             la dirección y un recordatorio antes del sábado.
                         </p>
-                        <CuentaRegresiva etiqueta="Faltan para el taller" />
+                        <CuentaRegresiva etiqueta={`Faltan para el ${EVENTO.tipo}`} />
                         <Link
                             className="btn btn-burgundy btn-block"
                             href="/registro/apartar"
@@ -489,7 +534,7 @@ export function TallerLanding() {
                             <div className="k">Idioma</div>
                             <div className="v">
                                 Español
-                                <small>El taller completo</small>
+                                <small>El {EVENTO.tipo} completo</small>
                             </div>
                         </div>
                     </div>

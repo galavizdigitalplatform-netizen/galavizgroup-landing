@@ -9,8 +9,8 @@ import {
 const SITE_URL = "https://galavizgroup.com";
 
 export const metadata: Metadata = {
-    title: "Tu lugar está apartado · Taller del 12 de septiembre",
-    description: "Confirmación de registro al taller del 12 de septiembre.",
+    title: "Tu lugar está apartado · 12 de septiembre",
+    description: "Confirmación de registro para el 12 de septiembre.",
     alternates: { canonical: `${SITE_URL}/registro/listo` },
     robots: { index: false, follow: false },
 };
@@ -35,7 +35,7 @@ export default function ListoPage() {
                 <div className="wrap header-row">
                     <LogoLockup soloClaro />
                     <Link className="back" href="/registro">
-                        ← Volver <span className="solo-ancho">al taller</span>
+                        ← Volver <span className="solo-ancho">al encuentro</span>
                     </Link>
                 </div>
             </header>
@@ -77,7 +77,7 @@ export default function ListoPage() {
                         </p>
                         <p>
                             ¿Conoces a alguien a quien le serviría? Pásale{" "}
-                            <Link href="/registro">la página del taller</Link>.
+                            <Link href="/registro">la página del encuentro</Link>.
                         </p>
                     </div>
                 </div>

@@ -213,7 +213,7 @@ export function TallerForm() {
 
                 <div className="field">
                     <label style={{ marginBottom: ".6rem" }}>
-                        ¿Qué te trae al taller? <span className="req">*</span>
+                        ¿Qué te trae al encuentro? <span className="req">*</span>
                     </label>
                     <div className="seg">
                         {OPCIONES.map((o) => (
@@ -237,7 +237,7 @@ export function TallerForm() {
 
                 <div className="field">
                     <label htmlFor="note">
-                        ¿Algo que quieras que Rita sepa antes del taller?{" "}
+                        ¿Algo que quieras que Rita sepa antes del encuentro?{" "}
                         <span className="opt-lbl">(opcional)</span>
                     </label>
                     <textarea
@@ -253,7 +253,7 @@ export function TallerForm() {
                     <h4>Mensajes de texto</h4>
                     <p className="cs-note">
                         Queremos mandarte la confirmación y un recordatorio antes del
-                        taller. Tú decides:
+                        encuentro. Tú decides:
                     </p>
                     <fieldset className="cs-fieldset">
                         <legend>

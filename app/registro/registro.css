@@ -17,14 +17,14 @@
    ───────────────────────────────────────────────────────────── */
 .registro-root{
   --indigo:#2C2740; --indigo-700:#4B4359; --indigo-800:#352F42; --indigo-900:#1D1826;
-  --burgundy:#800020; --burgundy-700:#65001A; --burgundy-100:#F6E4E8;
+  --burgundy:#990000; --burgundy-700:#7A0000; --burgundy-100:#F7E7E7;
   --gold:#A98243; --gold-300:#D5B991; --gold-600:#906935;
   --ivory:#F7F4EE; --ivory-200:#F3F0E9; --white:#fff;
   --line:#DBD7D0; --line-soft:#E9E6E0;
   --ink:#25202E; --ink-soft:#585461; --ink-faint:#827E8A;
   --alert:#B4521A;
-  --serif:var(--font-fraunces),Georgia,serif;
-  --sans:var(--font-hanken),system-ui,-apple-system,sans-serif;
+  --serif:var(--font-newsreader),Georgia,serif;
+  --sans:var(--font-inter),system-ui,-apple-system,sans-serif;
   --sh-md:0 8px 24px rgba(36,30,46,.09),0 2px 8px rgba(36,30,46,.05);
   --sh-lg:0 30px 70px rgba(29,23,39,.22),0 8px 22px rgba(36,30,46,.10);
   --maxw:1240px; --gut:clamp(1.25rem,4vw,3.5rem);
@@ -39,8 +39,8 @@
     radial-gradient(105% 80% at 0% 0%, #FFFFFF 0%, rgba(255,255,255,0) 62%),
     radial-gradient(95% 78% at 100% 100%, #E7DFD1 0%, rgba(231,223,209,0) 62%);
   --grad-burgundy:
-    radial-gradient(100% 85% at 22% 0%, #9A0028 0%, transparent 62%),
-    radial-gradient(80% 70% at 100% 100%, #5C0016 0%, transparent 58%);
+    radial-gradient(100% 85% at 22% 0%, #B50000 0%, transparent 62%),
+    radial-gradient(80% 70% at 100% 100%, #6B0000 0%, transparent 58%);
 }
 /* Capa de degradado compartida. Va en ::before para no pelearse con el color de
    fondo de la sección, y con z-index negativo para quedar bajo el contenido. */
@@ -221,21 +221,21 @@
    el efecto simplemente no existiría. */
 .registro-root .mom:hover,.registro-root .mom.is-active{
   transform:translateY(-5px);
-  border-color:rgba(128,0,32,.40);
+  border-color:rgba(153,0,0,.40);
   background:linear-gradient(152deg,#FFFFFF 0%,#FFFAFA 50%,#FBF1F3 100%);
   box-shadow:0 3px 7px rgba(36,30,46,.07),0 26px 60px rgba(36,30,46,.16)}
 .registro-root .mom:hover .n,.registro-root .mom.is-active .n{transform:scale(1.09);
-  box-shadow:0 0 0 5px var(--ivory),0 0 0 7px rgba(128,0,32,.16),0 8px 20px rgba(128,0,32,.38)}
+  box-shadow:0 0 0 5px var(--ivory),0 0 0 7px rgba(153,0,0,.16),0 8px 20px rgba(153,0,0,.38)}
 .registro-root .mom:hover .hora,.registro-root .mom.is-active .hora{color:var(--burgundy);
-  background:rgba(128,0,32,.07);border-color:rgba(128,0,32,.28)}
-.registro-root .mom:hover .ghost,.registro-root .mom.is-active .ghost{color:rgba(128,0,32,.11);transform:translateY(-50%) scale(1.04)}
+  background:rgba(153,0,0,.07);border-color:rgba(153,0,0,.28)}
+.registro-root .mom:hover .ghost,.registro-root .mom.is-active .ghost{color:rgba(153,0,0,.11);transform:translateY(-50%) scale(1.04)}
 .registro-root .mom .n{transition:transform .22s cubic-bezier(.2,.7,.2,1),box-shadow .22s}
 .registro-root .mom .hora{transition:color .22s,background .22s,border-color .22s}
 .registro-root .mom .ghost{transition:color .28s,transform .28s}
 .registro-root .mom .n{width:46px;height:46px;border-radius:50%;flex:none;position:relative;z-index:1;
-  background:radial-gradient(120% 120% at 30% 20%,#9A0028 0%,var(--burgundy) 62%,#5C0016 100%);
+  background:radial-gradient(120% 120% at 30% 20%,#B50000 0%,var(--burgundy) 62%,#6B0000 100%);
   color:#fff;display:grid;place-items:center;font-family:var(--serif);font-size:1.2rem;
-  box-shadow:0 0 0 5px var(--ivory),0 4px 12px rgba(128,0,32,.28)}
+  box-shadow:0 0 0 5px var(--ivory),0 4px 12px rgba(153,0,0,.28)}
 .registro-root .mom .hora{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.16em;
   text-transform:uppercase;color:var(--gold-600);background:rgba(169,130,67,.10);
   border:1px solid rgba(169,130,67,.22);border-radius:999px;padding:.3em .85em;
@@ -527,4 +527,31 @@
 @media(max-width:374px){
   .registro-root .cuenta .u{min-width:54px}
   .registro-root .cuenta .u b{font-size:1.3rem}
+}
+
+/* Vivienda justa en el pie */
+.registro-root .ft-vivienda{display:flex;gap:.7rem;align-items:flex-start;margin-top:1.1rem;
+  font-size:.78rem;color:rgba(211,209,203,.62);line-height:1.5}
+.registro-root .ft-vivienda .ehO{font-size:1.15rem;line-height:1;color:rgba(213,185,145,.85);
+  flex:none;margin-top:-1px}
+.registro-root .ft-vivienda b{display:block;color:rgba(211,209,203,.85);
+  letter-spacing:.02em;font-weight:700}
+
+/* ═══ Invitado especial ═══ */
+.registro-root .invitado{margin-top:clamp(2.5rem,5vw,4rem);padding-top:clamp(2rem,4vw,3rem);
+  border-top:1px solid var(--line)}
+.registro-root .invitado-grid{display:grid;grid-template-columns:auto 1fr;
+  gap:clamp(1.4rem,3vw,2.4rem);align-items:center;margin-top:1.6rem}
+.registro-root .invitado-foto{width:clamp(120px,18vw,168px);aspect-ratio:4/5;border-radius:14px;
+  background:linear-gradient(152deg,var(--ivory-200),#E7DFD1);
+  border:1px dashed rgba(169,130,67,.5);display:grid;place-items:center;text-align:center;
+  color:var(--ink-faint);font-size:.76rem;padding:.8rem}
+.registro-root .invitado-bio h3{font-size:clamp(1.35rem,2.2vw,1.75rem)}
+.registro-root .invitado-bio .rol{font-size:.72rem;font-weight:800;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold-600);margin:.5rem 0 .9rem}
+.registro-root .invitado-bio p{color:var(--ink-soft);margin:0;font-size:.99rem;line-height:1.65;
+  max-width:58ch}
+@media(max-width:620px){
+  .registro-root .invitado-grid{grid-template-columns:1fr;gap:1.2rem}
+  .registro-root .invitado-foto{width:140px}
 }

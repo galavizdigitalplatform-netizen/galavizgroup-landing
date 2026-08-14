@@ -11,6 +11,13 @@ import Link from "next/link";
  */
 
 export const EVENTO = {
+    /**
+     * ⚠️ El sustantivo del evento vive aquí y en ningún otro lado. Se usa con
+     * artículo alrededor ("al {tipo}", "antes del {tipo}"), así que cambiarlo
+     * por "taller", "sesión" o lo que sea es UNA línea.
+     * `event_slug` NO cambia: es identificador, no copy.
+     */
+    tipo: "encuentro",
     fecha: "Sábado 12 de septiembre de 2026",
     fechaCorta: "Sábado 12 de septiembre",
     horario: "10:00 a 12:00",
@@ -129,14 +136,23 @@ export function PieTaller() {
                             Galaviz Group es un equipo de bienes raíces en HomeSmart,
                             sirviendo al área metropolitana de Phoenix.
                         </p>
-                        <p className="ft-disclosure">
-                            HomeSmart · {EVENTO.calle.replace(", Suite 105", "")},{" "}
-                            {EVENTO.ciudad}. Cada oficina es de propiedad y operación
-                            independiente.
+                        {/*
+                          * ⚠️ Vivienda justa. Xavi lo quitó en su momento y pidió
+                          * regresarlo ahora que la página se dirige de forma
+                          * explícita a la comunidad latina — el origen nacional es
+                          * clase protegida. La frase en inglés es la que tiene
+                          * reconocimiento legal en EE. UU.; el español acompaña.
+                          */}
+                        <p className="ft-vivienda">
+                            <span className="ehO" aria-hidden="true">⌂</span>
+                            <span>
+                                <b>Equal Housing Opportunity</b>
+                                Vivienda justa para todos
+                            </span>
                         </p>
                     </div>
                     <div>
-                        <h4>El taller</h4>
+                        <h4>El {EVENTO.tipo}</h4>
                         <ul>
                             <li>
                                 <Link href="/registro/apartar">Apartar mi lugar</Link>

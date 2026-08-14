@@ -4,9 +4,9 @@ import { TallerLanding } from "@/components/registro/taller-landing";
 const SITE_URL = "https://galavizgroup.com";
 
 const TITULO =
-    "Taller: Si un sueño te trajo hasta aquí, ahora constrúyelo · 12 de septiembre";
+    "Si un sueño te trajo hasta aquí, ahora constrúyelo · 12 de septiembre · Galaviz Group";
 const DESCRIPCION =
-    "Taller presencial y gratuito en Phoenix con Rita Galaviz. Dos horas sobre las creencias que te han detenido y lo que de verdad se necesita hoy para tu primera casa o tu siguiente propiedad. Sábado 12 de septiembre, 10 a 12. Cupo limitado.";
+    "Encuentro presencial y gratuito en Phoenix con Rita Galaviz. Dos horas sobre las creencias que te han detenido y lo que de verdad se necesita hoy para tu primera casa o tu siguiente propiedad. Sábado 12 de septiembre, 10 a 12. Cupo limitado.";
 
 export const metadata: Metadata = {
     title: TITULO,
