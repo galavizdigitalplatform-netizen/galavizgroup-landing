@@ -75,13 +75,13 @@ const MOMENTOS = [
         hora: "Sobre la mesa",
         titulo: "Los números reales",
         texto:
-            "Qué se necesita hoy para comprar o para invertir: enganche, crédito, ingresos, tiempos. Lo que sí aplica y lo que ya es mito. Cada caso es distinto — aquí se explica el panorama, no se aprueba a nadie.",
+            "Qué se necesita hoy para comprar o para invertir: enganche, crédito, ingresos, tiempos. Lo que sí aplica y lo que ya es mito. Cada caso es distinto: aquí se explica el panorama, no se aprueba a nadie.",
     },
     {
         hora: "Antes de las 12:00",
         titulo: "Tu siguiente paso",
         texto:
-            "No un plan a diez años. El paso concreto que sí puedes dar esta semana — escrito, y en tus manos antes de salir de la sala.",
+            "No un plan a diez años. El paso concreto que sí puedes dar esta semana, escrito y en tus manos antes de salir de la sala.",
     },
 ];
 
@@ -205,7 +205,7 @@ export function TallerLanding() {
                     </h1>
                     <p className="lede">
                         Dos horas con Rita Galaviz para revisar las creencias que te han
-                        estado deteniendo — y ver, con números reales, qué se necesita hoy
+                        estado deteniendo y ver, con números reales, qué se necesita hoy
                         para tu primera casa o para tu siguiente propiedad.
                     </p>
                     <div className="hero-meta">
@@ -266,7 +266,7 @@ export function TallerLanding() {
                             Este {EVENTO.tipo} no es una plática de motivación ni una junta
                             de ventas. Son dos horas para hacer conciencia: de dónde vienen esas
                             ideas, cuáles ya no te sirven, y qué es lo que de verdad se
-                            necesita hoy — no lo que te contaron hace diez años.
+                            necesita hoy, no lo que te contaron hace diez años.
                         </p>
                         <p className="punch">
                             Vamos a hablar de bienes raíces. También vamos a hablar de las
@@ -325,7 +325,7 @@ export function TallerLanding() {
                 <div className="wrap">
                     <span className="eyebrow">Quién lo imparte</span>
                     <h2 className="title">
-                        Rita — y un <em>invitado especial</em>
+                        Rita Galaviz
                     </h2>
 
                     <div className="rita-grid">
@@ -358,12 +358,6 @@ export function TallerLanding() {
                                 con poco, vencer miedos y construir paso a paso. Hoy acompaña
                                 a otras familias a descubrir que su historia no determina
                                 hasta dónde pueden llegar.
-                            </p>
-                            <p>
-                                <b>Y no llega sola.</b> Detrás de Rita está el equipo de
-                                Galaviz Group — el mismo que acompaña a las familias después
-                                del {EVENTO.tipo}, cuando llegan las preguntas de verdad. Ese
-                                día están en la sala.
                             </p>
                             <div className="creds">
                                 <span className="cred">20 años en bienes raíces</span>
@@ -398,7 +392,7 @@ export function TallerLanding() {
                                     El bloque de los números reales lo acompaña un
                                     especialista en financiamiento: qué se necesita hoy para
                                     calificar, qué programas existen y qué es mito. Cada caso
-                                    es distinto — aquí se explica el panorama, no se aprueba
+                                    es distinto: aquí se explica el panorama, no se aprueba
                                     a nadie.
                                 </p>
                             </div>
@@ -412,15 +406,15 @@ export function TallerLanding() {
                 <div className="wrap">
                     <span className="eyebrow">Expectativas claras</span>
                     <h2 className="title">
-                        Qué te llevas — y <em>qué no</em>
+                        Qué te llevas, y <em>qué no</em>
                     </h2>
                     <div className="llevas-grid">
                         <div className="panel yes">
                             <h3>Al salir vas a tener</h3>
                             <ul>
                                 <li>
-                                    Claridad sobre qué te ha estado deteniendo — con nombre, no
-                                    como sensación.
+                                    Claridad sobre qué te ha estado deteniendo, con nombre y
+                                    no como sensación.
                                 </li>
                                 <li>
                                     Un panorama real de lo que se requiere hoy para comprar o

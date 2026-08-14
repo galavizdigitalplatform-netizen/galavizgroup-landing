@@ -44,7 +44,7 @@ export const metadata: Metadata = {
                 url: "/og-galaviz.png",
                 width: 1200,
                 height: 630,
-                alt: "Galaviz Group — un equipo de bienes raíces en HomeSmart",
+                alt: "Galaviz Group, un equipo de bienes raíces en HomeSmart",
             },
         ],
     },

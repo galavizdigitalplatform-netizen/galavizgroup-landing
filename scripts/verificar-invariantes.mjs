@@ -111,15 +111,52 @@ for (const [nombre, src] of [
         !palabraTaller.test(src),
         `sin la palabra «taller» en ${nombre}`,
         'El sustantivo del evento vive en EVENTO.tipo. Un «taller» suelto es ' +
-            "copy que no se va a mover cuando cambie el evento — y «taller» " +
+            "copy que no se va a mover cuando cambie el evento. Y «taller» " +
             "implica instrucción, que es justo lo que conviene no decir.",
     );
 }
 
+/* Rita no quiere el guion largo en la página. ⚠️ Nótese que se revisa sobre el
+   código SIN comentarios: los comentarios sí lo usan, y no se ven. */
+for (const [nombre, src] of [
+    ["taller-landing.tsx", landingLimpio],
+    ["taller-ui.tsx", uiLimpio],
+    ["taller-form.tsx", formLimpio],
+    ["apartar/page.tsx", sinComentarios(apartar)],
+    ["listo/page.tsx", sinComentarios(leer("app/registro/listo/page.tsx"))],
+    /* ⚠️ El CSS también cuenta: la viñeta de la columna «no» era un guion largo
+       vía content:"—", y se veía en cada renglón. Y el `alt` del og:image lo
+       lee el lector de pantalla aunque no se vea. */
+    ["registro.css", sinComentarios(css)],
+    ["page.tsx", sinComentarios(pagina)],
+]) {
+    ok(
+        !/—/.test(src),
+        `sin guion largo (—) en ${nombre}`,
+        "Rita pidió quitarlo de toda la página. ⚠️ No se borra y ya: cada uno " +
+            "se sustituye por el signo que sostenga la misma pausa (dos puntos, " +
+            "coma o punto). Borrarlo a secas deja las frases pegadas.",
+    );
+}
+
+ok(
+    /<h2[^>]*>\s*Rita Galaviz\s*<\/h2>/.test(landingLimpio),
+    "el título de la sección de Rita es solo su nombre",
+    "Rita lo pidió así. El invitado especial tiene su propio bloque más abajo, " +
+        "con su propio eyebrow.",
+);
+
+ok(
+    !/Y no llega sola/.test(landingLimpio),
+    'sin el párrafo "Y no llega sola"',
+    "Rita lo quitó. Además era el único lugar que prometía que el equipo " +
+        "estaría en la sala, lo que obligaba a conseguir una foto del equipo.",
+);
+
 ok(
     !/Vivienda justa para todos/.test(uiLimpio) && !/⌂/.test(uiLimpio),
     "vivienda justa: solo el eslogan, sin traducción ni casita dibujada",
-    '"Vivienda justa para todos" es una frase inventada — no es de HUD ni de ' +
+    '"Vivienda justa para todos" es una frase inventada: no es de HUD ni de ' +
         "nadie. Y una casita hecha con el carácter ⌂ se lee como marca mal " +
         "copiada. Si hace falta el logotipo, va el archivo oficial de HUD.",
 );

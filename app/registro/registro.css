@@ -296,7 +296,11 @@
 .registro-root .panel.yes li{display:flex;gap:.75em;font-size:1rem;color:rgba(238,235,229,.92);line-height:1.55}
 .registro-root .panel.yes li::before{content:"✦";color:var(--gold-300);flex:none;line-height:1.5}
 .registro-root .panel.no li{display:flex;gap:.75em;font-size:.94rem;color:var(--ink-soft);line-height:1.55}
-.registro-root .panel.no li::before{content:"—";color:var(--ink-faint);flex:none}
+/* ⚠️ Viñeta de la columna "no": ✧ es la contraparte hueca del ✦ lleno de la
+   columna "sí" — misma familia y mismo tamaño óptico, sin usar un guion.
+   Rita pidió que el guion largo no aparezca en la página, y esta viñeta era
+   uno: se veía en cada renglón del bloque de lo que el encuentro NO es. */
+.registro-root .panel.no li::before{content:"✧";color:var(--ink-faint);flex:none}
 /* ══ Formulario ══ */
 .registro-root .registro{background:var(--indigo);color:var(--ivory);position:relative;overflow:clip}
 .registro-root .registro .wrap{position:relative;z-index:1}
