@@ -129,6 +129,10 @@ for (const [nombre, src] of [
        lee el lector de pantalla aunque no se vea. */
     ["registro.css", sinComentarios(css)],
     ["page.tsx", sinComentarios(pagina)],
+    /* ⚠️ cuenta-regresiva.tsx también renderiza en /registro. Hoy no tiene
+       guiones largos visibles, pero estaba fuera de la lista: una vista que
+       pinta texto y no está aquí es un hueco esperando. */
+    ["cuenta-regresiva.tsx", sinComentarios(leer("components/registro/cuenta-regresiva.tsx"))],
 ]) {
     ok(
         !/—/.test(src),
