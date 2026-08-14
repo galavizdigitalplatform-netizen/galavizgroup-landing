@@ -1,52 +1,54 @@
 import type { Metadata } from "next";
-import { RegistroLanding } from "@/components/registro/registro-landing";
-import "./registro.css";
+import { TallerLanding } from "@/components/registro/taller-landing";
 
 const SITE_URL = "https://galavizgroup.com";
 
+const TITULO =
+    "Taller: Si un sueño te trajo aquí, ahora constrúyelo · 12 de septiembre";
+const DESCRIPCION =
+    "Taller presencial y gratuito en Phoenix con Rita Galaviz. Dos horas sobre las creencias que te han detenido y lo que de verdad se necesita hoy para tu primera casa o tu siguiente propiedad. Sábado 12 de septiembre, 10 a 12. Cupo limitado.";
+
 export const metadata: Metadata = {
-    title: "Buy or Invest in Arizona Real Estate",
-    description:
-        "Tell us what you're looking for and our team will send you matching buy or investment opportunities across the Phoenix metro.",
+    title: TITULO,
+    description: DESCRIPCION,
     alternates: { canonical: `${SITE_URL}/registro` },
     /*
-     * `openGraph` and `twitter` REPLACE the root layout's blocks — they are not
-     * merged. Both are spelled out here on purpose: without `images` this page
-     * shipped with no og:image at all and fell back to the root's twitter:image
-     * (the hero photo), and without a `twitter` block its card carried the HOME
-     * page's title and description. Add a field to one, add it to both.
+     * ⚠️ `openGraph` y `twitter` REEMPLAZAN los bloques del layout raíz — no se
+     * fusionan. Los dos van escritos aquí a propósito: sin `images` esta página
+     * salió sin og:image y cayó al twitter:image de la raíz (la foto de la
+     * familia), y sin bloque `twitter` su tarjeta llevaba el título y la
+     * descripción de la HOME. Si agregas un campo a uno, agrégalo al otro.
      */
     openGraph: {
         type: "website",
         url: `${SITE_URL}/registro`,
-        title: "Galaviz Group — Buy or Invest in Arizona Real Estate",
-        description:
-            "Tell us what you're looking for and our team will send you matching opportunities across the Phoenix metro.",
+        title: TITULO,
+        description: DESCRIPCION,
         siteName: "Galaviz Group",
+        locale: "es_MX",
         images: [
             {
                 url: "/og-galaviz.png",
                 width: 1200,
                 height: 630,
-                alt: "Galaviz Group — a real estate team at HomeSmart",
+                alt: "Galaviz Group — un equipo de bienes raíces en HomeSmart",
             },
         ],
     },
     twitter: {
         card: "summary_large_image",
-        title: "Galaviz Group — Buy or Invest in Arizona Real Estate",
-        description:
-            "Tell us what you're looking for and our team will send you matching opportunities across the Phoenix metro.",
+        title: TITULO,
+        description: DESCRIPCION,
         images: ["/og-galaviz.png"],
     },
 };
 
 /**
- * /registro — standalone lead-capture landing for paid campaigns.
+ * /registro — landing del taller del 12 de septiembre.
  *
- * Renders without the site Nav/Footer on purpose: the whole point is a page
- * with exactly one thing to do. It brings its own header and footer.
+ * Se renderiza sin el Nav/Footer del sitio a propósito: la página tiene
+ * exactamente una cosa que hacer. Trae su propio header y su propio pie.
  */
 export default function RegistroPage() {
-    return <RegistroLanding />;
+    return <TallerLanding />;
 }
