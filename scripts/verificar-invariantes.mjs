@@ -157,6 +157,47 @@ ok(
         "estaría en la sala, lo que obligaba a conseguir una foto del equipo.",
 );
 
+console.log("\n═══ CREDENCIALES Y LICENCIAS ═══");
+
+ok(
+    !/Top Producer(?!\s+(?:de\s+)?HomeSmart)/.test(landingLimpio),
+    'ningún "Top Producer" sin decir quién lo otorga',
+    "Una afirmación de producción sin dueño es lo primero que revisa un broker " +
+        "designado. Quien lo otorga es HomeSmart y así tiene que decirlo, en el " +
+        "párrafo y en las fichas.",
+);
+
+ok(
+    !/NAHREP|Top 250/i.test(landingLimpio),
+    "sin NAHREP ni Top 250",
+    "⚠️ Van juntos: el «Top 250» ES un premio de NAHREP (NAHREP Top 250 Latino " +
+        "Agents Awards). Con NAHREP fuera por decisión de Rita, dejar «Top 250» " +
+        "sería citar a NAHREP sin nombrarlo — una credencial sin fuente. Se " +
+        "regresan los dos o ninguno.",
+);
+
+/* Bloque del invitado: mientras diga "Por confirmar" no hay nada que exigir.
+   En cuanto lleve un nombre real, el nombre no viaja solo. */
+const invitado = (landingLimpio.match(
+    /className="invitado"[\s\S]*?<\/section>/,
+) || [""])[0];
+const invitadoConNombre = /<h3>(?!\s*Por confirmar)[^<]+<\/h3>/.test(invitado);
+ok(
+    !invitadoConNombre || /NMLS#\s*\d{4,}/.test(invitado),
+    "si el invitado tiene nombre, tiene NMLS",
+    "⚠️ Un originador de crédito nombrado en publicidad va con su NMLS y su " +
+        "compañía: es el identificador con el que cualquiera lo verifica en NMLS " +
+        "Consumer Access. Los tres juntos o ninguno.",
+);
+ok(
+    !invitadoConNombre || /New American Funding|Compañía/i.test(invitado),
+    "si el invitado tiene nombre, dice para quién trabaja",
+    "⚠️ Su compañía es distinta de HomeSmart, y eso es justo lo que el lector " +
+        "necesita saber. Además el marketing conjunto entre una correduría y un " +
+        "prestamista cae bajo RESPA §8: esconder la afiliación es lo contrario " +
+        "de lo que conviene.",
+);
+
 ok(
     !/Vivienda justa para todos/.test(uiLimpio) && !/⌂/.test(uiLimpio),
     "vivienda justa: solo el eslogan, sin traducción ni casita dibujada",

@@ -343,12 +343,23 @@ export function TallerLanding() {
                             </figcaption>
                         </figure>
                         <div className="rita-bio">
+                            {/*
+                              * ⚠️ Toda credencial de producción que aparezca aquí lleva
+                              * QUIÉN la otorga. "Top Producer" a secas es una afirmación
+                              * sin dueño, y es lo primero que revisa un broker designado.
+                              *
+                              * ⚠️ Salieron NAHREP y "Top 250". No es que sobraran: el
+                              * "Top 250" ES un premio de NAHREP —los NAHREP Top 250
+                              * Latino Agents Awards—, así que eran el mismo
+                              * reconocimiento dicho dos veces. Con NAHREP fuera por
+                              * decisión de Rita, dejar "Top 250 nacional" sería citar a
+                              * NAHREP sin nombrarlo: una credencial sin fuente.
+                              * Se regresan las dos juntas, o ninguna.
+                              */}
                             <p>
                                 Con <b>20 años de experiencia en bienes raíces y
-                                financiamiento</b>, Rita ha sido Top Producer siete años
-                                consecutivos. Está reconocida a nivel nacional entre los Top
-                                250 Producers y entre los Top 50 de NAHREP, la Asociación
-                                Nacional de Profesionales Hispanos de Bienes Raíces.
+                                financiamiento</b>, Rita ha sido Top Producer de HomeSmart
+                                siete años consecutivos.
                             </p>
                             <p className="turn">
                                 Pero su mayor credencial es su historia.
@@ -359,11 +370,12 @@ export function TallerLanding() {
                                 a otras familias a descubrir que su historia no determina
                                 hasta dónde pueden llegar.
                             </p>
+                            {/* ⚠️ Las fichas repiten lo que dice el párrafo. Si una
+                                credencial sale del texto, sale de aquí también, o la
+                                página se contradice consigo misma. */}
                             <div className="creds">
                                 <span className="cred">20 años en bienes raíces</span>
-                                <span className="cred">Top Producer · 7 años</span>
-                                <span className="cred">Top 250 nacional</span>
-                                <span className="cred">Top 50 NAHREP</span>
+                                <span className="cred">Top Producer HomeSmart · 7 años</span>
                             </div>
                         </div>
                     </div>
@@ -382,15 +394,44 @@ export function TallerLanding() {
                     <div className="invitado">
                         <span className="eyebrow">Invitado especial</span>
                         <div className="invitado-grid">
+                            {/* ⚠️ Marcador honesto: la foto de Santos todavía no llega.
+                                Mientras diga "Falta la foto" se ve que falta, que es
+                                mejor que una silueta genérica haciéndose pasar por él. */}
                             <div className="invitado-foto" aria-hidden="true">
                                 <span>Falta la foto</span>
                             </div>
                             <div className="invitado-bio">
-                                <h3>Por confirmar</h3>
-                                <p className="rol">Loan officer</p>
+                                {/*
+                                  * ⚠️ El NMLS no es decoración: es el identificador con el
+                                  * que cualquiera puede verificarlo en NMLS Consumer
+                                  * Access. Si aparece el nombre de un originador de
+                                  * crédito en una pieza publicitaria, aparece con su NMLS
+                                  * y con su compañía. Los tres juntos o ninguno.
+                                  *
+                                  * ⚠️ New American Funding es una empresa DISTINTA de
+                                  * HomeSmart. Promover a un prestamista en la página de
+                                  * una correduría es marketing conjunto, y eso cae bajo
+                                  * RESPA §8: es legal cuando cada parte paga su parte a
+                                  * valor de mercado, y es justo lo que se sanciona cuando
+                                  * se hace de palabra. No se publica sin que lo vean el
+                                  * broker designado de Rita y el área de cumplimiento de
+                                  * él.
+                                  *
+                                  * ⚠️ Lo que diga un originador sobre crédito cae bajo
+                                  * reglas distintas a las de un agente. Por eso este
+                                  * bloque describe su PAPEL en el programa y no promete
+                                  * nada sobre calificar. El bloque de "lo que esto no es"
+                                  * ya dice que la aprobación depende del prestamista;
+                                  * esas dos piezas se sostienen juntas.
+                                  */}
+                                <h3>Santos Nolasco</h3>
+                                <p className="rol">
+                                    Loan Consultant · New American Funding
+                                    <span className="nmls">NMLS# 669548</span>
+                                </p>
                                 <p>
-                                    El bloque de los números reales lo acompaña un
-                                    especialista en financiamiento: qué se necesita hoy para
+                                    El bloque de los números reales lo acompaña Santos, que
+                                    trabaja en financiamiento: qué se necesita hoy para
                                     calificar, qué programas existen y qué es mito. Cada caso
                                     es distinto: aquí se explica el panorama, no se aprueba
                                     a nadie.
@@ -530,6 +571,19 @@ export function TallerLanding() {
                                 Español
                                 <small>El {EVENTO.tipo} completo</small>
                             </div>
+                        </div>
+                        {/* ⚠️ Suite 105 en el centro de Phoenix un sábado: si el
+                            estacionamiento no se dice, la gente llega tarde o no llega.
+                            El grid es auto-fit, así que una quinta celda se acomoda sola
+                            — pero si se agrega una sexta, hay que volver a medir. */}
+                        <div className="det">
+                            <div className="k">Estacionamiento</div>
+                            {/* ⚠️ Dice "Disponible" y nada más porque eso es lo único
+                                confirmado. Si es gratis, o es en el edificio, o hay que
+                                validar el ticket, son datos distintos y cada uno cambia
+                                cómo llega la gente. Inventar el detalle es peor que
+                                omitirlo: alguien llega contando con algo que no es. */}
+                            <div className="v">Disponible</div>
                         </div>
                     </div>
                     <p className="maplink">

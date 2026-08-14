@@ -551,6 +551,14 @@
 .registro-root .invitado-bio h3{font-size:clamp(1.35rem,2.2vw,1.75rem)}
 .registro-root .invitado-bio .rol{font-size:.72rem;font-weight:800;letter-spacing:.16em;
   text-transform:uppercase;color:var(--gold-600);margin:.5rem 0 .9rem}
+/* El NMLS va debajo del cargo, sin versalitas: es un dato de verificación, no
+   una credencial que presumir.
+   ⚠️ Va en --ink-soft y NO en --ink-faint. Con faint medía 3.61:1, por debajo
+   de AA, y este es justo el texto que alguien tiene que poder leer del
+   teléfono para buscarlo en NMLS Consumer Access. Con soft da 6.66:1.
+   Un número de licencia ilegible es lo mismo que no ponerlo. */
+.registro-root .invitado-bio .nmls{display:block;letter-spacing:.06em;font-weight:600;
+  text-transform:none;color:var(--ink-soft);margin-top:.3rem;font-size:.76rem}
 .registro-root .invitado-bio p{color:var(--ink-soft);margin:0;font-size:.99rem;line-height:1.65;
   max-width:58ch}
 @media(max-width:620px){
