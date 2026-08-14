@@ -331,7 +331,7 @@ export function TallerLanding() {
                     <div className="rita-grid">
                         <figure className="rita-photo" style={{ margin: 0 }}>
                             <Image
-                                src="/rita-taller-retrato.jpg"
+                                src="/rita-retrato.jpg"
                                 alt="Rita Galaviz, de Galaviz Group"
                                 width={760}
                                 height={950}

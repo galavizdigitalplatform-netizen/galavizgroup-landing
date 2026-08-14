@@ -86,9 +86,16 @@ export default function ApartarPage() {
                             </div>
                         </div>
 
+                        {/*
+                          * ⚠️ Asset propio, NO el mismo archivo de la tarjeta
+                          * grande de la landing. Aquí el recorte es cuadrado y
+                          * cerrado al rostro; el de la landing es 4:5 y llega
+                          * hasta las manos. Un solo archivo para los dos deja
+                          * la cara diminuta aquí o la tarjeta cortada allá.
+                          */}
                         <div className="aside-photo">
                             <Image
-                                src="/rita-taller-retrato.jpg"
+                                src="/rita-avatar.jpg"
                                 alt="Rita Galaviz"
                                 width={148}
                                 height={148}

@@ -1,22 +1,22 @@
 "use client";
 
 /**
- * /registro/apartar — el formulario del taller.
+ * /registro/apartar — el formulario del evento.
  *
  * ⚠️ Esto NO es el formulario de leads. Quien lo llena está apartando lugar en
  * un evento gratuito, no pidiendo asesoría. Por eso:
  *   - No manda `lead_type`. No aplica.
  *   - No manda el bloque `lpmama`. Preguntar enganche y preaprobación para
- *     entrar a un taller gratis es exactamente el formulario de lead que este
+ *     entrar a un evento gratis es exactamente el formulario de lead que este
  *     cambio quita. (Esto NO toca la llave `preapproved_or_cash` donde vive.)
  *   - Postea a /api/evento, que debe llegar a un endpoint de registro de
  *     eventos en Rita OS — contacto sí, oportunidad no.
  *
  * ⚠️ El bloque TCPA SÍ/NO es el opt-in declarado en la campaña A2P 10DLC
  * CM16c56ebcf8ca44f44b7695ba9f6bf98d, y es lo que habilita el recordatorio del
- * taller por mensaje. Jamás colapsarlo a un checkbox genérico.
+ * evento por mensaje. Jamás colapsarlo a un checkbox genérico.
  *
- * ⚠️ Los errores NO usan el rojo de marca. El botón de avanzar es burgundy; si
+ * ⚠️ Los errores NO usan el rojo de marca. El botón de avanzar es rojo; si
  * los errores también lo fueran, el mismo formulario tendría el color de
  * *avanzar* y el de *algo salió mal* casi idénticos y a centímetros. Usan
  * `--alert` más un ícono, para no depender solo del color.
@@ -24,7 +24,12 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { EVENTO } from "./taller-ui";
 
+/**
+ * ⚠️ NO se renombra aunque el copy ya no diga "taller". Es identificador, no
+ * texto: es la llave con la que se correlacionan los registros ya enviados.
+ */
 const EVENT_SLUG = "taller-2026-09-12";
 
 type Interes = "buy" | "invest" | "info" | "";
@@ -270,10 +275,25 @@ export function TallerForm() {
                             />
                             <label className="opt" htmlFor="s-yes">
                                 <b>Sí, acepto recibir mensajes</b>
+                                {/*
+                                  * ⚠️ Este texto ES el consentimiento: describe qué
+                                  * mensajes acepta recibir la persona, y es lo que se
+                                  * guarda como evidencia junto con `sms_consent_ip`.
+                                  * No es copy de marketing.
+                                  *
+                                  * ⚠️ Tiene que seguir describiendo el mismo programa
+                                  * que quedó registrado en la campaña A2P 10DLC de
+                                  * Twilio. Si la campaña cita el texto del sitio, hay
+                                  * que actualizarla allá también — consentimiento y
+                                  * campaña que no coinciden es justo lo que se revisa
+                                  * en una auditoría.
+                                  *
+                                  * "Responde STOP" no se toca: es requisito.
+                                  */}
                                 <span>
-                                    Confirmación y recordatorios del taller de Galaviz Group.
-                                    Pueden aplicar tarifas de tu compañía. Responde STOP para
-                                    darte de baja en cualquier momento.
+                                    Confirmación y recordatorios del {EVENTO.tipo} de
+                                    Galaviz Group. Pueden aplicar tarifas de tu compañía.
+                                    Responde STOP para darte de baja en cualquier momento.
                                 </span>
                             </label>
                             <input
@@ -301,9 +321,14 @@ export function TallerForm() {
                                 set("marketing_email_consent", e.target.checked)
                             }
                         />
+                        {/*
+                          * "eventos" y no "{EVENTO.tipo}": esta casilla habla de lo
+                          * que venga después, y lo que venga puede no ser un
+                          * encuentro. El genérico es el correcto aquí.
+                          */}
                         <span>
                             También quiero recibir por correo información sobre próximos
-                            talleres y oportunidades de bienes raíces.
+                            eventos y oportunidades de bienes raíces.
                         </span>
                     </label>
                 </div>

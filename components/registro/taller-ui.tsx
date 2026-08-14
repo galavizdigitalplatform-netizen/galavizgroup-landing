@@ -137,19 +137,28 @@ export function PieTaller() {
                             sirviendo al área metropolitana de Phoenix.
                         </p>
                         {/*
-                          * ⚠️ Vivienda justa. Xavi lo quitó en su momento y pidió
-                          * regresarlo ahora que la página se dirige de forma
-                          * explícita a la comunidad latina — el origen nacional es
-                          * clase protegida. La frase en inglés es la que tiene
-                          * reconocimiento legal en EE. UU.; el español acompaña.
+                          * ⚠️ Esto es el ESLOGAN de vivienda justa, textual y en
+                          * inglés. Así se queda.
+                          *
+                          * HUD definió tres piezas intercambiables: el logotipo
+                          * (la casita), la declaración larga ("We are pledged to
+                          * the letter and spirit of U.S. policy…") y el eslogan.
+                          * Para un espacio chico como este pie, el eslogan es
+                          * exactamente la pieza que corresponde.
+                          *
+                          * ⚠️ NO traducirlo y NO acompañarlo de una frase
+                          * inventada. Aquí estuvo "Vivienda justa para todos":
+                          * suena bien y no existe — no es de HUD ni de nadie. Lo
+                          * que tiene reconocimiento es la frase en inglés, literal;
+                          * una traducción libre al lado la debilita en vez de
+                          * aclararla.
+                          *
+                          * Si algún día se quiere el logotipo (la casita), va el
+                          * archivo oficial de HUD — nunca un carácter ⌂ ni un
+                          * dibujo parecido. Media casita hecha a mano se lee como
+                          * marca mal copiada, que es peor que no ponerla.
                           */}
-                        <p className="ft-vivienda">
-                            <span className="ehO" aria-hidden="true">⌂</span>
-                            <span>
-                                <b>Equal Housing Opportunity</b>
-                                Vivienda justa para todos
-                            </span>
-                        </p>
+                        <p className="ft-vivienda">Equal Housing Opportunity</p>
                     </div>
                     <div>
                         <h4>El {EVENTO.tipo}</h4>

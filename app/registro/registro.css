@@ -529,13 +529,11 @@
   .registro-root .cuenta .u b{font-size:1.3rem}
 }
 
-/* Vivienda justa en el pie */
-.registro-root .ft-vivienda{display:flex;gap:.7rem;align-items:flex-start;margin-top:1.1rem;
-  font-size:.78rem;color:rgba(211,209,203,.62);line-height:1.5}
-.registro-root .ft-vivienda .ehO{font-size:1.15rem;line-height:1;color:rgba(213,185,145,.85);
-  flex:none;margin-top:-1px}
-.registro-root .ft-vivienda b{display:block;color:rgba(211,209,203,.85);
-  letter-spacing:.02em;font-weight:700}
+/* Eslogan de vivienda justa en el pie. Es una frase legal, no una firma de
+   marca: va discreta pero legible — 4.9:1 sobre el índigo del pie. Bajarle más
+   la opacidad la vuelve decorativa, que es justo lo que no debe ser. */
+.registro-root .ft-vivienda{margin-top:1.2rem;font-size:.78rem;line-height:1.5;
+  letter-spacing:.04em;color:rgba(226,224,219,.78)}
 
 /* ═══ Invitado especial ═══ */
 .registro-root .invitado{margin-top:clamp(2.5rem,5vw,4rem);padding-top:clamp(2rem,4vw,3rem);
