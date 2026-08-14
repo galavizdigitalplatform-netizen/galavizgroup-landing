@@ -24,13 +24,40 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { EVENTO } from "./taller-ui";
 
 /**
  * ⚠️ NO se renombra aunque el copy ya no diga "taller". Es identificador, no
  * texto: es la llave con la que se correlacionan los registros ya enviados.
  */
 const EVENT_SLUG = "taller-2026-09-12";
+
+/**
+ * ⚠️ ESTO NO ES COPY. Es el texto del consentimiento TCPA: describe qué acepta
+ * recibir la persona, y es lo que queda como evidencia junto con
+ * `sms_consent_ip`. Tiene que coincidir con el programa registrado en la
+ * campaña A2P 10DLC CM16c56ebcf8ca44f44b7695ba9f6bf98d de Twilio.
+ *
+ * ⚠️ POR ESO ESTÁ AQUÍ SUELTO Y NO INTERPOLA `EVENTO.tipo`.
+ *
+ * Durante un rato sí lo interpolaba, y eso convertía "cambiar el sustantivo del
+ * evento es una línea" en una trampa: esa línea también reescribía el
+ * consentimiento, sin avisar y sin dar error. Un cambio de copy no puede mover
+ * un registro legal de rebote.
+ *
+ * Tampoco nombra el evento a propósito. Lo que Twilio registra es un PROGRAMA
+ * de mensajes, no un evento: redactado así sobrevive al siguiente sin volver a
+ * tocarse. Si alguien le vuelve a meter el nombre del evento, cada evento nuevo
+ * obliga a revisar la campaña.
+ *
+ * ⚠️ "Responde STOP" no se toca: es requisito, no cortesía.
+ *
+ * Si Twilio tiene registrado otro texto, MANDA TWILIO — se cambia aquí para
+ * igualarlo, no al revés.
+ */
+const TEXTO_CONSENTIMIENTO_SMS =
+    "Confirmación y recordatorios de tu registro con Galaviz Group. " +
+    "Pueden aplicar tarifas de tu compañía. Responde STOP para darte de baja " +
+    "en cualquier momento.";
 
 type Interes = "buy" | "invest" | "info" | "";
 type Sms = "yes" | "no" | "";
@@ -275,26 +302,7 @@ export function TallerForm() {
                             />
                             <label className="opt" htmlFor="s-yes">
                                 <b>Sí, acepto recibir mensajes</b>
-                                {/*
-                                  * ⚠️ Este texto ES el consentimiento: describe qué
-                                  * mensajes acepta recibir la persona, y es lo que se
-                                  * guarda como evidencia junto con `sms_consent_ip`.
-                                  * No es copy de marketing.
-                                  *
-                                  * ⚠️ Tiene que seguir describiendo el mismo programa
-                                  * que quedó registrado en la campaña A2P 10DLC de
-                                  * Twilio. Si la campaña cita el texto del sitio, hay
-                                  * que actualizarla allá también — consentimiento y
-                                  * campaña que no coinciden es justo lo que se revisa
-                                  * en una auditoría.
-                                  *
-                                  * "Responde STOP" no se toca: es requisito.
-                                  */}
-                                <span>
-                                    Confirmación y recordatorios del {EVENTO.tipo} de
-                                    Galaviz Group. Pueden aplicar tarifas de tu compañía.
-                                    Responde STOP para darte de baja en cualquier momento.
-                                </span>
+                                <span>{TEXTO_CONSENTIMIENTO_SMS}</span>
                             </label>
                             <input
                                 type="radio"
@@ -322,9 +330,11 @@ export function TallerForm() {
                             }
                         />
                         {/*
-                          * "eventos" y no "{EVENTO.tipo}": esta casilla habla de lo
-                          * que venga después, y lo que venga puede no ser un
-                          * encuentro. El genérico es el correcto aquí.
+                          * "eventos" en genérico, y NO el sustantivo del evento:
+                          * esta casilla habla de lo que venga después, y lo que
+                          * venga puede no ser un encuentro. Igual que el bloque
+                          * de SMS, no depende de `EVENTO.tipo` — es una
+                          * suscripción de marketing, no una frase de campaña.
                           */}
                         <span>
                             También quiero recibir por correo información sobre próximos

@@ -15,7 +15,16 @@ export const EVENTO = {
      * ⚠️ El sustantivo del evento vive aquí y en ningún otro lado. Se usa con
      * artículo alrededor ("al {tipo}", "antes del {tipo}"), así que cambiarlo
      * por "taller", "sesión" o lo que sea es UNA línea.
-     * `event_slug` NO cambia: es identificador, no copy.
+     *
+     * ⚠️ Y esa línea mueve SOLO copy visible. No toca:
+     *   - `event_slug` — identificador, no texto.
+     *   - el consentimiento de SMS ni la casilla de correo del formulario.
+     *     Estuvieron interpolando esto un rato y fue un error: un cambio de
+     *     copy no puede reescribir de rebote el texto que se guarda como
+     *     evidencia TCPA. Hoy viven sueltos en `taller-form.tsx`.
+     *
+     * Si alguien vuelve a meter `EVENTO.tipo` en el bloque de consentimiento,
+     * el próximo evento cambia el registro legal sin avisar y sin dar error.
      */
     tipo: "encuentro",
     fecha: "Sábado 12 de septiembre de 2026",
