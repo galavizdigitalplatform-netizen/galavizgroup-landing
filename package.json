@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "verify": "node scripts/verificar-invariantes.mjs"
+    "verify": "node scripts/verificar-invariantes.mjs",
+    "smoke:evento": "node scripts/smoke-evento.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.16.0",

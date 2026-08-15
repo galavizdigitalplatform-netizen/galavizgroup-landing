@@ -124,11 +124,32 @@ export async function POST(req: NextRequest) {
               ...(nota ? { note: nota } : {}),
           }
         : {
-              // ── PUENTE ── ver la nota de arriba. Va marcado por fuente para
-              // que rita-os pueda excluirlo del SLA mientras exista.
+              /*
+               * ── PUENTE ── ver la nota de arriba.
+               *
+               * ⚠️ `lead_source` es un ENUM en rita-os. Aquí decía
+               * `evento-${eventSlug}` y el esquema lo rechazaba con
+               * `{"lead_source":["Invalid input"]}` — o sea que TODOS los
+               * registros se caían con 400 y no se guardaba ninguno. Estuvo
+               * así hasta la primera prueba real.
+               *
+               * Valores que el esquema acepta hoy (medidos contra el endpoint,
+               * no supuestos): website · referral · open_house · zillow ·
+               * sign_call · paid_ads · social_media · sphere · other.
+               *
+               * Se usa `other` y no `open_house`: esto no es un open house, y
+               * un valor semánticamente falso ensucia los reportes de origen.
+               *
+               * ⚠️ Consecuencia: la marca del evento ya NO viaja en
+               * `lead_source`. Vive en `message`, en el prefijo `[Event: …]`.
+               * Si rita-os va a excluir estos registros del SLA mientras el
+               * puente exista, tiene que buscar ese prefijo, no la fuente.
+               * Es una razón más para que el endpoint de eventos reemplace
+               * esto pronto.
+               */
               ...comun,
               lead_type: "buyer" as const,
-              lead_source: `evento-${eventSlug}`,
+              lead_source: "other" as const,
               message: [
                   `[Event: ${eventSlug}]`,
                   `[Interest: ${ETIQUETA[interes]}]`,
@@ -174,17 +195,29 @@ export async function POST(req: NextRequest) {
     const cuerpo = await res.json().catch(() => ({}));
 
     if (!res.ok) {
+        /*
+         * ⚠️ El error de arriba se REGISTRA, no se muestra.
+         *
+         * Antes se reenviaba tal cual al navegador y la persona vio
+         * "Invalid form data": en inglés, en una página en español, y
+         * describiendo un desacuerdo de esquema entre dos servidores que ella
+         * no puede arreglar.
+         *
+         * Un rechazo de validación aquí es culpa NUESTRA por definición: el
+         * formulario ya revisó lo que la persona escribió antes de llegar
+         * hasta acá. Así que ella recibe una salida y el detalle se va al log.
+         */
         console.error(
             "[api/evento] Rita OS rechazó el registro:",
             res.status,
-            cuerpo,
+            JSON.stringify(cuerpo),
             usandoEndpointDeEventos ? "(endpoint de eventos)" : "(puente)",
         );
         return NextResponse.json(
             {
                 error:
-                    (cuerpo as { error?: string }).error ||
-                    "No pudimos apartar tu lugar. Inténtalo otra vez.",
+                    "No pudimos apartar tu lugar en este momento. Vuelve a " +
+                    "intentarlo en un minuto, o escríbenos y lo apartamos nosotros.",
             },
             { status: res.status >= 500 ? 502 : res.status },
         );
