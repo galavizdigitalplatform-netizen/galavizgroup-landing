@@ -1,11 +1,29 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Source_Serif_4, Inter } from "next/font/google";
 import "./globals.css";
 
-const playfair = Playfair_Display({
-    variable: "--font-playfair",
+/**
+ * Titulares de TODO el sitio en **Source Serif 4** — serif transicional de
+ * contraste bajo. Sustituye a Playfair Display en la home (por ser Didone
+ * afilaba los trazos finos del hero y sonaba a editorial de moda) y a
+ * Newsreader en /registro, que ahora consume esta misma variable.
+ *
+ * ⚠️ `axes: ["opsz"]` no es opcional, y por eso tampoco se declara `weight`:
+ * Source Serif 4 tiene eje óptico (8..60). Al fijar pesos estáticos, next/font
+ * sirve el corte para texto chico —más ancho y de menos contraste— y el hero
+ * pierde el afinado. La variable cubre del 400 al 700, que es todo lo que
+ * consumen `font-display` (400/600) y /registro (400 y el <b> del figcaption).
+ *
+ * ⚠️ La itálica es OBLIGATORIA aquí. /registro se apoya en `<em>` para la
+ * palabra de acento del titular y tiene siete reglas con `font-style:italic`,
+ * una de ellas a 7.5rem. Sin `style: ["normal","italic"]` el navegador
+ * sintetiza la inclinación —no es la itálica dibujada, y a ese tamaño canta—.
+ */
+const sourceSerif = Source_Serif_4({
+    variable: "--font-source-serif",
     subsets: ["latin"],
-    weight: ["400", "600", "700"],
+    style: ["normal", "italic"],
+    axes: ["opsz"],
     display: "swap",
 });
 
@@ -84,7 +102,7 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`${playfair.variable} ${inter.variable} h-full antialiased`}
+            className={`${sourceSerif.variable} ${inter.variable} h-full antialiased`}
         >
             <body className="min-h-full flex flex-col bg-background text-foreground">
                 {children}

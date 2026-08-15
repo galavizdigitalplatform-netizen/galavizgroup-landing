@@ -50,6 +50,17 @@ const css = leer("app/registro/registro.css");
 const layout = leer("app/registro/layout.tsx");
 const pagina = leer("app/registro/page.tsx");
 const apartar = leer("app/registro/apartar/page.tsx");
+const layoutRaiz = leer("app/layout.tsx");
+const cssRaiz = leer("app/globals.css");
+const logoHorizNeg = leer("public/brand/logo-horizontal-negative.svg");
+const logoHorizPri = leer("public/brand/logo-horizontal-primary.svg");
+
+// El header usa el lockup horizontal; el pie sigue con el vertical. Se acota
+// al bloque de LogoLockup para que el <Image> del pie no dé un falso positivo.
+const bloqueLockup = ui.slice(
+    ui.indexOf("export function LogoLockup"),
+    ui.indexOf("export function PieTaller"),
+);
 
 const formLimpio = sinComentarios(form);
 const uiLimpio = sinComentarios(ui);
@@ -419,11 +430,64 @@ ok(
 
 console.log("\n═══ TIPOGRAFÍA E IMÁGENES ═══");
 
+// Solo el objeto de configuración de Source_Serif_4: `[^}]*` corta en la
+// primera llave de cierre. Con `[\s\S]*?` el match se colaba hasta la llamada
+// a Inter —que sí declara `weight`— y el invariante se caía siempre.
+const bloqueSourceSerif = layoutRaiz.match(/Source_Serif_4\(\{([^}]*)\}\)/)?.[1] ?? "";
+
 ok(
-    /Newsreader\(\{[\s\S]*?axes:\s*\["opsz"\]/.test(layout),
-    'Newsreader declara axes: ["opsz"]',
-    "Sin el eje óptico, next/font sirve el corte para texto chico y el titular " +
-        "del hero gana un renglón. Ya pasó con Fraunces y costó una tarde.",
+    !/next\/font/.test(layout) && /var\(--font-source-serif\)/.test(css),
+    "/registro hereda la serif del layout raíz y no carga fuente propia",
+    "Los títulos de la ruta iban en Newsreader, cargada aquí. Ahora todo el " +
+        "sitio comparte Source Serif 4 desde app/layout.tsx: si /registro " +
+        "volviera a cargar una familia por su cuenta serían dos descargas y " +
+        "dos caras distintas de titular.",
+);
+
+ok(
+    /style:\s*\["normal",\s*"italic"\]/.test(bloqueSourceSerif),
+    "Source Serif 4 carga la itálica de verdad",
+    "/registro apoya el titular en `<em>` y tiene siete reglas con " +
+        "font-style:italic, una a 7.5rem. Sin la itálica cargada el navegador " +
+        "la sintetiza inclinando la redonda, y a ese tamaño se nota.",
+);
+
+ok(
+    /axes:\s*\["opsz"\]/.test(bloqueSourceSerif) && !/weight:/.test(bloqueSourceSerif),
+    'Source Serif 4 declara axes: ["opsz"] y no fija weight',
+    "Mismo eje óptico que Newsreader (8..60): al declarar `weight` next/font " +
+        "sirve instancias estáticas con el corte de texto chico y el hero de la " +
+        "home pierde el afinado. La variable ya cubre el 400 y el 600 que usa.",
+);
+
+ok(
+    /--font-display:\s*var\(--font-source-serif\)/.test(cssRaiz) &&
+        !/--font-playfair/.test(cssRaiz),
+    "los títulos de la home apuntan a Source Serif 4, sin restos de Playfair",
+    "`--font-display` es el único puente entre next/font y las clases " +
+        "`font-display`. Si queda apuntando a una variable que el layout ya no " +
+        "define, los títulos caen a Georgia sin avisar.",
+);
+
+ok(
+    /logo-horizontal-negative\.svg/.test(bloqueLockup) &&
+        /logo-horizontal-primary\.svg/.test(bloqueLockup) &&
+        !/\/brand\/logo-(negative|primary)\.svg/.test(bloqueLockup),
+    "el header usa el lockup horizontal, no el vertical",
+    "El vertical (3:1) reparte su altura entre tejado y palabra: a los 44px " +
+        "del header móvil la palabra caía a 7.4px. El horizontal (12.3:1) la " +
+        "deja en ~13px con el ancho que hay. El pie sí sigue con el vertical.",
+);
+
+ok(
+    ![logoHorizNeg, logoHorizPri].some((svg) => /<rect[^>]*\bwidth="\d{3,}"/.test(svg)) &&
+        [logoHorizNeg, logoHorizPri].every((svg) => /#A98243/.test(svg)),
+    "los SVG horizontales no llevan placa de fondo y conservan el oro",
+    "El entregable original venía con un <rect> índigo a sangre de 1600x280. " +
+        "Sobre el hero fotográfico de la home eso es un rectángulo opaco pegado " +
+        "encima, y sobre el índigo de /registro arrastra aire muerto. Si alguien " +
+        "reexporta desde el archivo de marca, la placa vuelve sin dar error. " +
+        "La ventana en oro #A98243 es fija en las dos variantes.",
 );
 
 ok(

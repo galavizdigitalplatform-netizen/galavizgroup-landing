@@ -87,23 +87,35 @@ export function BarraAnuncio() {
 export function LogoLockup({ soloClaro = false }: { soloClaro?: boolean }) {
     return (
         <div className="logo-lockup">
+            {/*
+              * ⚠️ Aquí va el lockup HORIZONTAL compacto (982×80, ratio 12.3:1),
+              * no el vertical de /brand/logo-{primary,negative}.svg (3:1), que
+              * sigue en el pie. En el vertical el tejado se come casi toda la
+              * altura: a los 44px del header móvil la palabra quedaba en 7.4px.
+              * El horizontal, al ancho que cabe, la deja en ~13px.
+              *
+              * ⚠️ Las alturas de registro.css están calculadas contra el ancho
+              * útil del header (335px a 375px de viewport, menos HomeSmart y
+              * separadores). Con ratio 12.3 cada píxel de alto cuesta 12 de
+              * ancho: subirlas sin volver a medir desborda la fila.
+              */}
             <Link className="logo-link" href="/registro" aria-label="Galaviz Group">
                 <Image
                     className="logo-on-dark"
-                    src="/brand/logo-negative.svg"
+                    src="/brand/logo-horizontal-negative.svg"
                     alt="Galaviz Group"
-                    width={260}
-                    height={62}
+                    width={982}
+                    height={80}
                     priority
                 />
                 {!soloClaro && (
                     <Image
                         className="logo-on-light"
-                        src="/brand/logo-primary.svg"
+                        src="/brand/logo-horizontal-primary.svg"
                         alt=""
                         aria-hidden="true"
-                        width={260}
-                        height={62}
+                        width={982}
+                        height={80}
                     />
                 )}
             </Link>

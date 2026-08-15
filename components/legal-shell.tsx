@@ -8,7 +8,7 @@ import { Footer } from "./footer";
  * Differences vs the home page:
  * - Nav appears on a solid dark band (no transparent overlay over hero)
  * - Content is a prose column max-w-3xl with editorial line-height
- * - Headers stay in Playfair, body in Inter
+ * - Headers stay in Source Serif 4, body in Inter
  */
 export function LegalShell({
     title,
