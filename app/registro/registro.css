@@ -93,8 +93,11 @@
 .registro-root .header-row{display:flex;align-items:center;justify-content:space-between;gap:1.25rem;height:92px}
 .registro-root .logo-lockup{display:flex;align-items:center;gap:1.1rem;flex:none;min-width:0}
 .registro-root .logo-link{display:block;flex:none}
-.registro-root .logo-link img{height:62px;width:auto}
-.registro-root .logo-div{width:1px;height:40px;background:rgba(255,255,255,.3);flex:none}
+/* ⚠️ El lockup es horizontal (ratio 12.3:1): cada píxel de alto son 12 de
+   ancho. 26px = 319px de ancho. Estas alturas están medidas contra el ancho
+   útil de la fila, no elegidas a ojo — ver el comentario en taller-ui.tsx. */
+.registro-root .logo-link img{height:26px;width:auto}
+.registro-root .logo-div{width:1px;height:28px;background:rgba(255,255,255,.3);flex:none}
 .registro-root .header.solid .logo-div{background:var(--line)}
 .registro-root .hs-logo{height:21px;width:auto;flex:none}
 .registro-root .logo-on-light{display:none}
@@ -408,9 +411,9 @@
 .registro-root .footer-grid{grid-template-columns:1fr;gap:2rem}}
 @media(max-width:860px){.registro-root .footer{padding-bottom:calc(6.5rem + env(safe-area-inset-bottom,0px))}}
 @media(max-width:620px){.registro-root .header-row{height:78px}
-.registro-root .logo-link img{height:44px}
+.registro-root .logo-link img{height:16px}
 .registro-root .hs-logo{height:15px}
-.registro-root .logo-div{height:26px}
+.registro-root .logo-div{height:20px}
 .registro-root .logo-lockup{gap:.65rem}
 .registro-root .form-row{grid-template-columns:1fr}
 .registro-root .mom{grid-template-columns:1fr;gap:.9rem;padding:1.6rem 1.5rem}
@@ -418,9 +421,9 @@
 .registro-root .announce .wrap{font-size:.81rem;padding-block:.7rem}
 .registro-root .solo-ancho{display:none}
 .registro-root .btn{padding:1.1em 1.7em}}
-@media(max-width:374px){.registro-root .logo-link img{height:38px}
+@media(max-width:374px){.registro-root .logo-link img{height:14px}
 .registro-root .hs-logo{height:13px}
-.registro-root .logo-div{height:22px}
+.registro-root .logo-div{height:18px}
 .registro-root .logo-lockup{gap:.5rem}
 .registro-root{--gut:1rem}
 .registro-root .announce .wrap{font-size:.73rem;gap:.4rem .7rem}}

@@ -52,6 +52,15 @@ const pagina = leer("app/registro/page.tsx");
 const apartar = leer("app/registro/apartar/page.tsx");
 const layoutRaiz = leer("app/layout.tsx");
 const cssRaiz = leer("app/globals.css");
+const logoHorizNeg = leer("public/brand/logo-horizontal-negative.svg");
+const logoHorizPri = leer("public/brand/logo-horizontal-primary.svg");
+
+// El header usa el lockup horizontal; el pie sigue con el vertical. Se acota
+// al bloque de LogoLockup para que el <Image> del pie no dé un falso positivo.
+const bloqueLockup = ui.slice(
+    ui.indexOf("export function LogoLockup"),
+    ui.indexOf("export function PieTaller"),
+);
 
 const formLimpio = sinComentarios(form);
 const uiLimpio = sinComentarios(ui);
@@ -438,6 +447,27 @@ ok(
     "`--font-display` es el único puente entre next/font y las clases " +
         "`font-display`. Si queda apuntando a una variable que el layout ya no " +
         "define, los títulos caen a Georgia sin avisar.",
+);
+
+ok(
+    /logo-horizontal-negative\.svg/.test(bloqueLockup) &&
+        /logo-horizontal-primary\.svg/.test(bloqueLockup) &&
+        !/\/brand\/logo-(negative|primary)\.svg/.test(bloqueLockup),
+    "el header usa el lockup horizontal, no el vertical",
+    "El vertical (3:1) reparte su altura entre tejado y palabra: a los 44px " +
+        "del header móvil la palabra caía a 7.4px. El horizontal (12.3:1) la " +
+        "deja en ~13px con el ancho que hay. El pie sí sigue con el vertical.",
+);
+
+ok(
+    ![logoHorizNeg, logoHorizPri].some((svg) => /<rect[^>]*\bwidth="\d{3,}"/.test(svg)) &&
+        [logoHorizNeg, logoHorizPri].every((svg) => /#A98243/.test(svg)),
+    "los SVG horizontales no llevan placa de fondo y conservan el oro",
+    "El entregable original venía con un <rect> índigo a sangre de 1600x280. " +
+        "Sobre el hero fotográfico de la home eso es un rectángulo opaco pegado " +
+        "encima, y sobre el índigo de /registro arrastra aire muerto. Si alguien " +
+        "reexporta desde el archivo de marca, la placa vuelve sin dar error. " +
+        "La ventana en oro #A98243 es fija en las dos variantes.",
 );
 
 ok(
