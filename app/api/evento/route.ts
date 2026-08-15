@@ -159,8 +159,32 @@ export async function POST(req: NextRequest) {
                   .join("\n"),
           };
 
-    // La IP real del visitante viaja para que Rita OS la guarde como evidencia
-    // TCPA en contacts.sms_consent_ip. Sin esto quedaría la IP de Vercel.
+    /*
+     * La IP real del visitante viaja para que Rita OS la guarde como evidencia
+     * TCPA en `contacts.sms_consent_ip`.
+     *
+     * ⚠️ VA EN `x-visitor-ip`, NO en `x-forwarded-for`, y esto no es preferencia.
+     *
+     * Rita OS también corre en Vercel, y la documentación de Vercel es textual:
+     * «we currently overwrite the X-Forwarded-For header and do not forward
+     * external IPs. This restriction is in place to prevent IP spoofing».
+     * O sea: el `x-forwarded-for` que mandábamos se descartaba en la entrada y
+     * rita-os guardaba la IP de nuestra propia función.
+     *
+     * Consecuencias que esto tuvo mientras estuvo mal, y las dos son serias:
+     *   1. `sms_consent_ip` guardó una IP de Vercel en todo lo que entró desde
+     *      el 15 de agosto. Como evidencia TCPA, no sirve.
+     *   2. El limitador público de rita-os cuenta por IP. Con todas las altas
+     *      compartiendo una sola, el sexto registro de cada hora recibía 429 y
+     *      se perdía. Con publicidad prendida, pérdida garantizada.
+     *
+     * `x-forwarded-for` se sigue mandando porque no estorba y sirve de respaldo
+     * si algún día esto deja de correr detrás de Vercel. La fuente de verdad
+     * para rita-os es `x-visitor-ip`.
+     *
+     * ⚠️ Un nombre de cabecera propio significa que rita-os TIENE que leerlo.
+     * Si no lo lee, el dato se vuelve a perder en silencio.
+     */
     const ip =
         req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
         req.headers.get("x-real-ip") ||
@@ -174,7 +198,9 @@ export async function POST(req: NextRequest) {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    ...(ip ? { "x-forwarded-for": ip } : {}),
+                    ...(ip
+                        ? { "x-visitor-ip": ip, "x-forwarded-for": ip }
+                        : {}),
                     "User-Agent": "galavizgroup-landing/1.0 (taller)",
                 },
                 body: JSON.stringify(upstream),

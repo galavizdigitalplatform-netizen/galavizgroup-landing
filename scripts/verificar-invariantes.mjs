@@ -254,6 +254,26 @@ ok(
         "del mensaje es lo ÚNICO que identifica estos registros como del " +
         "evento. Sin él no hay forma de separarlos ni de excluirlos del SLA.",
 );
+/* ⚠️ Vercel sobrescribe `x-forwarded-for` en la ENTRADA para evitar
+   suplantación —está en su documentación, textual— así que rita-os, que
+   también corre en Vercel, recibía la IP de nuestra función y no la del
+   visitante. Con eso: `sms_consent_ip` guardó basura como evidencia TCPA, y el
+   limitador por IP de rita-os veía todas las altas como una sola IP, tirando
+   con 429 el sexto registro de cada hora. La IP real viaja en `x-visitor-ip`,
+   que Vercel no toca. */
+for (const [nombre, src] of [
+    ["evento/route.ts", eventoLimpio],
+    ["contact/route.ts", sinComentarios(leer("app/api/contact/route.ts"))],
+]) {
+    ok(
+        /"x-visitor-ip":/.test(src),
+        `${nombre} manda la IP del visitante en x-visitor-ip`,
+        "En `x-forwarded-for` sola, Vercel la descarta al entrar a rita-os: se " +
+            "pierde la evidencia TCPA y el limitador cuenta todas las altas " +
+            "como una sola IP.",
+    );
+}
+
 ok(
     !/error:\s*\n?\s*\(cuerpo as/.test(eventoLimpio),
     "el error de rita-os no se le muestra a la persona",

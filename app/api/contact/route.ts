@@ -163,9 +163,24 @@ export async function POST(req: NextRequest) {
         ...(lpmama ? { lpmama } : {}),
     };
 
-    // Forward the real client IP so Rita OS records it as TCPA evidence
-    // on contacts.sms_consent_ip. Next.js gives us the proxy-forwarded
-    // headers via the standard request headers map.
+    /*
+     * Forward the real client IP so Rita OS records it as TCPA evidence on
+     * contacts.sms_consent_ip.
+     *
+     * ⚠️ It goes in `x-visitor-ip`, NOT `x-forwarded-for`. Rita OS also runs on
+     * Vercel, and Vercel's docs are explicit: "we currently overwrite the
+     * X-Forwarded-For header and do not forward external IPs. This restriction
+     * is in place to prevent IP spoofing." The header we were sending got
+     * discarded on the way in, so Rita OS stored OUR function's IP.
+     *
+     * ⚠️ This route is the HOME form, not the event one — which means every
+     * sms_consent_ip captured through it has the same problem, going back to
+     * whenever this proxy shipped. That's a data question for rita-os, not
+     * something this file can fix.
+     *
+     * `x-forwarded-for` is still sent: it costs nothing and is the fallback if
+     * this ever runs somewhere other than behind Vercel.
+     */
     const clientIp =
         req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
         req.headers.get("x-real-ip") ||
@@ -177,7 +192,9 @@ export async function POST(req: NextRequest) {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                ...(clientIp ? { "x-forwarded-for": clientIp } : {}),
+                ...(clientIp
+                    ? { "x-visitor-ip": clientIp, "x-forwarded-for": clientIp }
+                    : {}),
                 "User-Agent": "galavizgroup-landing/1.0",
             },
             body: JSON.stringify(upstream),
