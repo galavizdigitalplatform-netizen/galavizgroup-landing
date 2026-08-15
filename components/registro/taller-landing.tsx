@@ -358,34 +358,76 @@ export function TallerLanding() {
                               * QUIÉN la otorga. "Top Producer" a secas es una afirmación
                               * sin dueño, y es lo primero que revisa un broker designado.
                               *
-                              * ⚠️ Salieron NAHREP y "Top 250". No es que sobraran: el
-                              * "Top 250" ES un premio de NAHREP —los NAHREP Top 250
-                              * Latino Agents Awards—, así que eran el mismo
-                              * reconocimiento dicho dos veces. Con NAHREP fuera por
-                              * decisión de Rita, dejar "Top 250 nacional" sería citar a
-                              * NAHREP sin nombrarlo: una credencial sin fuente.
-                              * Se regresan las dos juntas, o ninguna.
+                              * ⚠️ TRES reconocimientos, DOS otorgantes distintos. Esto
+                              * se documentó mal dos veces seguidas; conviene leerlo antes
+                              * de tocar el párrafo (confirmado por Xavi, 2026-08-15):
+                              *
+                              *   · Top Producer, 7 años consecutivos . HomeSmart Arizona
+                              *   · Top 250, nivel nacional ........... HomeSmart
+                              *   · Top 50 ............................ NAHREP
+                              *
+                              * ⚠️ El "Top 250" NO es de NAHREP. Aquí se afirmó lo
+                              * contrario ("el Top 250 ES un premio de NAHREP, los Top 250
+                              * Latino Agents Awards") y sobre esa premisa se prohibieron
+                              * los dos juntos. Es el ranking nacional de Top Producer de
+                              * HomeSmart. Si vuelve a aparecer atado a NAHREP, es este
+                              * error regresando.
+                              *
+                              * ⚠️ Y tampoco salieron "por decisión de Rita". En
+                              * REVISION-RITA.md NAHREP no figura como algo a quitar sino
+                              * como pregunta abierta ("¿cuál lista y de qué año?"), al
+                              * lado de "¿quién otorga el Top Producer?". La segunda se
+                              * respondió; la de NAHREP nunca se respondió, y la pregunta
+                              * sin responder acabó registrada como una decisión suya.
+                              *
+                              * Lo que sí se sostiene, y por eso el invariante lo exige:
+                              * toda credencial de producción nombra a QUIÉN la otorga.
+                              * Es lo primero que revisa un broker designado.
+                              *
+                              * PENDIENTE (no bloquea): el año de la lista del Top 50 de
+                              * NAHREP y el del Top 250. Con el año la credencial se puede
+                              * verificar; sin él, la fuente ya está nombrada pero el
+                              * lector no sabe de qué edición hablamos.
                               */}
                             <p>
                                 Con <b>20 años de experiencia en bienes raíces y
-                                financiamiento</b>, Rita ha sido Top Producer de HomeSmart
-                                siete años consecutivos.
+                                financiamiento</b>, Rita ha sido <b>Top Producer de
+                                HomeSmart en Arizona siete años consecutivos</b> y figura
+                                entre los <b>Top 250 de HomeSmart a nivel nacional</b>.
+                                Siete años seguidos no son un año bueno: es la correduría
+                                con la que trabaja midiéndola cada año.
+                            </p>
+                            <p>
+                                A eso se suma el <b>Top 50 de NAHREP</b> (National
+                                Association of Hispanic Real Estate Professionals), la
+                                asociación que agrupa a los profesionales hispanos de
+                                bienes raíces en Estados Unidos.
+                            </p>
+                            <p>
+                                Hoy lidera Galaviz Group, su equipo de bienes raíces dentro
+                                de HomeSmart, desde donde acompañan a familias de toda el
+                                área metropolitana de Phoenix a comprar, vender e invertir.
                             </p>
                             <p className="turn">
                                 Pero su mayor credencial es su historia.
                             </p>
                             <p>
                                 De raíces humildes en México, sabe lo que significa empezar
-                                con poco, vencer miedos y construir paso a paso. Hoy acompaña
-                                a otras familias a descubrir que su historia no determina
-                                hasta dónde pueden llegar.
+                                con poco, vencer miedos y construir paso a paso, sin un
+                                manual y sin nadie que le explicara cómo se hace. Hoy
+                                acompaña a otras familias a descubrir que su historia no
+                                determina hasta dónde pueden llegar.
                             </p>
                             {/* ⚠️ Las fichas repiten lo que dice el párrafo. Si una
                                 credencial sale del texto, sale de aquí también, o la
                                 página se contradice consigo misma. */}
                             <div className="creds">
                                 <span className="cred">20 años en bienes raíces</span>
-                                <span className="cred">Top Producer HomeSmart · 7 años</span>
+                                <span className="cred">
+                                    Top Producer HomeSmart Arizona · 7 años
+                                </span>
+                                <span className="cred">Top 250 HomeSmart nacional</span>
+                                <span className="cred">Top 50 NAHREP</span>
                             </div>
                         </div>
                     </div>
