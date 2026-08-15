@@ -358,27 +358,49 @@ export function TallerLanding() {
                               * QUIÉN la otorga. "Top Producer" a secas es una afirmación
                               * sin dueño, y es lo primero que revisa un broker designado.
                               *
-                              * ⚠️ Salieron NAHREP y "Top 250". No es que sobraran: el
-                              * "Top 250" ES un premio de NAHREP —los NAHREP Top 250
-                              * Latino Agents Awards—, así que eran el mismo
-                              * reconocimiento dicho dos veces. Con NAHREP fuera por
-                              * decisión de Rita, dejar "Top 250 nacional" sería citar a
-                              * NAHREP sin nombrarlo: una credencial sin fuente.
-                              * Se regresan las dos juntas, o ninguna.
+                              * ⚠️ NAHREP y "Top 250" están FUERA POR FALTA DE DATO, no
+                              * por decisión de Rita (2026-08-15, Xavi). Aquí se dijo
+                              * durante un tiempo que ella los había descartado; esa
+                              * atribución no se sostiene. En REVISION-RITA.md NAHREP no
+                              * figura como algo a quitar sino como pregunta abierta
+                              * —"¿cuál lista y de qué año?"— junto a "¿quién otorga el
+                              * Top Producer?". La segunda se respondió (HomeSmart); la
+                              * de NAHREP nunca se respondió, y en algún punto la
+                              * pregunta sin responder se registró como una decisión.
+                              *
+                              * Lo que sí se sostiene es el criterio: el "Top 250" ES un
+                              * premio de NAHREP (NAHREP Top 250 Latino Agents Awards),
+                              * así que ponerlo sin nombrar a NAHREP es citar la fuente
+                              * a medias. Van juntos, con su año.
+                              *
+                              * PENDIENTE de publicar, en cuanto lleguen los datos:
+                              * Top Producer nivel nacional (falta quién lo otorga),
+                              * NAHREP Top 250 y NAHREP Top 50 (falta el año de cada
+                              * lista). Sin eso no se publican: una afirmación de
+                              * producción sin fuente es lo primero que revisa un broker
+                              * designado.
                               */}
                             <p>
                                 Con <b>20 años de experiencia en bienes raíces y
-                                financiamiento</b>, Rita ha sido Top Producer de HomeSmart
-                                siete años consecutivos.
+                                financiamiento</b>, Rita ha sido <b>Top Producer de
+                                HomeSmart siete años consecutivos</b>. Siete seguidos, no
+                                un año suelto: quien lo mide es la correduría con la que
+                                trabaja, y lo mide cada año.
+                            </p>
+                            <p>
+                                Hoy lidera Galaviz Group, su equipo de bienes raíces dentro
+                                de HomeSmart, desde donde acompañan a familias de toda el
+                                área metropolitana de Phoenix a comprar, vender e invertir.
                             </p>
                             <p className="turn">
                                 Pero su mayor credencial es su historia.
                             </p>
                             <p>
                                 De raíces humildes en México, sabe lo que significa empezar
-                                con poco, vencer miedos y construir paso a paso. Hoy acompaña
-                                a otras familias a descubrir que su historia no determina
-                                hasta dónde pueden llegar.
+                                con poco, vencer miedos y construir paso a paso, sin un
+                                manual y sin nadie que le explicara cómo se hace. Hoy
+                                acompaña a otras familias a descubrir que su historia no
+                                determina hasta dónde pueden llegar.
                             </p>
                             {/* ⚠️ Las fichas repiten lo que dice el párrafo. Si una
                                 credencial sale del texto, sale de aquí también, o la

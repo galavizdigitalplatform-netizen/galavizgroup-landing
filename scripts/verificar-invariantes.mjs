@@ -179,13 +179,22 @@ ok(
         "párrafo y en las fichas.",
 );
 
+/* ⚠️ Esta guarda cambió de forma el 2026-08-15. Antes prohibía NAHREP a secas
+   «por decisión de Rita»; esa atribución era falsa (la pregunta «¿cuál lista y
+   de qué año?» nunca se respondió y se registró como decisión). Lo que protege
+   de verdad no es el veto sino la FUENTE: si el reconocimiento aparece, tiene
+   que nombrar a NAHREP y traer su año. Así se puede publicar en cuanto lleguen
+   los datos, sin que nadie tenga que levantar una prohibición inventada. */
+const mencionaNahrep = /NAHREP|Top\s*250|Top\s*50\b/i.test(landingLimpio);
 ok(
-    !/NAHREP|Top 250/i.test(landingLimpio),
-    "sin NAHREP ni Top 250",
-    "⚠️ Van juntos: el «Top 250» ES un premio de NAHREP (NAHREP Top 250 Latino " +
-        "Agents Awards). Con NAHREP fuera por decisión de Rita, dejar «Top 250» " +
-        "sería citar a NAHREP sin nombrarlo — una credencial sin fuente. Se " +
-        "regresan los dos o ninguno.",
+    !mencionaNahrep ||
+        (/NAHREP/i.test(landingLimpio) && /\b20[0-2]\d\b/.test(landingLimpio)),
+    "si aparece el reconocimiento de NAHREP, nombra a NAHREP y trae el año",
+    "⚠️ El «Top 250» y el «Top 50» SON premios de NAHREP (NAHREP Top 250 Latino " +
+        "Agents Awards). Ponerlos sin nombrar a NAHREP es citar la fuente a " +
+        "medias, y sin año no se puede verificar en qué lista fue. NAHREP " +
+        "publica varias listas y varios años: nombrarla exacta es la diferencia " +
+        "entre una credencial y un adorno.",
 );
 
 /* Bloque del invitado: mientras diga "Por confirmar" no hay nada que exigir.
