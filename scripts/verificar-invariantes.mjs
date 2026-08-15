@@ -228,6 +228,39 @@ ok(
         "nacional es clase protegida.",
 );
 
+console.log("\n═══ PUENTE DE REGISTROS ═══");
+
+const evento = leer("app/api/evento/route.ts");
+const eventoLimpio = sinComentarios(evento);
+/* Medidos contra el endpoint real, no supuestos. Si rita-os amplía el enum,
+   se amplía aquí — pero NO se inventa un valor: uno que el esquema no acepta
+   tumba cada registro con 400 y no se guarda nada. Ya pasó, en producción. */
+const FUENTES_VALIDAS = ["website","referral","open_house","zillow","sign_call",
+    "paid_ads","social_media","sphere","other"];
+const fuente = (eventoLimpio.match(/lead_source:\s*"([^"]+)"/) || [])[1];
+ok(
+    Boolean(fuente) && FUENTES_VALIDAS.includes(fuente),
+    `el puente usa un lead_source que rita-os acepta (${fuente ?? "ninguno"})`,
+    "`lead_source` es un ENUM en rita-os. Un valor fuera de la lista hace que " +
+        "CADA registro muera con 400 y no se guarde nada — sin error visible " +
+        "para nadie más que la persona que llenó el formulario. Valores " +
+        "válidos: " + FUENTES_VALIDAS.join(" · "),
+);
+ok(
+    /\[Event: \$\{eventSlug\}\]/.test(eventoLimpio),
+    "el puente conserva la marca [Event: …] en el mensaje",
+    "Como la marca ya no puede viajar en `lead_source` (es enum), el prefijo " +
+        "del mensaje es lo ÚNICO que identifica estos registros como del " +
+        "evento. Sin él no hay forma de separarlos ni de excluirlos del SLA.",
+);
+ok(
+    !/error:\s*\n?\s*\(cuerpo as/.test(eventoLimpio),
+    "el error de rita-os no se le muestra a la persona",
+    "Se reenviaba tal cual y la persona vio «Invalid form data» en inglés, en " +
+        "una página en español, describiendo un problema entre servidores que " +
+        "ella no puede arreglar. Va al log; ella recibe una salida.",
+);
+
 console.log("\n═══ TÍTULOS ═══");
 
 ok(
