@@ -480,6 +480,26 @@
 .registro-root .listo .recap small{color:var(--ink-soft)}
 .registro-root .listo .después{margin-top:2rem;font-size:.92rem;
   color:rgba(238,235,229,.78);display:grid;gap:.6rem}
+
+/* ⚠️ Enlaces sobre fondo oscuro.
+   El color de enlace de la ruta es var(--burgundy), que sobre el índigo de
+   /apartar y /listo da 1.60 — el mismo 1.60 que el manual de paleta prohíbe y
+   que ya nos mordió con los eyebrows. Xavi lo vio en la pantalla de
+   confirmación: "Ver cómo llegar en Google Maps" era prácticamente ilegible.
+   Va en oro (7.60) y SUBRAYADO: sobre oscuro el color solo no basta para
+   distinguir un enlace del texto.
+
+   ⚠️ La excepción es la tarjeta blanca del formulario, que vive dentro de la
+   misma página oscura. Ahí el oro daría 1.9 sobre blanco, así que sus enlaces
+   (Aviso de privacidad, Términos) se quedan en burgundy, que sobre blanco da
+   8.9. La regla es el fondo real detrás del texto, no la página. */
+.registro-root.pagina-form a{color:var(--gold-300);text-decoration:underline;
+  text-underline-offset:.18em;text-decoration-thickness:from-font}
+.registro-root.pagina-form .card a{color:var(--burgundy)}
+/* `.back` ya estaba bien (marfil sobre índigo, 11.6) y no lleva subrayado
+   porque tiene su propia flecha. Se restituye porque la regla de arriba, por
+   especificidad, se lo llevaría de corbata. */
+.registro-root.pagina-form .back{color:rgba(238,235,229,.82);text-decoration:none}
 @media(max-width:900px){
   .registro-root .form-grid{grid-template-columns:1fr;gap:2rem}
   .registro-root .form-grid h1,.registro-root .form-grid .lede{max-width:none}

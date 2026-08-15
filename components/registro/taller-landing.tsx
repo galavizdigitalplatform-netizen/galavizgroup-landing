@@ -454,11 +454,26 @@ export function TallerLanding() {
                                     quienes ya compraron, a dar el siguiente paso. Estudió
                                     Economía en George Mason University.
                                 </p>
+                                {/*
+                                  * ⚠️ Aquí decía "Cada caso es distinto: aquí se
+                                  * explica el panorama, no se aprueba a nadie". Rita
+                                  * pidió quitarlo: "no se aprueba a nadie" se puede
+                                  * leer como que aquí nadie califica, que es lo
+                                  * contrario de lo que quiere decir.
+                                  *
+                                  * ⚠️ Esa frase hacía trabajo de deslinde, así que
+                                  * antes de quitarla hay que saber dónde vive ahora:
+                                  * en el bloque "Lo que este encuentro no es", con
+                                  * "No es una promesa de que vas a calificar. Eso
+                                  * depende de tu caso y de tu prestamista." El
+                                  * deslinde sigue en pie; solo dejó de estar dos
+                                  * veces. Si alguien quita TAMBIÉN ese bloque, la
+                                  * página se queda sin él.
+                                  */}
                                 <p>
                                     Aquí acompaña el bloque de los números reales: qué se
-                                    necesita hoy para calificar, qué programas existen y qué
-                                    es mito. Cada caso es distinto: aquí se explica el
-                                    panorama, no se aprueba a nadie.
+                                    necesita hoy para calificar, qué programas existen y
+                                    qué es mito.
                                 </p>
                             </div>
                         </div>

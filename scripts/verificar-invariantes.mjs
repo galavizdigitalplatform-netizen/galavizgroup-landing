@@ -261,6 +261,16 @@ ok(
         "ella no puede arreglar. Va al log; ella recibe una salida.",
 );
 
+/* ⚠️ El deslinde de "no promete que califiques" ya no está en el bloque de
+   Santos (Rita pidió quitarlo de ahí). Vive SOLO en el panel de límites, así
+   que ahora es pieza única: si se cae, la página se queda sin deslinde. */
+ok(
+    /No es una promesa de que vas a calificar/.test(landingLimpio),
+    "el deslinde de calificación sigue en el bloque de límites",
+    "Era la segunda de dos copias; al quitarse la del bloque de Santos, esta " +
+        "quedó sola. Es lo que sostiene que la página no promete aprobación.",
+);
+
 console.log("\n═══ TÍTULOS ═══");
 
 ok(
@@ -353,6 +363,23 @@ ok(
         "(invisible) y 1.60 sobre el índigo del hero y de las secciones dark. " +
         "La variante correcta es `eyebrow light` (oro): 4.75 sobre la banda, " +
         "7.60 sobre índigo.",
+);
+
+/* ⚠️ Enlaces sobre fondo oscuro. El color de enlace de la ruta es burgundy, que
+   sobre el índigo de /apartar y /listo da 1.60 — ilegible, y es el mismo 1.60
+   que el manual prohíbe. Xavi lo vio en la pantalla de confirmación.
+   La medición real necesita navegador; esto solo cuida que la regla no se caiga. */
+ok(
+    /\.registro-root\.pagina-form a\{[^}]*color:var\(--gold-300\)/.test(css),
+    "los enlaces sobre fondo oscuro van en oro, no en burgundy",
+    "Burgundy sobre índigo da 1.60. En /listo eso dejaba «Ver cómo llegar en " +
+        "Google Maps» prácticamente invisible. Oro da 7.60.",
+);
+ok(
+    /\.registro-root\.pagina-form \.card a\{[^}]*color:var\(--burgundy\)/.test(css),
+    "los enlaces dentro de la tarjeta blanca siguen en burgundy",
+    "La tarjeta del formulario es blanca aunque viva en una página oscura: ahí " +
+        "el oro daría 1.9. La regla es el fondo real detrás del texto, no la página.",
 );
 
 console.log("\n═══ TIPOGRAFÍA E IMÁGENES ═══");
