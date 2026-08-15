@@ -358,13 +358,26 @@ export function TallerLanding() {
                               * QUIÉN la otorga. "Top Producer" a secas es una afirmación
                               * sin dueño, y es lo primero que revisa un broker designado.
                               *
-                              * ⚠️ TRES reconocimientos, DOS otorgantes distintos. Esto
+                              * ⚠️ CUATRO credenciales, TRES otorgantes distintos. Esto
                               * se documentó mal dos veces seguidas; conviene leerlo antes
                               * de tocar el párrafo (confirmado por Xavi, 2026-08-15):
                               *
                               *   · Top Producer, 7 años consecutivos . HomeSmart Arizona
                               *   · Top 250, nivel nacional ........... HomeSmart
                               *   · Top 50 ............................ NAHREP
+                              *   · Coach y mentora certificada ....... ICF
+                              *
+                              * ⚠️ La ICF se llama International COACHING Federation
+                              * desde 2020. Antes era International Coach Federation, y
+                              * ese nombre viejo sigue circulando: llegó así en el encargo
+                              * de este mismo cambio. Si reaparece, es el nombre previo
+                              * al cambio de marca, no una variante.
+                              *
+                              * La ICF acredita por niveles (ACC, PCC, MCC) y aquí NO se
+                              * nombra ninguno: Xavi lo descartó de forma explícita
+                              * (2026-08-15), basta con mencionar la ICF. Esto es una
+                              * decisión tomada, no un dato que falte; no hace falta
+                              * volver a preguntarlo.
                               *
                               * ⚠️ El "Top 250" NO es de NAHREP. Aquí se afirmó lo
                               * contrario ("el Top 250 ES un premio de NAHREP, los Top 250
@@ -394,8 +407,8 @@ export function TallerLanding() {
                                 financiamiento</b>, Rita ha sido <b>Top Producer de
                                 HomeSmart en Arizona siete años consecutivos</b> y figura
                                 entre los <b>Top 250 de HomeSmart a nivel nacional</b>.
-                                Siete años seguidos no son un año bueno: es la correduría
-                                con la que trabaja midiéndola cada año.
+                                Siete años seguidos no son un año bueno: es la agencia con
+                                la que trabaja midiéndola cada año.
                             </p>
                             <p>
                                 A eso se suma el <b>Top 50 de NAHREP</b> (National
@@ -404,9 +417,17 @@ export function TallerLanding() {
                                 bienes raíces en Estados Unidos.
                             </p>
                             <p>
-                                Hoy lidera Galaviz Group, su equipo de bienes raíces dentro
-                                de HomeSmart, desde donde acompañan a familias de toda el
-                                área metropolitana de Phoenix a comprar, vender e invertir.
+                                {/* ⚠️ El {" "} no sobra: JSX recorta el salto de línea
+                                    entre </b> y el paréntesis, y sin él sale
+                                    "ICF(International". */}
+                                Es además <b>coach y mentora certificada por la ICF</b>{" "}
+                                (International Coaching Federation), la organización que
+                                acredita a los coaches profesionales a nivel internacional.
+                            </p>
+                            <p>
+                                Hoy lidera Galaviz Group, su equipo de bienes raíces, desde
+                                donde acompañan a familias de todo Arizona a comprar,
+                                vender e invertir.
                             </p>
                             <p className="turn">
                                 Pero su mayor credencial es su historia.
@@ -428,6 +449,7 @@ export function TallerLanding() {
                                 </span>
                                 <span className="cred">Top 250 HomeSmart nacional</span>
                                 <span className="cred">Top 50 NAHREP</span>
+                                <span className="cred">Coach certificada ICF</span>
                             </div>
                         </div>
                     </div>
