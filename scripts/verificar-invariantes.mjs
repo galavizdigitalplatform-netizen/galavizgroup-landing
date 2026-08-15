@@ -179,22 +179,53 @@ ok(
         "párrafo y en las fichas.",
 );
 
-/* ⚠️ Esta guarda cambió de forma el 2026-08-15. Antes prohibía NAHREP a secas
-   «por decisión de Rita»; esa atribución era falsa (la pregunta «¿cuál lista y
-   de qué año?» nunca se respondió y se registró como decisión). Lo que protege
-   de verdad no es el veto sino la FUENTE: si el reconocimiento aparece, tiene
-   que nombrar a NAHREP y traer su año. Así se puede publicar en cuanto lleguen
-   los datos, sin que nadie tenga que levantar una prohibición inventada. */
-const mencionaNahrep = /NAHREP|Top\s*250|Top\s*50\b/i.test(landingLimpio);
+/* ⚠️ Esta guarda cambió de forma dos veces el 2026-08-15, porque las dos
+   versiones anteriores partían de premisas falsas: primero «NAHREP fuera por
+   decisión de Rita» (nunca fue una decisión, era una pregunta sin responder) y
+   después «el Top 250 es un premio de NAHREP» (es el ranking nacional de
+   HomeSmart). Lo que protege de verdad no es prohibir nada: es que CADA
+   reconocimiento nombre a quien lo otorga, que son dos otorgantes distintos.
+   Se comprueba por cercanía y no en todo el texto, porque tener las dos
+   palabras sueltas en párrafos distintos no acredita nada. */
+/* ⚠️ Estas comprobaciones van sobre el texto con los espacios normalizados. El
+   JSX parte las frases en varias líneas con sangría, así que "National
+   Association of…" llega como "National\n       Association of…" y una regex
+   con espacio simple no lo encuentra. Además la sangría se comía la ventana de
+   `cercaDe` y podía separar un número de su otorgante sin que fuera cierto. */
+const landingPlano = landingLimpio.replace(/\s+/g, " ");
+
+const cercaDe = (texto, termino, fuente, ventana = 90) => {
+    const re = new RegExp(termino, "gi");
+    let m;
+    while ((m = re.exec(texto)) !== null) {
+        if (!new RegExp(fuente, "i").test(texto.slice(m.index, m.index + ventana))) {
+            return false;
+        }
+    }
+    return true;
+};
+
 ok(
-    !mencionaNahrep ||
-        (/NAHREP/i.test(landingLimpio) && /\b20[0-2]\d\b/.test(landingLimpio)),
-    "si aparece el reconocimiento de NAHREP, nombra a NAHREP y trae el año",
-    "⚠️ El «Top 250» y el «Top 50» SON premios de NAHREP (NAHREP Top 250 Latino " +
-        "Agents Awards). Ponerlos sin nombrar a NAHREP es citar la fuente a " +
-        "medias, y sin año no se puede verificar en qué lista fue. NAHREP " +
-        "publica varias listas y varios años: nombrarla exacta es la diferencia " +
-        "entre una credencial y un adorno.",
+    cercaDe(landingPlano, "Top\\s*250", "HomeSmart"),
+    "el «Top 250» se atribuye a HomeSmart",
+    "⚠️ El Top 250 es el ranking NACIONAL de Top Producer de HomeSmart, no un " +
+        "premio de NAHREP. Esa confusión ya vivió en este archivo y sirvió de " +
+        "base para prohibir los dos reconocimientos a la vez.",
+);
+
+ok(
+    cercaDe(landingPlano, "Top\\s*50\\b", "NAHREP"),
+    "el «Top 50» se atribuye a NAHREP",
+    "Un número sin la asociación que lo publica no es una credencial. NAHREP " +
+        "edita varias listas: la que le corresponde a Rita es el Top 50.",
+);
+
+ok(
+    !/NAHREP/.test(landingPlano) ||
+        /National Association of Hispanic Real Estate Professionals/i.test(landingPlano),
+    "NAHREP aparece desarrollado al menos una vez",
+    "Xavi lo pidió explícito: la sigla sola no le dice nada a quien lee la " +
+        "página, y el nombre completo es justo lo que da peso al reconocimiento.",
 );
 
 /* Bloque del invitado: mientras diga "Por confirmar" no hay nada que exigir.
