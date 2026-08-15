@@ -401,17 +401,27 @@ ok(
 
 console.log("\n═══ TIPOGRAFÍA E IMÁGENES ═══");
 
-ok(
-    /Newsreader\(\{[\s\S]*?axes:\s*\["opsz"\]/.test(layout),
-    'Newsreader declara axes: ["opsz"]',
-    "Sin el eje óptico, next/font sirve el corte para texto chico y el titular " +
-        "del hero gana un renglón. Ya pasó con Fraunces y costó una tarde.",
-);
-
 // Solo el objeto de configuración de Source_Serif_4: `[^}]*` corta en la
 // primera llave de cierre. Con `[\s\S]*?` el match se colaba hasta la llamada
 // a Inter —que sí declara `weight`— y el invariante se caía siempre.
 const bloqueSourceSerif = layoutRaiz.match(/Source_Serif_4\(\{([^}]*)\}\)/)?.[1] ?? "";
+
+ok(
+    !/next\/font/.test(layout) && /var\(--font-source-serif\)/.test(css),
+    "/registro hereda la serif del layout raíz y no carga fuente propia",
+    "Los títulos de la ruta iban en Newsreader, cargada aquí. Ahora todo el " +
+        "sitio comparte Source Serif 4 desde app/layout.tsx: si /registro " +
+        "volviera a cargar una familia por su cuenta serían dos descargas y " +
+        "dos caras distintas de titular.",
+);
+
+ok(
+    /style:\s*\["normal",\s*"italic"\]/.test(bloqueSourceSerif),
+    "Source Serif 4 carga la itálica de verdad",
+    "/registro apoya el titular en `<em>` y tiene siete reglas con " +
+        "font-style:italic, una a 7.5rem. Sin la itálica cargada el navegador " +
+        "la sintetiza inclinando la redonda, y a ese tamaño se nota.",
+);
 
 ok(
     /axes:\s*\["opsz"\]/.test(bloqueSourceSerif) && !/weight:/.test(bloqueSourceSerif),

@@ -5,10 +5,12 @@
    con Tailwind: nombres genéricos como .hero / .btn / .card chocarían con la
    home. Generado desde la maqueta con un escopador; no des-escopar.
 
-   ⚠️ Las fuentes llegan por `next/font` desde app/registro/layout.tsx como
-   `--font-fraunces` y `--font-hanken`. Antes este archivo pedía "Fraunces" y
-   "Hanken Grotesk" por nombre y NADIE las cargaba: los títulos llevaban meses
-   caídos a Georgia, sin dar error.
+   ⚠️ Las fuentes llegan por `next/font` desde el layout RAÍZ (app/layout.tsx)
+   como `--font-source-serif` y `--font-inter`; esta ruta ya no carga ninguna
+   por su cuenta. Nunca pidas una familia por nombre aquí: este archivo pedía
+   "Fraunces" y "Hanken Grotesk" y NADIE las cargaba — los títulos llevaban
+   meses caídos a Georgia, sin dar error. Si cambias la variable, comprueba
+   que el layout raíz la sigue definiendo.
 
    ⚠️ `.hero` usa `overflow:clip`, no `hidden` — `hidden` mata el sticky.
    ⚠️ El header no admite un cuarto elemento sin volver a medir a 320px.
@@ -23,7 +25,7 @@
   --line:#DBD7D0; --line-soft:#E9E6E0;
   --ink:#25202E; --ink-soft:#585461; --ink-faint:#827E8A;
   --alert:#B4521A;
-  --serif:var(--font-newsreader),Georgia,serif;
+  --serif:var(--font-source-serif),Georgia,serif;
   --sans:var(--font-inter),system-ui,-apple-system,sans-serif;
   --sh-md:0 8px 24px rgba(36,30,46,.09),0 2px 8px rgba(36,30,46,.05);
   --sh-lg:0 30px 70px rgba(29,23,39,.22),0 8px 22px rgba(36,30,46,.10);
