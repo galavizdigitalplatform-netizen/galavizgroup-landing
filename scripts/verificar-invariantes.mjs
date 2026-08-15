@@ -98,15 +98,31 @@ ok(
 
 console.log("\n═══ COPY ═══");
 
+/* ⚠️ UNA SOLA lista de las vistas que renderiza /registro/*, compartida por
+   todas las guardas que revisan texto visible.
+   No es limpieza: es que tener una lista por guarda es exactamente cómo
+   divergen. La de guiones largos llegó a cubrir siete archivos y la de la
+   frase de Rita cubría tres, así que la misma frase prohibida pasaba en verde
+   con solo escribirla en otra vista. Quien agregue una vista nueva la agrega
+   AQUÍ y queda cubierta por todas.
+   El CSS entra porque los pseudo-elementos también pintan texto: la viñeta de
+   la columna «no» era un guion largo puesto con content:"—". */
+const VISTAS = [
+    ["taller-landing.tsx", landingLimpio],
+    ["taller-ui.tsx", uiLimpio],
+    ["taller-form.tsx", formLimpio],
+    ["cuenta-regresiva.tsx", sinComentarios(leer("components/registro/cuenta-regresiva.tsx"))],
+    ["page.tsx", sinComentarios(pagina)],
+    ["apartar/page.tsx", sinComentarios(apartar)],
+    ["listo/page.tsx", sinComentarios(leer("app/registro/listo/page.tsx"))],
+    ["registro.css", sinComentarios(css)],
+];
+
 /* «taller» sí puede aparecer en nombres de archivo (taller-form.tsx),
    en el slug (taller-2026-09-12) y en rutas; lo que no puede es aparecer
    como palabra suelta en texto visible. */
 const palabraTaller = /(?<![-\w/])tallere?s?(?![-\w])/i;
-for (const [nombre, src] of [
-    ["taller-landing.tsx", landingLimpio],
-    ["taller-ui.tsx", uiLimpio],
-    ["taller-form.tsx", formLimpio],
-]) {
+for (const [nombre, src] of VISTAS) {
     ok(
         !palabraTaller.test(src),
         `sin la palabra «taller» en ${nombre}`,
@@ -118,22 +134,7 @@ for (const [nombre, src] of [
 
 /* Rita no quiere el guion largo en la página. ⚠️ Nótese que se revisa sobre el
    código SIN comentarios: los comentarios sí lo usan, y no se ven. */
-for (const [nombre, src] of [
-    ["taller-landing.tsx", landingLimpio],
-    ["taller-ui.tsx", uiLimpio],
-    ["taller-form.tsx", formLimpio],
-    ["apartar/page.tsx", sinComentarios(apartar)],
-    ["listo/page.tsx", sinComentarios(leer("app/registro/listo/page.tsx"))],
-    /* ⚠️ El CSS también cuenta: la viñeta de la columna «no» era un guion largo
-       vía content:"—", y se veía en cada renglón. Y el `alt` del og:image lo
-       lee el lector de pantalla aunque no se vea. */
-    ["registro.css", sinComentarios(css)],
-    ["page.tsx", sinComentarios(pagina)],
-    /* ⚠️ cuenta-regresiva.tsx también renderiza en /registro. Hoy no tiene
-       guiones largos visibles, pero estaba fuera de la lista: una vista que
-       pinta texto y no está aquí es un hueco esperando. */
-    ["cuenta-regresiva.tsx", sinComentarios(leer("components/registro/cuenta-regresiva.tsx"))],
-]) {
+for (const [nombre, src] of VISTAS) {
     ok(
         !/—/.test(src),
         `sin guion largo (—) en ${nombre}`,
@@ -268,11 +269,7 @@ ok(
    página. Rita pidió quitar la frase, no quitarla de un lugar — y estuvo viva
    en el programa una tanda entera después de "quitarla", porque el arreglo
    miró donde apuntaba el dedo y no dónde estaba el texto. */
-for (const [nombre, src] of [
-    ["taller-landing.tsx", landingLimpio],
-    ["taller-ui.tsx", uiLimpio],
-    ["taller-form.tsx", formLimpio],
-]) {
+for (const [nombre, src] of VISTAS) {
     ok(
         !/no se aprueba a nadie/i.test(src),
         `sin "no se aprueba a nadie" en ${nombre}`,
