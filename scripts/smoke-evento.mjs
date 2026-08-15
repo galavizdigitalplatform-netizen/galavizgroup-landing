@@ -25,28 +25,60 @@
  * Uso:  npm run smoke:evento
  */
 
+/*
+ * ── Dos destinos, el mismo truco ──────────────────────────────────────────
+ *
+ * Igual que /api/evento, este guion apunta a donde apunte el proxy: si
+ * `RITA_OS_EVENT_URL` está definida, prueba el endpoint de eventos con el
+ * payload de eventos; si no, prueba el puente con el payload del puente.
+ *
+ * Es lo que hay que mantener: si el guion siguiera probando el puente cuando
+ * el proxy ya usa el endpoint nuevo, estaría dando verde sobre un camino que
+ * ya nadie recorre — que es exactamente la clase de "todo verde por separado"
+ * que dejó el formulario días sin guardar nada.
+ */
+const URL_EVENTO = process.env.RITA_OS_EVENT_URL || "";
 const URL_CAPTURE =
     process.env.RITA_OS_CAPTURE_URL ||
     "https://os.galavizgroup.com/api/public/opportunities/capture";
 
+const usandoEndpointDeEventos = URL_EVENTO.length > 0;
+const destino = usandoEndpointDeEventos ? URL_EVENTO : URL_CAPTURE;
+
 /** El correo inválido es lo que garantiza que nada se guarde. NO lo arregles. */
 const CORREO_CENTINELA = "invalido";
 
-const payload = {
+const comun = {
     first_name: "Prueba",
     last_name: "Humo",
     email: CORREO_CENTINELA,
     phone: "6025550134",
-    lead_type: "buyer",
-    lead_source: "other",
     sms_consent: "no",
     marketing_email_consent: false,
-    message: "[Event: taller-2026-09-12]\n[Interest: First-time buyer]",
 };
 
-const res = await fetch(URL_CAPTURE, {
+const payload = usandoEndpointDeEventos
+    ? {
+          ...comun,
+          event_slug: "taller-2026-09-12",
+          interest: "buy",
+          note: "prueba de contrato",
+      }
+    : {
+          ...comun,
+          lead_type: "buyer",
+          lead_source: "other",
+          message: "[Event: taller-2026-09-12]\n[Interest: First-time buyer]",
+      };
+
+const res = await fetch(destino, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+        "Content-Type": "application/json",
+        // La misma cabecera que manda el proxy de verdad: si el endpoint
+        // dejara de leerla, la evidencia TCPA se pierde en silencio.
+        "x-visitor-ip": "198.51.100.24",
+    },
     body: JSON.stringify(payload),
     cache: "no-store",
 });
@@ -66,7 +98,8 @@ const detalles = cuerpo?.details ?? {};
 const campos = Object.keys(detalles);
 const inesperados = campos.filter((c) => c !== "email");
 
-console.log(`\nPOST ${URL_CAPTURE}`);
+console.log(`\nPOST ${destino}`);
+console.log(usandoEndpointDeEventos ? "  (endpoint de eventos)" : "  (puente — RITA_OS_EVENT_URL sin definir)");
 console.log(`HTTP ${res.status} · campos rechazados: ${campos.join(", ") || "(ninguno)"}`);
 
 if (!campos.includes("email")) {
@@ -77,8 +110,10 @@ if (!campos.includes("email")) {
     process.exit(2);
 }
 
+const queCosa = usandoEndpointDeEventos ? "del registro" : "del puente";
+
 if (inesperados.length) {
-    console.error("\n✗ El payload del puente NO es válido para rita-os.");
+    console.error(`\n✗ El payload ${queCosa} NO es válido para rita-os.`);
     for (const c of inesperados) {
         console.error(`    ${c}: ${JSON.stringify(detalles[c])}`);
     }
@@ -88,5 +123,5 @@ if (inesperados.length) {
     process.exit(1);
 }
 
-console.log("\n✓ El payload del puente es válido: solo se queja del correo,");
+console.log(`\n✓ El payload ${queCosa} es válido: solo se queja del correo,`);
 console.log("  que es el centinela. Ningún registro fue creado.\n");
