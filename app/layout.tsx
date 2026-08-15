@@ -1,11 +1,22 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Source_Serif_4, Inter } from "next/font/google";
 import "./globals.css";
 
-const playfair = Playfair_Display({
-    variable: "--font-playfair",
+/**
+ * Titulares en **Source Serif 4** — serif transicional de contraste bajo.
+ * Sustituye a Playfair Display, que por ser Didone afilaba los trazos finos
+ * en el hero (88px) y sonaba a editorial de moda, no a asesoría inmobiliaria.
+ *
+ * ⚠️ `axes: ["opsz"]` no es opcional, y por eso tampoco se declara `weight`:
+ * Source Serif 4 tiene eje óptico (8..60). Al fijar pesos estáticos, next/font
+ * sirve el corte para texto chico —más ancho y de menos contraste— y el hero
+ * pierde el afinado. Mismo motivo que Newsreader en app/registro/layout.tsx.
+ * La variable cubre 400 y 600, los dos únicos pesos que usa `font-display`.
+ */
+const sourceSerif = Source_Serif_4({
+    variable: "--font-source-serif",
     subsets: ["latin"],
-    weight: ["400", "600", "700"],
+    axes: ["opsz"],
     display: "swap",
 });
 
@@ -84,7 +95,7 @@ export default function RootLayout({
     return (
         <html
             lang="en"
-            className={`${playfair.variable} ${inter.variable} h-full antialiased`}
+            className={`${sourceSerif.variable} ${inter.variable} h-full antialiased`}
         >
             <body className="min-h-full flex flex-col bg-background text-foreground">
                 {children}

@@ -50,6 +50,8 @@ const css = leer("app/registro/registro.css");
 const layout = leer("app/registro/layout.tsx");
 const pagina = leer("app/registro/page.tsx");
 const apartar = leer("app/registro/apartar/page.tsx");
+const layoutRaiz = leer("app/layout.tsx");
+const cssRaiz = leer("app/globals.css");
 
 const formLimpio = sinComentarios(form);
 const uiLimpio = sinComentarios(ui);
@@ -404,6 +406,28 @@ ok(
     'Newsreader declara axes: ["opsz"]',
     "Sin el eje óptico, next/font sirve el corte para texto chico y el titular " +
         "del hero gana un renglón. Ya pasó con Fraunces y costó una tarde.",
+);
+
+// Solo el objeto de configuración de Source_Serif_4: `[^}]*` corta en la
+// primera llave de cierre. Con `[\s\S]*?` el match se colaba hasta la llamada
+// a Inter —que sí declara `weight`— y el invariante se caía siempre.
+const bloqueSourceSerif = layoutRaiz.match(/Source_Serif_4\(\{([^}]*)\}\)/)?.[1] ?? "";
+
+ok(
+    /axes:\s*\["opsz"\]/.test(bloqueSourceSerif) && !/weight:/.test(bloqueSourceSerif),
+    'Source Serif 4 declara axes: ["opsz"] y no fija weight',
+    "Mismo eje óptico que Newsreader (8..60): al declarar `weight` next/font " +
+        "sirve instancias estáticas con el corte de texto chico y el hero de la " +
+        "home pierde el afinado. La variable ya cubre el 400 y el 600 que usa.",
+);
+
+ok(
+    /--font-display:\s*var\(--font-source-serif\)/.test(cssRaiz) &&
+        !/--font-playfair/.test(cssRaiz),
+    "los títulos de la home apuntan a Source Serif 4, sin restos de Playfair",
+    "`--font-display` es el único puente entre next/font y las clases " +
+        "`font-display`. Si queda apuntando a una variable que el layout ya no " +
+        "define, los títulos caen a Georgia sin avisar.",
 );
 
 ok(
