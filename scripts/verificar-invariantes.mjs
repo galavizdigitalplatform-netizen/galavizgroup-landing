@@ -264,6 +264,24 @@ ok(
 /* ⚠️ El deslinde de "no promete que califiques" ya no está en el bloque de
    Santos (Rita pidió quitarlo de ahí). Vive SOLO en el panel de límites, así
    que ahora es pieza única: si se cae, la página se queda sin deslinde. */
+/* ⚠️ La frase no se prohíbe en el bloque de Santos: se prohíbe en TODA la
+   página. Rita pidió quitar la frase, no quitarla de un lugar — y estuvo viva
+   en el programa una tanda entera después de "quitarla", porque el arreglo
+   miró donde apuntaba el dedo y no dónde estaba el texto. */
+for (const [nombre, src] of [
+    ["taller-landing.tsx", landingLimpio],
+    ["taller-ui.tsx", uiLimpio],
+    ["taller-form.tsx", formLimpio],
+]) {
+    ok(
+        !/no se aprueba a nadie/i.test(src),
+        `sin "no se aprueba a nadie" en ${nombre}`,
+        "Se lee como que aquí nadie califica, que es lo contrario de lo que " +
+            "dice. Lo que la frase protegía vive en el panel de límites: «No es " +
+            "una promesa de que vas a calificar».",
+    );
+}
+
 ok(
     /No es una promesa de que vas a calificar/.test(landingLimpio),
     "el deslinde de calificación sigue en el bloque de límites",

@@ -75,7 +75,17 @@ const MOMENTOS = [
         hora: "Sobre la mesa",
         titulo: "Los números reales",
         texto:
-            "Qué se necesita hoy para comprar o para invertir: enganche, crédito, ingresos, tiempos. Lo que sí aplica y lo que ya es mito. Cada caso es distinto: aquí se explica el panorama, no se aprueba a nadie.",
+            /*
+             * ⚠️ Aquí terminaba con "no se aprueba a nadie". Rita pidió quitar esa
+             * frase por cómo se lee, y el motivo aplica en cualquier lugar donde
+             * aparezca: se entiende como que aquí nadie califica.
+             *
+             * Lo que la frase hacía —dejar claro que esto no es análisis
+             * individual— se sostiene con "el panorama general", que dice lo
+             * mismo sin la lectura al revés. Y el deslinde formal vive en el
+             * panel "Lo que este encuentro no es".
+             */
+            "Qué se necesita hoy para comprar o para invertir: enganche, crédito, ingresos, tiempos. Lo que sí aplica y lo que ya es mito. Cada caso es distinto: esto es el panorama general.",
     },
     {
         hora: "Antes de las 12:00",
