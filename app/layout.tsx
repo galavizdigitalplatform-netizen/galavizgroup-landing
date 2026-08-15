@@ -12,7 +12,9 @@ const playfair = Playfair_Display({
 const inter = Inter({
     variable: "--font-inter",
     subsets: ["latin"],
-    weight: ["300", "400", "500", "600"],
+    weight: ["300", "400", "500", "600", "700", "800"],
+    // 700 y 800 los usa /registro (botones y versalitas). La home no los usa;
+    // agregarlos aquí evita descargar Inter dos veces.
     display: "swap",
 });
 

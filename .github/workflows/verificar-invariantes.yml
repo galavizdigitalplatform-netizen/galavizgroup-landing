@@ -1,0 +1,36 @@
+# Invariantes de /registro que rompen sin dar error.
+#
+# ⚠️ Este workflow NO construye ni instala dependencias, y es a propósito.
+#
+# El script solo lee archivos y usa la librería estándar de Node, así que corre
+# en segundos y no puede fallar por una dependencia, por caché ni por memoria.
+# Eso importa más de lo que parece: en este equipo ya hubo un check que murió
+# por falta de memoria cinco veces seguidas y se acabó mergeando por encima. Un
+# check lento o inestable deja de significar algo, y entonces el día que se pone
+# rojo de verdad nadie le hace caso.
+#
+# Si algún día alguien le agrega `npm ci` y `next build` a este workflow, le
+# estará quitando justo lo que lo hace útil. El build y el typecheck merecen su
+# propio workflow, no este.
+name: Invariantes
+
+on:
+  pull_request:
+    paths:
+      - "app/registro/**"
+      - "components/registro/**"
+      - "public/rita-*"
+      - "public/homesmart-*"
+      - "scripts/verificar-invariantes.mjs"
+  workflow_dispatch:
+
+jobs:
+  invariantes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm run verify
