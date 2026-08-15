@@ -155,6 +155,20 @@ for (const [nombre, src] of VISTAS) {
     );
 }
 
+/* «Correduría» no se usa en el mercado inmobiliario de EE. UU. (Xavi,
+   2026-08-15). Aquí la firma es la AGENCIA: en español estadounidense
+   «broker» / «corredor» designa a una persona, el corredor titular que
+   supervisa a los agentes, no a la compañía. Va en el bucle de VISTAS y no
+   suelto porque tener una lista por guarda es como divergen. */
+for (const [nombre, src] of VISTAS) {
+    ok(
+        !/corredur[ií]a/i.test(src),
+        `sin la palabra «correduría» en ${nombre}`,
+        "Es término de España y suena importado en este mercado. La firma es " +
+            "«la agencia»; «el broker» sugeriría una persona.",
+    );
+}
+
 ok(
     /<h2[^>]*>\s*Rita Galaviz\s*<\/h2>/.test(landingLimpio),
     "el título de la sección de Rita es solo su nombre",
@@ -226,6 +240,26 @@ ok(
     "NAHREP aparece desarrollado al menos una vez",
     "Xavi lo pidió explícito: la sigla sola no le dice nada a quien lee la " +
         "página, y el nombre completo es justo lo que da peso al reconocimiento.",
+);
+
+ok(
+    !/\bICF\b/.test(landingPlano) || /International Coaching Federation/i.test(landingPlano),
+    "la ICF aparece desarrollada al menos una vez",
+    "Mismo criterio que NAHREP: una sigla sola no acredita nada. La " +
+        "certificación de coach la otorga la ICF y el lector tiene que poder " +
+        "saber quién es.",
+);
+
+/* ⚠️ Guarda de nombre caduco, no de estilo. La ICF se llama International
+   COACHING Federation desde el cambio de marca de 2020; antes era
+   International Coach Federation. El nombre viejo sigue circulando y llegó
+   así en el encargo de este cambio, así que reaparecerá. */
+ok(
+    !/International Coach Federation/i.test(landingPlano),
+    "la ICF no aparece con su nombre anterior a 2020",
+    "Es «International Coaching Federation» desde 2020. «International Coach " +
+        "Federation» no es una variante: es el nombre previo al cambio de marca, " +
+        "y en una credencial el nombre exacto del otorgante es justo el dato.",
 );
 
 /* Bloque del invitado: mientras diga "Por confirmar" no hay nada que exigir.
