@@ -394,12 +394,15 @@ export function TallerLanding() {
                     <div className="invitado">
                         <span className="eyebrow">Invitado especial</span>
                         <div className="invitado-grid">
-                            {/* ⚠️ Marcador honesto: la foto de Santos todavía no llega.
-                                Mientras diga "Falta la foto" se ve que falta, que es
-                                mejor que una silueta genérica haciéndose pasar por él. */}
-                            <div className="invitado-foto" aria-hidden="true">
-                                <span>Falta la foto</span>
-                            </div>
+                            <figure className="invitado-foto">
+                                <Image
+                                    src="/santos-nolasco.jpg"
+                                    alt="Santos Nolasco"
+                                    width={440}
+                                    height={550}
+                                    sizes="168px"
+                                />
+                            </figure>
                             <div className="invitado-bio">
                                 {/*
                                   * ⚠️ El NMLS no es decoración: es el identificador con el
@@ -424,17 +427,38 @@ export function TallerLanding() {
                                   * ya dice que la aprobación depende del prestamista;
                                   * esas dos piezas se sostienen juntas.
                                   */}
-                                <h3>Santos Nolasco</h3>
+                                <h3>Santos E. Nolasco</h3>
                                 <p className="rol">
                                     Loan Consultant · New American Funding
                                     <span className="nmls">NMLS# 669548</span>
                                 </p>
+                                {/*
+                                  * ⚠️ La bio va SIN cifra de años, por decisión de Xavi
+                                  * mientras Santos lo confirma. Los datos que llegaron se
+                                  * contradecían: "agente de préstamos hipotecarios desde
+                                  * 2025" junto a "en los últimos 12 años ayudando a
+                                  * comprar casas". Puestos uno al lado del otro dan a
+                                  * entender doce años originando crédito, que es una
+                                  * afirmación de experiencia y no un adorno.
+                                  * Agregar la cifra es una frase; ponerla mal, no.
+                                  *
+                                  * ⚠️ Se quitó también "reducir los pagos refinanciando
+                                  * las deudas de los clientes". Consolidar deuda con un
+                                  * refinanciamiento es de lo más regulado en publicidad
+                                  * hipotecaria —insinuar ahorro sin las advertencias
+                                  * completas es justo lo que se sanciona— y además no es
+                                  * de lo que trata este encuentro.
+                                  */}
                                 <p>
-                                    El bloque de los números reales lo acompaña Santos, que
-                                    trabaja en financiamiento: qué se necesita hoy para
-                                    calificar, qué programas existen y qué es mito. Cada caso
-                                    es distinto: aquí se explica el panorama, no se aprueba
-                                    a nadie.
+                                    Santos acompaña a familias a comprar su primera casa, y a
+                                    quienes ya compraron, a dar el siguiente paso. Estudió
+                                    Economía en George Mason University.
+                                </p>
+                                <p>
+                                    Aquí acompaña el bloque de los números reales: qué se
+                                    necesita hoy para calificar, qué programas existen y qué
+                                    es mito. Cada caso es distinto: aquí se explica el
+                                    panorama, no se aprueba a nadie.
                                 </p>
                             </div>
                         </div>

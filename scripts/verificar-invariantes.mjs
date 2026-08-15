@@ -190,6 +190,21 @@ ok(
         "Consumer Access. Los tres juntos o ninguno.",
 );
 ok(
+    !invitadoConNombre || !/\b(desde el? \d{4}|\d+ años)\b/i.test(invitado),
+    "la bio del invitado no afirma años de experiencia sin confirmar",
+    "⚠️ Los datos que llegaron se contradecían: «desde 2025» junto a «los " +
+        "últimos 12 años». Puestos uno al lado del otro dan a entender doce " +
+        "años originando crédito, y eso es una afirmación de experiencia, no un " +
+        "adorno. Se agrega cuando Santos confirme en qué capacidad son.",
+);
+ok(
+    !invitadoConNombre || !/refinanci|consolidar deuda|reducir (los )?pagos/i.test(invitado),
+    "la bio del invitado no promete refinanciar ni bajar pagos",
+    "⚠️ Consolidar deuda con un refinanciamiento es de lo más regulado en " +
+        "publicidad hipotecaria: insinuar ahorro sin las advertencias completas " +
+        "es justo lo que se sanciona. Y no es de lo que trata este encuentro.",
+);
+ok(
     !invitadoConNombre || /New American Funding|Compañía/i.test(invitado),
     "si el invitado tiene nombre, dice para quién trabaja",
     "⚠️ Su compañía es distinta de HomeSmart, y eso es justo lo que el lector " +
