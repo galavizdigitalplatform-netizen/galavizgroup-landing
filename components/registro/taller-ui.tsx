@@ -88,24 +88,27 @@ export function LogoLockup({ soloClaro = false }: { soloClaro?: boolean }) {
     return (
         <div className="logo-lockup">
             {/*
-              * ⚠️ Aquí va el lockup HORIZONTAL compacto (982×80, ratio 12.3:1),
-              * no el vertical de /brand/logo-{primary,negative}.svg (3:1), que
-              * sigue en el pie. En el vertical el tejado se come casi toda la
-              * altura: a los 44px del header móvil la palabra quedaba en 7.4px.
-              * El horizontal, al ancho que cabe, la deja en ~13px.
+              * ⚠️ Aquí va el lockup HORIZONTAL (1081×81, ratio 13.35:1), no el
+              * vertical de /brand/logo-{primary,negative}.svg (3:1), que sigue
+              * en el pie. En el vertical el tejado se come casi toda la altura:
+              * a los 44px del header móvil la palabra quedaba en 7.4px.
               *
               * ⚠️ Las alturas de registro.css están calculadas contra el ancho
-              * útil del header (335px a 375px de viewport, menos HomeSmart y
-              * separadores). Con ratio 12.3 cada píxel de alto cuesta 12 de
-              * ancho: subirlas sin volver a medir desborda la fila.
+              * útil del header (335px a 375px de viewport y 288px a 320px,
+              * menos HomeSmart y separadores). Con ratio 13.35 cada píxel de
+              * alto cuesta 13 de ancho: subirlas sin volver a medir desborda la
+              * fila. El wordmark serif de esta entrega es un 10% más ancho que
+              * el anterior a igual altura, y por eso las alturas móviles
+              * bajaron de 16/14 a 14/12: con las de antes, a 320px el lockup se
+              * pasaba del ancho útil.
               */}
             <Link className="logo-link" href="/registro" aria-label="Galaviz Group">
                 <Image
                     className="logo-on-dark"
                     src="/brand/logo-horizontal-negative.svg"
                     alt="Galaviz Group"
-                    width={982}
-                    height={80}
+                    width={1081}
+                    height={81}
                     priority
                 />
                 {!soloClaro && (
@@ -114,8 +117,8 @@ export function LogoLockup({ soloClaro = false }: { soloClaro?: boolean }) {
                         src="/brand/logo-horizontal-primary.svg"
                         alt=""
                         aria-hidden="true"
-                        width={982}
-                        height={80}
+                        width={1081}
+                        height={81}
                     />
                 )}
             </Link>

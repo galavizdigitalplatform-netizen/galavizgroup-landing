@@ -407,8 +407,6 @@ export function TallerLanding() {
                                 financiamiento</b>, Rita ha sido <b>Top Producer de
                                 HomeSmart en Arizona siete años consecutivos</b> y figura
                                 entre los <b>Top 250 de HomeSmart a nivel nacional</b>.
-                                Siete años seguidos no son un año bueno: es la agencia con
-                                la que trabaja midiéndola cada año.
                             </p>
                             <p>
                                 A eso se suma el <b>Top 50 de NAHREP</b> (National
