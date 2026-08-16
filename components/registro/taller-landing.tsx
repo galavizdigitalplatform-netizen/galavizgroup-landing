@@ -358,14 +358,20 @@ export function TallerLanding() {
                               * QUIÉN la otorga. "Top Producer" a secas es una afirmación
                               * sin dueño, y es lo primero que revisa un broker designado.
                               *
-                              * ⚠️ CUATRO credenciales, TRES otorgantes distintos. Esto
-                              * se documentó mal dos veces seguidas; conviene leerlo antes
-                              * de tocar el párrafo (confirmado por Xavi, 2026-08-15):
+                              * ⚠️ CINCO credenciales y CUATRO otorgantes, contando que
+                              * una no tiene otorgante. Esto se documentó mal tres veces
+                              * seguidas; conviene leerlo antes de tocar el párrafo
+                              * (confirmado por Xavi, 2026-08-15):
                               *
                               *   · Top Producer, 7 años consecutivos . HomeSmart Arizona
                               *   · Top 250, nivel nacional ........... HomeSmart
                               *   · Top 50 ............................ NAHREP
-                              *   · Coach y mentora certificada ....... ICF
+                              *   · Coach certificada ................. ICF
+                              *   · Mentora en liderazgo .............. (sin otorgante)
+                              *
+                              * ⚠️ La mentoría NO la acredita la ICF. Aquí decía "coach y
+                              * mentora certificada por la ICF", que le colgaba a la ICF
+                              * una credencial que no otorga: ellos acreditan coaches.
                               *
                               * ⚠️ La ICF se llama International COACHING Federation
                               * desde 2020. Antes era International Coach Federation, y
@@ -418,24 +424,60 @@ export function TallerLanding() {
                                 {/* ⚠️ El {" "} no sobra: JSX recorta el salto de línea
                                     entre </b> y el paréntesis, y sin él sale
                                     "ICF(International". */}
-                                Es además <b>coach y mentora certificada por la ICF</b>{" "}
-                                (International Coaching Federation), la organización que
-                                acredita a los coaches profesionales a nivel internacional.
+                                {/* ⚠️ La ICF acredita COACHES, no mentores. El orden y la
+                                    forma de estas dos frases NO son de estilo:
+                                      · cada una lleva su PROPIO VERBO. Antes la segunda
+                                        era "Y mentora en liderazgo", sin verbo, así que
+                                        seguía colgando de "Es además ... certificada por
+                                        la ICF" aunque hubiera un punto en medio.
+                                      · la ICF va la ÚLTIMA. Así la certificación no tiene
+                                        nada por delante a lo que extenderse. */}
+                                Es además <b>mentora en liderazgo</b>. Y es{" "}
+                                <b>coach certificada por la ICF</b> (International Coaching
+                                Federation), la organización que acredita a los coaches
+                                profesionales a nivel internacional.
                             </p>
                             <p>
-                                Hoy lidera Galaviz Group, su equipo de bienes raíces, desde
-                                donde acompañan a familias de todo Arizona a comprar,
-                                vender e invertir.
+                                Hoy lidera Galaviz Group, equipo de bienes raíces, donde
+                                acompañan a familias a comprar, vender e invertir.
                             </p>
                             <p className="turn">
                                 Pero su mayor credencial es su historia.
                             </p>
+                            {/*
+                              * ⚠️ Texto de RITA, literal. Cualquier reescritura aquí es
+                              * copy suyo, no nuestro.
+                              *
+                              * ⚠️ NO devolver aquí la cifra de "20 años". El texto de Rita
+                              * la traía ("Hoy, con 20 años de experiencia en financiamiento
+                              * y bienes raíces, ha acompañado…"), pero ya está en la frase
+                              * de apertura de esta misma bio y en su ficha: quedaba dicha
+                              * tres veces, y en la apertura con los sustantivos al revés.
+                              * Se recortó aquí y no arriba porque las credenciales viven
+                              * en la apertura. Al quitar el inciso cae también el "Hoy,":
+                              * sin él, "Hoy ha acompañado" pide presente y no lo es.
+                              *
+                              * ⚠️ Esta versión resuelve un problema real que traía la
+                              * anterior: decía "su historia de pobreza", que le atribuía
+                              * pobreza al lector y chocaba con la regla de la cabecera de
+                              * este archivo (nada de asignarle historia a nadie; la
+                              * página habla de CREENCIAS). "De dónde vienes no determina
+                              * hasta dónde puedes llegar" dice lo mismo sin atribuir
+                              * nada. Que nadie lo revierta sin saber esto.
+                              */}
                             <p>
-                                De raíces humildes en México, sabe lo que significa empezar
-                                con poco, vencer miedos y construir paso a paso, sin un
-                                manual y sin nadie que le explicara cómo se hace. Hoy
-                                acompaña a otras familias a descubrir que su historia no
-                                determina hasta dónde pueden llegar.
+                                De raíces humildes de Sinaloa, México, Rita sabe lo que
+                                significa empezar desde abajo y avanzar aun con dudas y
+                                miedos.
+                            </p>
+                            <p>
+                                Ha acompañado a familias a convertirse en dueñas de su
+                                hogar y a construir patrimonio a través de bienes raíces.
+                            </p>
+                            <p>
+                                Su mensaje nace de su propia historia: de dónde vienes no
+                                determina hasta dónde puedes llegar. Siempre hay un
+                                siguiente nivel.
                             </p>
                             {/* ⚠️ Las fichas repiten lo que dice el párrafo. Si una
                                 credencial sale del texto, sale de aquí también, o la
@@ -448,6 +490,7 @@ export function TallerLanding() {
                                 <span className="cred">Top 250 HomeSmart nacional</span>
                                 <span className="cred">Top 50 NAHREP</span>
                                 <span className="cred">Coach certificada ICF</span>
+                                <span className="cred">Mentora en liderazgo</span>
                             </div>
                         </div>
                     </div>
