@@ -295,8 +295,25 @@
 .registro-root .mom.final:hover .ghost,.registro-root .mom.final.is-active .ghost{color:rgba(213,185,145,.2)}
 /* ══ Rita ══ */
 .registro-root .rita{background:var(--ivory)}
+/* ⚠️ `align-items:start`, NO `center`. Con `center` la foto se centraba contra
+   una columna de texto más alta y quedaba hundida: a 1440px empezaba 76px por
+   debajo del primer renglón y sobraban otros 76 abajo. Alineadas por arriba,
+   la foto arranca con el texto.
+
+   ⚠️ Y NO se estira la foto hasta igualar la altura del texto, que es la otra
+   forma de "alinear": la foto es 4:5 y la columna de texto es mucho más
+   estrecha que alta, así que `object-fit:cover` tendría que recortar por los
+   lados. Medido a 1000px de viewport: se comería unos 214px por lado del
+   original y le cortaría los brazos. El hueco que queda debajo es el precio de
+   no recortarla. */
 .registro-root .rita-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(2rem,5vw,4.5rem);
-  align-items:center;margin-top:3rem}
+  align-items:start;margin-top:3rem}
+/* La foto se ensancha SOLO en pantallas grandes. Ensancharla siempre sale
+   caro: estrecha la columna de texto, el texto se hace más alto y el hueco de
+   abajo crece en vez de encoger. Medido: a 1440px el hueco baja de 152 a 80px
+   sin que el texto gane altura; a 1000px sube de 325 a 379. El corte va en
+   1200px, donde todavía compensa (158 -> 115). */
+@media(min-width:1200px){.registro-root .rita-grid{grid-template-columns:1fr 1.2fr}}
 .registro-root .rita-photo{position:relative;border-radius:18px;overflow:hidden;box-shadow:var(--sh-lg)}
 .registro-root .rita-photo img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 18%}
 .registro-root .rita-photo figcaption{position:absolute;left:0;right:0;bottom:0;
