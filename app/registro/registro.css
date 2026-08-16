@@ -139,6 +139,23 @@
 .registro-root .hero h1{color:#fff;font-size:clamp(2.1rem,4.4vw,3.5rem);line-height:.92;
   margin:1.3rem 0 1.5rem;text-transform:uppercase;letter-spacing:.012em}
 .registro-root .hero h1 em{font-style:italic;color:var(--gold-300);display:block}
+/* Distintivo de tipo de evento. Del flyer aprobado: es la señal que dice
+   "bienes raíces" antes de que nadie lea el titular. Va sobre placa oscura
+   con borde dorado para leerse encima de la foto. */
+/* ⚠️ `flex` + `width:max-content`, NO `inline-flex`: el `.eyebrow` de al lado es
+   un <span> en línea, así que con inline-flex el distintivo se subía a su misma
+   línea y se metía sobre la foto. Como bloque ajustado al contenido, ocupa su
+   propio renglón sin estirarse a lo ancho de la columna. */
+.registro-root .tipo-evento{display:flex;width:max-content;max-width:100%;
+  align-items:center;gap:.7rem;margin:1.1rem 0 0;
+  padding:.6rem .95rem;border-radius:10px;background:rgba(29,23,39,.55);
+  border:1px solid rgba(213,185,145,.45);backdrop-filter:blur(6px)}
+.registro-root .tipo-evento svg{width:22px;height:22px;stroke:var(--gold-300);fill:none;
+  stroke-width:1.7;stroke-linecap:round;flex:none}
+.registro-root .tipo-evento span{display:block;font-size:.72rem;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:rgba(240,237,231,.72);line-height:1.5}
+.registro-root .tipo-evento b{display:block;font-size:.86rem;font-weight:800;
+  letter-spacing:.1em;color:#fff}
 .registro-root .hero .lede{color:rgba(240,237,231,.9);max-width:40ch;font-size:clamp(1.05rem,1.45vw,1.25rem)}
 .registro-root .hero-meta{display:flex;flex-wrap:wrap;gap:.55rem;margin:2.1rem 0 2.2rem}
 .registro-root .chip{display:inline-flex;align-items:center;gap:.5em;font-size:.87rem;font-weight:600;

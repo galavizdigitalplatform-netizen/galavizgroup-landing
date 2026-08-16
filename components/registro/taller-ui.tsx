@@ -33,6 +33,14 @@ export const EVENTO = {
     horarioLargo: "10:00 a 12:00 de la mañana",
     calle: "1427 N 3rd Street, Suite 105",
     ciudad: "Phoenix, AZ 85004",
+    /**
+     * ⚠️ Este es el número del FLYER APROBADO, confirmado por Xavi (2026-08-15).
+     * NO es el (602) 497-0655 que aparece en `registro-i18n.ts` y en
+     * `registro-landing.tsx`: esa es la landing anterior, que ya no se renderiza.
+     * Son dos números distintos y conviven en el repo. Si alguien copia el otro,
+     * la campaña manda las llamadas a donde no es.
+     */
+    telefono: "602-299-0142",
     mapa:
         "https://maps.google.com/?q=1427+N+3rd+St+Suite+105+Phoenix+AZ+85004",
 } as const;
@@ -60,6 +68,16 @@ export function IconoBoleto() {
         <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M3 9.5V7a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v2.5a2.5 2.5 0 0 0 0 5V17a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2.5a2.5 2.5 0 0 0 0-5Z" />
             <path d="M14 6v12" />
+        </svg>
+    );
+}
+
+/** Llave: la señal de "esto es bienes raíces" del flyer aprobado. */
+export function IconoLlave() {
+    return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="8" cy="8" r="4.2" />
+            <path d="M11 11 20 20M17.5 17.5 15.6 19.4M20 20l-1.9 1.9" />
         </svg>
     );
 }
@@ -217,6 +235,11 @@ export function PieTaller() {
                                     rel="noopener noreferrer"
                                 >
                                     Cómo llegar
+                                </a>
+                            </li>
+                            <li>
+                                <a href={`tel:+1${EVENTO.telefono.replace(/\D/g, "")}`}>
+                                    {EVENTO.telefono}
                                 </a>
                             </li>
                         </ul>

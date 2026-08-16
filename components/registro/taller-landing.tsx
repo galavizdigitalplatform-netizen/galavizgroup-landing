@@ -34,6 +34,7 @@ import {
     EVENTO,
     IconoBoleto,
     IconoCalendario,
+    IconoLlave,
     IconoPin,
     LogoLockup,
     PieTaller,
@@ -210,6 +211,22 @@ export function TallerLanding() {
                 <div className="hero-scrim" />
                 <div className="wrap hero-inner">
                     <span className="eyebrow light">Tu próxima propiedad, tu siguiente nivel</span>
+                    {/*
+                      * ⚠️ Este distintivo NO es decorativo, y viene del flyer aprobado.
+                      * El problema que resuelve: la primera pantalla era un retrato de
+                      * estudio sobre fondo liso y un titular emocional, sin una sola
+                      * señal de bienes raíces. Siendo Rita coach certificada, se podía
+                      * leer como un evento de coaching. El flyer lo evita nombrando el
+                      * tipo de evento y sus tres ejes antes que nada; aquí se hace igual.
+                      * Si alguien lo quita, vuelve la ambigüedad.
+                      */}
+                    <p className="tipo-evento">
+                        <IconoLlave />
+                        <span>
+                            <b>Encuentro de bienes raíces</b>
+                            Compra · Inversión · Financiamiento
+                        </span>
+                    </p>
                     <h1>
                         Si un sueño te trajo hasta aquí,<em>ahora constrúyelo</em>
                     </h1>
@@ -724,6 +741,26 @@ export function TallerLanding() {
                             <div className="v">
                                 Español
                                 <small>El {EVENTO.tipo} completo</small>
+                            </div>
+                        </div>
+                        {/* Enfoque e Informes vienen del flyer aprobado: allí son dos de
+                            las tres columnas del bloque de datos. "Sin presión" no es
+                            adorno, es la misma promesa que sostiene el panel "Lo que este
+                            encuentro no es". */}
+                        <div className="det">
+                            <div className="k">Enfoque</div>
+                            <div className="v">
+                                Comprar o invertir en bienes raíces
+                                <small>Con números reales, sin presión</small>
+                            </div>
+                        </div>
+                        <div className="det">
+                            <div className="k">Informes</div>
+                            <div className="v">
+                                <a href={`tel:+1${EVENTO.telefono.replace(/\D/g, "")}`}>
+                                    {EVENTO.telefono}
+                                </a>
+                                <small>Para dudas antes de apartar</small>
                             </div>
                         </div>
                         {/* ⚠️ Suite 105 en el centro de Phoenix un sábado: si el
