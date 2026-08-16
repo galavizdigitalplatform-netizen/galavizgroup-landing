@@ -250,6 +250,45 @@ ok(
         "saber quién es.",
 );
 
+/* ⚠️ La ICF acredita COACHES, no mentores. El texto decía "coach y mentora
+   certificada por la ICF", que le colgaba a la ICF una credencial que no
+   otorga. Se comprueba por FRASE y no por párrafo: las dos cosas conviven en
+   el mismo párrafo a propósito, lo que no pueden es compartir oración, que es
+   donde el "certificada por la ICF" las abarcaría a las dos. */
+/* ⚠️ Se excluye el bloque de fichas: ahí "Coach certificada ICF" y "Mentora en
+   liderazgo" son etiquetas contiguas SIN punto entre medias, así que al partir
+   por frases caen en el mismo trozo y la guarda daba falso positivo contra un
+   texto que era correcto. La atribución solo puede romperse en la prosa. */
+const landingProsa = landingPlano.replace(/<div className="creds">[\s\S]*?<\/div>/, " ");
+
+ok(
+    !landingProsa
+        .split(/\.\s+/)
+        .some((f) => /ICF|International Coaching Federation/i.test(f) && /mentor/i.test(f)),
+    "la mentoría no comparte oración con la ICF",
+    "La ICF acredita coaches. Si «mentora» vuelve a la misma oración que " +
+        "«certificada por la ICF», la certificación pasa a cubrir las dos cosas " +
+        "y se le atribuye a la ICF algo que no otorga.",
+);
+
+/* ⚠️ Esta segunda guarda existe porque la de arriba NO bastaba, y se descubrió
+   en revisión. El texto decía "…certificada por la ICF […]. Y mentora en
+   liderazgo.": frases distintas, así que pasaba en verde, pero se seguía
+   leyendo como que la ICF certificaba las dos cosas. El punto no rompe la
+   dependencia cuando lo que sigue es un fragmento sin verbo propio.
+   La regla real es de ORDEN: la certificación va la última, para que no le
+   quede nada por delante a lo que extenderse. */
+ok(
+    (() => {
+        const i = landingProsa.search(/certificada por la ICF/i);
+        return i === -1 || !/mentor/i.test(landingProsa.slice(i));
+    })(),
+    "nada sigue a la certificación de la ICF que pueda absorberla",
+    "«mentora» aparece DESPUÉS de «certificada por la ICF». Aunque estén en " +
+        "frases separadas, lo que va detrás de la certificación se lee como " +
+        "cubierto por ella. La mentoría va ANTES.",
+);
+
 /* ⚠️ Guarda de nombre caduco, no de estilo. La ICF se llama International
    COACHING Federation desde el cambio de marca de 2020; antes era
    International Coach Federation. El nombre viejo sigue circulando y llegó
