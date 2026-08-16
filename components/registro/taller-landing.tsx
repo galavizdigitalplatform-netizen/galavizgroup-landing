@@ -343,8 +343,8 @@ export function TallerLanding() {
                             <Image
                                 src="/rita-retrato.jpg"
                                 alt="Rita Galaviz, de Galaviz Group"
-                                width={760}
-                                height={950}
+                                width={1000}
+                                height={1250}
                                 sizes="(max-width:980px) 100vw, 34vw"
                             />
                             <figcaption>
