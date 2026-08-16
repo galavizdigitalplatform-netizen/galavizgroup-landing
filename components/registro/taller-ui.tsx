@@ -175,7 +175,7 @@ export function PieTaller() {
                         />
                         <p>
                             Galaviz Group es un equipo de bienes raíces en HomeSmart,
-                            sirviendo al área metropolitana de Phoenix.
+                            sirviendo a Arizona.
                         </p>
                         {/*
                           * ⚠️ Esto es el ESLOGAN de vivienda justa, textual y en
