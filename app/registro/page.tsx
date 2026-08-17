@@ -36,8 +36,19 @@ const DESCRIPCION =
  * Ruta relativa a propósito: el layout raíz declara `metadataBase`, así que
  * Next la vuelve absoluta (https://galavizgroup.com/…). Los rastreadores de
  * Facebook y WhatsApp NO resuelven rutas relativas.
+ *
+ * ⚠️ Y es JPEG a propósito, no por descuido. El PNG original pesaba 679 KB;
+ * éste, con los mismos 1200×630 píxeles, pesa 247 KB. Facebook (8 MB) y X
+ * (5 MB) se tragaban el PNG sin problema, pero WhatsApp —el canal principal de
+ * esta campaña— tiene un límite práctico reportado cerca de los 600 KB para la
+ * miniatura del enlace, y una tarjeta sin imagen cuesta más que la nitidez que
+ * se gana. Decisión de Xavi con los dos números delante.
+ *
+ * Si alguien vuelve a subir la pieza, que la suba en JPEG y que mire el peso.
+ * Y que la extensión coincida con el contenido: el Content-Type sale de la
+ * extensión, y un .png sirviendo bytes JPEG lo rechazan algunos rastreadores.
  */
-const IMAGEN_SOCIAL = "/og-taller-2026-09-12.png";
+const IMAGEN_SOCIAL = "/og-taller-2026-09-12.jpg";
 
 export const metadata: Metadata = {
     title: TITULO,
