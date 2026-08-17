@@ -208,6 +208,25 @@ export function TallerLanding() {
                 {/* Degradado de celular. ⚠️ El primer tramo oscuro NO es
                     decorativo: el logo blanco del header cae justo sobre el fondo
                     claro del estudio y sin él no se lee. */}
+                {/*
+                  * Fondo arquitectónico: la misma casa de Phoenix a hora azul que usa
+                  * el flyer aprobado. Es lo que hace que la pieza se lea como bienes
+                  * raíces de un vistazo, y era justo lo que le faltaba a esta pantalla.
+                  *
+                  * ⚠️ Va MUY apagado a propósito. No compite con Rita ni con el
+                  * titular: es textura, no protagonista. Además el archivo mide
+                  * 1122px de ancho y el hero es a sangre, así que a plena luz se
+                  * notaría el reescalado; apagado no.
+                  */}
+                <div className="hero-bg" aria-hidden>
+                    <Image
+                        src="/hero-arquitectura.jpg"
+                        alt=""
+                        fill
+                        sizes="100vw"
+                        style={{ objectFit: "cover", objectPosition: "50% 68%" }}
+                    />
+                </div>
                 <div className="hero-scrim" />
                 <div className="wrap hero-inner">
                     <span className="eyebrow light">Tu próxima propiedad, tu siguiente nivel</span>
