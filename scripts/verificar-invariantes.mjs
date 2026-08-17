@@ -449,6 +449,45 @@ ok(
         "literal. Sin la marca explícita, la tarjeta de WhatsApp sale sin marca.",
 );
 
+/* ⚠️ og:image y twitter:image son DOS campos que tienen que apuntar al mismo
+   archivo. Escribir la ruta dos veces es cómo uno se queda atrás: la tarjeta
+   sale bien en WhatsApp y con la imagen vieja en X, y nadie lo nota porque
+   cada quien comparte por un canal distinto. Por eso se exige la constante,
+   no la coincidencia de dos textos. */
+ok(
+    /const IMAGEN_SOCIAL = "\/[^"]+"/.test(pagina) &&
+        /images: \[\s*\{\s*url: IMAGEN_SOCIAL/.test(sinComentarios(pagina)) &&
+        /images: \[IMAGEN_SOCIAL\]/.test(sinComentarios(pagina)),
+    "og:image y twitter:image salen de UNA sola constante",
+    "Si cada uno lleva su ruta escrita, actualizar la imagen y olvidar la otra " +
+        "etiqueta no rompe nada visible: la página compila y comparte mal.",
+);
+
+/* ⚠️ La pieza del taller NO sustituye a la institucional. /og-galaviz.png
+   sigue siendo la del sitio y la usan todas las demás páginas desde el layout
+   raíz; sólo /registro apunta a la del evento. Si alguien "unifica" esto,
+   el resto del sitio se comparte con un flyer de un evento ya pasado. */
+ok(
+    /\/og-galaviz\.png/.test(leer("app/layout.tsx")) &&
+        !/\/og-galaviz\.png/.test(sinComentarios(pagina)),
+    "la institucional se queda en el layout raíz y /registro no la usa",
+    "og-galaviz.png es la pieza del SITIO. /registro es la única que apunta a " +
+        "la del taller; las demás páginas deben seguir compartiéndose con la " +
+        "institucional.",
+);
+
+/* Una ruta mal escrita no falla: Next sirve un 404 y el rastreador se queda
+   sin imagen. La tarjeta sale sin nada y se descubre compartiendo. */
+{
+    const ruta = pagina.match(/const IMAGEN_SOCIAL = "(\/[^"]+)"/)?.[1];
+    ok(
+        !!ruta && existsSync(join(RAIZ, "public", ruta)),
+        `la imagen social de /registro existe en public (${ruta ?? "sin ruta"})`,
+        "Una ruta que no existe no rompe el build: sirve 404 y la tarjeta sale " +
+            "sin imagen.",
+    );
+}
+
 console.log("\n═══ MARCA Y COLOR ═══");
 
 for (const [nombre, src] of [
