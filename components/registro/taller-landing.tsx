@@ -34,6 +34,7 @@ import {
     EVENTO,
     IconoBoleto,
     IconoCalendario,
+    IconoLlave,
     IconoPin,
     LogoLockup,
     PieTaller,
@@ -207,9 +208,44 @@ export function TallerLanding() {
                 {/* Degradado de celular. ⚠️ El primer tramo oscuro NO es
                     decorativo: el logo blanco del header cae justo sobre el fondo
                     claro del estudio y sin él no se lee. */}
+                {/*
+                  * Fondo arquitectónico: la misma casa de Phoenix a hora azul que usa
+                  * el flyer aprobado. Es lo que hace que la pieza se lea como bienes
+                  * raíces de un vistazo, y era justo lo que le faltaba a esta pantalla.
+                  *
+                  * ⚠️ Va MUY apagado a propósito. No compite con Rita ni con el
+                  * titular: es textura, no protagonista. Además el archivo mide
+                  * 1122px de ancho y el hero es a sangre, así que a plena luz se
+                  * notaría el reescalado; apagado no.
+                  */}
+                <div className="hero-bg" aria-hidden>
+                    <Image
+                        src="/hero-arquitectura.jpg"
+                        alt=""
+                        fill
+                        sizes="100vw"
+                        style={{ objectFit: "cover", objectPosition: "50% 68%" }}
+                    />
+                </div>
                 <div className="hero-scrim" />
                 <div className="wrap hero-inner">
                     <span className="eyebrow light">Tu próxima propiedad, tu siguiente nivel</span>
+                    {/*
+                      * ⚠️ Este distintivo NO es decorativo, y viene del flyer aprobado.
+                      * El problema que resuelve: la primera pantalla era un retrato de
+                      * estudio sobre fondo liso y un titular emocional, sin una sola
+                      * señal de bienes raíces. Siendo Rita coach certificada, se podía
+                      * leer como un evento de coaching. El flyer lo evita nombrando el
+                      * tipo de evento y sus tres ejes antes que nada; aquí se hace igual.
+                      * Si alguien lo quita, vuelve la ambigüedad.
+                      */}
+                    <p className="tipo-evento">
+                        <IconoLlave />
+                        <span>
+                            <b>Encuentro de bienes raíces</b>
+                            Compra · Inversión · Financiamiento
+                        </span>
+                    </p>
                     <h1>
                         Si un sueño te trajo hasta aquí,<em>ahora constrúyelo</em>
                     </h1>
@@ -724,6 +760,26 @@ export function TallerLanding() {
                             <div className="v">
                                 Español
                                 <small>El {EVENTO.tipo} completo</small>
+                            </div>
+                        </div>
+                        {/* Enfoque e Informes vienen del flyer aprobado: allí son dos de
+                            las tres columnas del bloque de datos. "Sin presión" no es
+                            adorno, es la misma promesa que sostiene el panel "Lo que este
+                            encuentro no es". */}
+                        <div className="det">
+                            <div className="k">Enfoque</div>
+                            <div className="v">
+                                Comprar o invertir en bienes raíces
+                                <small>Con números reales, sin presión</small>
+                            </div>
+                        </div>
+                        <div className="det">
+                            <div className="k">Informes</div>
+                            <div className="v">
+                                <a href={`tel:+1${EVENTO.telefono.replace(/\D/g, "")}`}>
+                                    {EVENTO.telefono}
+                                </a>
+                                <small>Para dudas antes de apartar</small>
                             </div>
                         </div>
                         {/* ⚠️ Suite 105 en el centro de Phoenix un sábado: si el

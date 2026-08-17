@@ -169,6 +169,20 @@ for (const [nombre, src] of VISTAS) {
     );
 }
 
+/* ⚠️ En el repo conviven DOS teléfonos. El del flyer aprobado es el
+   602-299-0142 (confirmado por Xavi, 2026-08-15) y vive en EVENTO.telefono. El
+   (602) 497-0655 es de la landing anterior y sigue en registro-i18n.ts y
+   registro-landing.tsx, que ya no se renderizan. Si alguien lo copia a estas
+   vistas, la campaña manda las llamadas a donde no es y nadie se entera. */
+for (const [nombre, src] of VISTAS) {
+    ok(
+        !/497[-\s.]?0655/.test(src),
+        `sin el teléfono de la landing anterior en ${nombre}`,
+        "El número del flyer aprobado es 602-299-0142 y vive en EVENTO.telefono. " +
+            "El 497-0655 es de la landing que esta ruta reemplazó.",
+    );
+}
+
 ok(
     /<h2[^>]*>\s*Rita Galaviz\s*<\/h2>/.test(landingLimpio),
     "el título de la sección de Rita es solo su nombre",

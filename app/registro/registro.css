@@ -110,7 +110,20 @@
 /* ══════ HERO fotográfico ══════ */
 .registro-root .hero{position:relative;background:var(--indigo);color:var(--ivory);
   margin-top:-92px;overflow:clip;isolation:isolate}
-.registro-root .hero-media{position:absolute;inset:0;z-index:0}
+/* Fondo arquitectónico del flyer. Va DEBAJO de todo (z-index 0) y con su propio
+   velo encima, porque el índigo plano que había antes es el que hacía legible el
+   titular: sin velo, el cielo y las luces de la casa se le meten detrás. */
+.registro-root .hero-bg{position:absolute;inset:0;z-index:0}
+/* ⚠️ El velo NO es uniforme, y la forma importa. La casa solo se puede ver en
+   la franja central: a la izquierda va el texto y necesita fondo casi opaco, y
+   a partir del 76% empieza Rita ya sin máscara. La ventana útil es 45%-76%, y
+   ahí el velo se abre. Con un velo plano y fuerte la casa desaparecía y el
+   fondo parecía un simple degradado. */
+.registro-root .hero-bg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg, rgba(29,23,39,.95) 0%, rgba(29,23,39,.92) 32%,
+    rgba(29,23,39,.62) 48%, rgba(29,23,39,.34) 62%, rgba(29,23,39,.30) 76%,
+    rgba(29,23,39,.55) 100%)}
+.registro-root .hero-media{position:absolute;inset:0;z-index:1}
 .registro-root .hero-media img{width:100%;height:100%;object-fit:cover;object-position:52% 22%}
 .registro-root .hero-scrim{position:absolute;inset:0;z-index:1}
 .registro-root .hero-inner{position:relative;z-index:2;padding-top:calc(92px + clamp(2.5rem,6vw,5rem));
@@ -139,6 +152,23 @@
 .registro-root .hero h1{color:#fff;font-size:clamp(2.1rem,4.4vw,3.5rem);line-height:.92;
   margin:1.3rem 0 1.5rem;text-transform:uppercase;letter-spacing:.012em}
 .registro-root .hero h1 em{font-style:italic;color:var(--gold-300);display:block}
+/* Distintivo de tipo de evento. Del flyer aprobado: es la señal que dice
+   "bienes raíces" antes de que nadie lea el titular. Va sobre placa oscura
+   con borde dorado para leerse encima de la foto. */
+/* ⚠️ `flex` + `width:max-content`, NO `inline-flex`: el `.eyebrow` de al lado es
+   un <span> en línea, así que con inline-flex el distintivo se subía a su misma
+   línea y se metía sobre la foto. Como bloque ajustado al contenido, ocupa su
+   propio renglón sin estirarse a lo ancho de la columna. */
+.registro-root .tipo-evento{display:flex;width:max-content;max-width:100%;
+  align-items:center;gap:.7rem;margin:1.1rem 0 0;
+  padding:.6rem .95rem;border-radius:10px;background:rgba(29,23,39,.55);
+  border:1px solid rgba(213,185,145,.45);backdrop-filter:blur(6px)}
+.registro-root .tipo-evento svg{width:22px;height:22px;stroke:var(--gold-300);fill:none;
+  stroke-width:1.7;stroke-linecap:round;flex:none}
+.registro-root .tipo-evento span{display:block;font-size:.72rem;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:rgba(240,237,231,.72);line-height:1.5}
+.registro-root .tipo-evento b{display:block;font-size:.86rem;font-weight:800;
+  letter-spacing:.1em;color:#fff}
 .registro-root .hero .lede{color:rgba(240,237,231,.9);max-width:40ch;font-size:clamp(1.05rem,1.45vw,1.25rem)}
 .registro-root .hero-meta{display:flex;flex-wrap:wrap;gap:.55rem;margin:2.1rem 0 2.2rem}
 .registro-root .chip{display:inline-flex;align-items:center;gap:.5em;font-size:.87rem;font-weight:600;
@@ -155,10 +185,19 @@
    costura vertical visible. Aquí ambos arrancan exactamente en el mismo pixel. */
 @media(min-width:861px){.registro-root .hero-media{left:auto;right:0;width:47%}
 .registro-root .hero-media img{object-position:46% 18%}
+/* ⚠️ La foto se funde con una MÁSCARA, no pintando un degradado índigo encima.
+   Antes el `::after` arrancaba en `var(--indigo)` opaco, que funcionaba porque
+   detrás había índigo plano. Con la casa detrás, ese borde opaco chocaría
+   contra la fotografía y dejaría la costura vertical que este bloque siempre
+   advirtió. Enmascarando, la foto se disuelve y deja ver la arquitectura: solo
+   hay UNA capa que se funde, así que no hay dos bordes que puedan desalinearse. */
+.registro-root .hero-media{
+    -webkit-mask-image:linear-gradient(90deg, transparent 0%, rgba(0,0,0,.35) 16%,
+      rgba(0,0,0,.85) 34%, #000 50%);
+    mask-image:linear-gradient(90deg, transparent 0%, rgba(0,0,0,.35) 16%,
+      rgba(0,0,0,.85) 34%, #000 50%)}
 .registro-root .hero-media::after{content:"";position:absolute;inset:0;
     background:
-      linear-gradient(90deg, var(--indigo) 0%, rgba(44,39,64,.90) 9%,
-        rgba(44,39,64,.55) 20%, rgba(44,39,64,.18) 34%, rgba(44,39,64,0) 52%),
       linear-gradient(180deg, rgba(29,23,39,.42) 0%, rgba(29,23,39,0) 26%),
       linear-gradient(0deg, rgba(29,23,39,.30) 0%, rgba(29,23,39,0) 22%)}
 .registro-root .hero-scrim{display:none}
@@ -176,6 +215,14 @@
 /* Celular: foto arriba a sangre, degradado que entrega al índigo */
 @media(max-width:860px){.registro-root .hero{margin-top:-78px}
 .registro-root .hero-media,.registro-root .hero-scrim{bottom:auto;height:clamp(290px,46vh,420px)}
+/* ⚠️ En celular el fondo arquitectónico se recorta a la MISMA franja que la
+   foto. Si se dejara a sangre, seguiría por debajo con un velo pensado para
+   escritorio, donde el degradado horizontal deja el lado derecho al 30%: ahí
+   abajo va el titular a todo el ancho, y le tocaría el tramo menos velado.
+   Bajo la franja manda el índigo plano, como antes. */
+.registro-root .hero-bg{bottom:auto;height:clamp(290px,46vh,420px)}
+.registro-root .hero-bg::after{background:linear-gradient(180deg,
+    rgba(29,23,39,.55) 0%, rgba(29,23,39,.35) 45%, rgba(29,23,39,.75) 100%)}
 .registro-root .hero-media img{object-position:50% 14%}
 /* El primer tramo oscuro no es decorativo: el logo blanco del header cae
      justo ahí, sobre el fondo claro del estudio. Sin él, no se lee. */
