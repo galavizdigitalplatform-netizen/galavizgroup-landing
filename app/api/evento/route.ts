@@ -54,6 +54,7 @@ interface Cuerpo {
     event_slug?: unknown;
     interest?: unknown;
     note?: unknown;
+    invited_by?: unknown;
     sms_consent?: unknown;
     marketing_email_consent?: unknown;
     website?: unknown;
@@ -105,6 +106,19 @@ export async function POST(req: NextRequest) {
         : "taller-2026-09-12";
     const nota = typeof body.note === "string" ? body.note.trim().slice(0, 2000) : "";
 
+    /*
+     * ⚠️ SE RECORTA AQUÍ, Y NO ES REDUNDANCIA CON EL FORMULARIO.
+     *
+     * El `maxLength` del input sólo obliga a quien usa el formulario. Esta ruta
+     * acepta POST directos, y si un texto de 5 000 caracteres llegara entero a
+     * rita-os su esquema lo recortaría también — pero el punto es que NADIE
+     * rechace: este campo es opcional y no decide nada, así que jamás puede
+     * costar el registro completo. Recortar es lo único que las tres capas
+     * pueden hacer sin perder a la persona.
+     */
+    const invitadoPor =
+        typeof body.invited_by === "string" ? body.invited_by.trim().slice(0, 200) : "";
+
     const comun = {
         first_name: (body.first_name as string).trim(),
         last_name: (body.last_name as string).trim(),
@@ -122,6 +136,7 @@ export async function POST(req: NextRequest) {
               event_slug: eventSlug,
               interest: interes,
               ...(nota ? { note: nota } : {}),
+              ...(invitadoPor ? { invited_by: invitadoPor } : {}),
           }
         : {
               /*
@@ -150,9 +165,24 @@ export async function POST(req: NextRequest) {
               ...comun,
               lead_type: "buyer" as const,
               lead_source: "other" as const,
+              /*
+               * ⚠️ `invited_by` VIAJA EN `message` MIENTRAS EL PUENTE EXISTA.
+               *
+               * El capture de oportunidades no conoce ese campo: mandárselo
+               * suelto sería, en el mejor caso, ignorado en silencio. Y si esta
+               * rama corre —o sea, si `RITA_OS_EVENT_URL` todavía no está
+               * definida en producción— es la ÚNICA que corre, así que "sólo lo
+               * agregué al payload nuevo" significa perder el dato en cada
+               * registro que entre hasta que se configure la variable.
+               *
+               * Va con el mismo prefijo entre corchetes que el evento y el
+               * interés, por la misma razón que ellos: es lo único que sobrevive
+               * al puente.
+               */
               message: [
                   `[Event: ${eventSlug}]`,
                   `[Interest: ${ETIQUETA[interes]}]`,
+                  invitadoPor ? `[Invitó: ${invitadoPor}]` : "",
                   nota,
               ]
                   .filter(Boolean)
