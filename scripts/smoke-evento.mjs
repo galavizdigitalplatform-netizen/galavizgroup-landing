@@ -63,6 +63,9 @@ const payload = usandoEndpointDeEventos
           event_slug: "taller-2026-09-12",
           interest: "buy",
           note: "prueba de contrato",
+          // Va en el payload de humo porque es parte del contrato: si rita-os
+          // dejara de aceptarlo, la queja saldría aquí y no en producción.
+          invited_by: "prueba de contrato",
       }
     : {
           ...comun,

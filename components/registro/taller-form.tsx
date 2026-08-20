@@ -108,6 +108,7 @@ export function TallerForm() {
         email: "",
         phone: "",
         note: "",
+        invited_by: "",
         interest: "" as Interes,
         sms_consent: "" as Sms,
         marketing_email_consent: false,
@@ -149,6 +150,7 @@ export function TallerForm() {
                     event_slug: EVENT_SLUG,
                     interest: form.interest,
                     note: form.note.trim() || undefined,
+                    invited_by: form.invited_by.trim() || undefined,
                     sms_consent: form.sms_consent,
                     marketing_email_consent: form.marketing_email_consent,
                     website: form.website,
@@ -341,6 +343,36 @@ export function TallerForm() {
                             eventos y oportunidades de bienes raíces.
                         </span>
                     </label>
+                </div>
+
+                {/*
+                  * ⚠️ ÚLTIMO CAMPO, Y FUERA DEL BLOQUE TCPA A PROPÓSITO.
+                  *
+                  * Va después del consentimiento porque no es parte de él: meterlo
+                  * dentro de la tarjeta blanca lo haría parecer una condición del
+                  * registro, y no lo es.
+                  *
+                  * ⚠️ NO ENTRA EN `Campo` NI EN `ERRORES`, y eso es el diseño: es
+                  * el único campo del formulario que no puede detener un envío.
+                  * Quien no sepa qué poner lo deja vacío y aparta su lugar igual.
+                  *
+                  * `maxLength` recorta en el navegador; el proxy vuelve a recortar
+                  * y rita-os otra vez. Ninguna de las tres capas puede confiar en
+                  * las otras dos, y ninguna rechaza: un texto de más nunca puede
+                  * costar el registro entero.
+                  */}
+                <div className="field">
+                    <label htmlFor="inv">
+                        ¿Quién te invitó? <span className="opt-lbl">(opcional)</span>
+                    </label>
+                    <input
+                        id="inv"
+                        type="text"
+                        maxLength={200}
+                        placeholder="Nombre de la persona que te invitó"
+                        value={form.invited_by}
+                        onChange={(e) => set("invited_by", e.target.value)}
+                    />
                 </div>
 
                 {/* honeypot */}
