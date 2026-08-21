@@ -360,16 +360,32 @@ export function TallerForm() {
                   * y rita-os otra vez. Ninguna de las tres capas puede confiar en
                   * las otras dos, y ninguna rechaza: un texto de más nunca puede
                   * costar el registro entero.
+                  *
+                  * ⚠️ ES UNA ETIQUETA, NO UNA PREGUNTA. No lo devuelvas a
+                  * "¿Quién te invitó?".
+                  *
+                  * Esa frase, dicha a alguien que acaba de llegar, es la que se
+                  * usa para CUESTIONAR a quien entró sin invitación. Aquí el
+                  * lector todavía no ha apartado su lugar, así que la lee en el
+                  * peor momento posible: como un filtro en la puerta.
+                  *
+                  * "Invitado por" evoca lo contrario — una lista de invitados. Ya
+                  * estás dentro; sólo anotamos quién te trajo. Es exactamente lo
+                  * que el campo hace, y por eso decirlo así no es suavizarlo: es
+                  * dejar de prometer una portería que no existe.
+                  *
+                  * El placeholder pierde "que te invitó" por lo mismo: repetía la
+                  * pregunta debajo de la etiqueta que acaba de dejar de serlo.
                   */}
                 <div className="field">
                     <label htmlFor="inv">
-                        ¿Quién te invitó? <span className="opt-lbl">(opcional)</span>
+                        Invitado por <span className="opt-lbl">(opcional)</span>
                     </label>
                     <input
                         id="inv"
                         type="text"
                         maxLength={200}
-                        placeholder="Nombre de la persona que te invitó"
+                        placeholder="Nombre de la persona"
                         value={form.invited_by}
                         onChange={(e) => set("invited_by", e.target.value)}
                     />
